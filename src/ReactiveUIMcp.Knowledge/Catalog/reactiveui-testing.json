@@ -1,0 +1,58 @@
+{
+  "id": "reactiveui-testing",
+  "displayName": "ReactiveUI.Testing",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "testing",
+  "summary": "ReactiveUI testing guidance for creating new test projects and upgrading legacy test projects to the latest ReactiveUI.Testing patterns.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Testing"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveUI.Testing for scheduler-aware tests, command execution verification, and observable behavior assertions.",
+    "Create new ReactiveUI test projects with explicit scheduler control and avoid wall-clock sleeps.",
+    "Migrate legacy test projects by replacing brittle time-based tests with ReactiveUI.Testing or Rx scheduler-driven tests."
+  ],
+  "avoidPatterns": [
+    "Do not rely on wall-clock sleeps in reactive tests when scheduler control is available.",
+    "Do not leave legacy tests coupled to implicit global scheduler state.",
+    "Do not upgrade application packages without aligning the corresponding ReactiveUI.Testing package usage in tests."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Testing to test projects that exercise reactive behavior.",
+    "Use test schedulers or ReactiveUI.Testing helpers for timing-sensitive logic.",
+    "For migration work, replace brittle timing or global-state tests incrementally and rerun the suite frequently."
+  ],
+  "commonPitfalls": [
+    "Using sleeps instead of schedulers.",
+    "Failing to reset test-specific global state or scheduler assumptions.",
+    "Leaving old test helper patterns in place after package upgrades."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "TUnit",
+    "System.Reactive"
+  ],
+  "keywords": [
+    "reactiveui.testing",
+    "testing",
+    "tests",
+    "scheduler",
+    "migration",
+    "upgrade"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI repository",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "ReactiveUI testing package and scheduler-aware testing guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

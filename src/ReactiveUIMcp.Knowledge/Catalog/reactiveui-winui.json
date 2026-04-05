@@ -1,0 +1,54 @@
+{
+  "id": "reactiveui-winui",
+  "displayName": "ReactiveUI WinUI",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "platform",
+  "summary": "WinUI-specific ReactiveUI guidance focused on dispatcher queue scheduling and reactive view base types.",
+  "supportedTargets": [
+    "WinUI",
+    "net10.0-windows"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.WinUI"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveWindow<TViewModel> or ReactiveUserControl<TViewModel>.",
+    "Treat dispatcher queue scheduling explicitly.",
+    "Scope view bindings and subscriptions with WhenActivated."
+  ],
+  "avoidPatterns": [
+    "Do not assume WPF dispatcher types or initialization patterns.",
+    "Do not leave bindings undisposed."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.WinUI.",
+    "Initialize the WinUI platform integration.",
+    "Use reactive WinUI view base classes."
+  ],
+  "commonPitfalls": [
+    "Using the wrong scheduler abstraction for dispatcher queue work.",
+    "Applying WPF assumptions directly to WinUI."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "ReactiveUI.Binding.SourceGenerators"
+  ],
+  "keywords": [
+    "winui",
+    "dispatcherqueue",
+    "reactivewindow",
+    "reactiveusercontrol"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI WinUI builder extensions",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "WinUI platform bootstrap and scheduling guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "reactiveui-androidx",
+  "displayName": "ReactiveUI AndroidX",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "platform",
+  "summary": "Native AndroidX-specific ReactiveUI support for projects that intentionally target native Android rather than MAUI.",
+  "supportedTargets": [
+    "AndroidX",
+    "net10.0-android"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.AndroidX"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveAppCompatActivity<TViewModel> for activity integration.",
+    "Use explicit lifecycle-aware reactive wiring.",
+    "Prefer this only when native AndroidX is truly required."
+  ],
+  "avoidPatterns": [
+    "Do not choose AndroidX by default when MAUI is the desired cross-platform path.",
+    "Do not ignore activity lifecycle in subscriptions."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.AndroidX.",
+    "Initialize the AndroidX platform integration.",
+    "Use reactive activity or fragment base types."
+  ],
+  "commonPitfalls": [
+    "Leaking subscriptions across activity recreation.",
+    "Accidentally applying MAUI guidance to native AndroidX projects."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "Akavache",
+    "Refit"
+  ],
+  "keywords": [
+    "androidx",
+    "android",
+    "appcompatactivity",
+    "mobile",
+    "native"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI AndroidX builder extensions",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "AndroidX platform integration guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "reactiveui-validation",
+  "displayName": "ReactiveUI.Validation",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI.Validation",
+  "category": "validation",
+  "summary": "Reactive validation rules and validation binding support for ViewModels and forms.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Validation"
+  ],
+  "recommendedPatterns": [
+    "Use ValidationRule and BindValidation instead of ad hoc imperative validation glue.",
+    "Implement IValidatableViewModel or inherit ReactiveValidationObject when needed.",
+    "Keep validation messages and formatting consistent."
+  ],
+  "avoidPatterns": [
+    "Do not sprinkle stringly-typed validation errors through the UI layer.",
+    "Do not keep validation logic in the view when it belongs in the ViewModel."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Validation.",
+    "Create validation rules close to the relevant properties.",
+    "Bind validation output in the view."
+  ],
+  "commonPitfalls": [
+    "Forgetting to target the property explicitly in observable validation rules.",
+    "Duplicating validation rules in multiple layers."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI"
+  ],
+  "keywords": [
+    "validation",
+    "validatableviewmodel",
+    "bindvalidation",
+    "errors"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI.Validation repository",
+      "url": "https://github.com/reactiveui/ReactiveUI.Validation",
+      "notes": "Reactive validation guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

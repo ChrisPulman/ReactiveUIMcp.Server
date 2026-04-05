@@ -1,0 +1,54 @@
+{
+  "id": "dynamicdata",
+  "displayName": "DynamicData",
+  "repositoryUrl": "https://github.com/reactivemarbles/DynamicData",
+  "category": "collections",
+  "summary": "Reactive collections pipeline library recommended for modern ReactiveUI apps with live, filtered, sorted, and keyed data.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "DynamicData"
+  ],
+  "recommendedPatterns": [
+    "Prefer SourceCache<TObject, TKey> when items have a stable key.",
+    "Keep SourceCache/SourceList private and expose a ReadOnlyObservableCollection via Bind(out ...).",
+    "Place ObserveOn(MainThreadScheduler) close to Bind for UI collections."
+  ],
+  "avoidPatterns": [
+    "Do not use ReactiveList for new work.",
+    "Do not expose SourceCache or SourceList publicly from feature services.",
+    "Do not default to ToCollection for ordinary UI binding."
+  ],
+  "setupSteps": [
+    "Add DynamicData.",
+    "Choose SourceCache or SourceList intentionally.",
+    "Use Bind(out ...) and DisposeMany when appropriate."
+  ],
+  "commonPitfalls": [
+    "Using SourceList where a keyed SourceCache fits better.",
+    "Placing ObserveOn too early and moving unnecessary work onto the UI thread."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI"
+  ],
+  "keywords": [
+    "dynamicdata",
+    "sourcecache",
+    "sourcelist",
+    "bind",
+    "collections"
+  ],
+  "sources": [
+    {
+      "title": "DynamicData repository",
+      "url": "https://github.com/reactivemarbles/DynamicData",
+      "notes": "Reactive collections guidance for ReactiveUI apps."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

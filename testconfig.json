@@ -1,0 +1,6 @@
+{
+  "$schema": "https://aka.ms/dotnet-mtp-json-schema",
+  "diagnostic": {
+    "enabled": false
+  }
+}

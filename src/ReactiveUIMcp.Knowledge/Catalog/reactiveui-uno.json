@@ -1,0 +1,55 @@
+{
+  "id": "reactiveui-uno",
+  "displayName": "ReactiveUI Uno",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI.Uno",
+  "category": "platform",
+  "summary": "Uno Platform ReactiveUI integration with startup-window-aware initialization and WASM-specific scheduler considerations.",
+  "supportedTargets": [
+    "Uno",
+    "WebAssembly",
+    "Windows"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Uno"
+  ],
+  "recommendedPatterns": [
+    "Use the Uno-specific ReactiveUI builder integration and pass the startup window where required.",
+    "Treat WebAssembly scheduler behavior explicitly.",
+    "Keep platform-specific initialization separate from generic desktop assumptions."
+  ],
+  "avoidPatterns": [
+    "Do not ignore Uno startup window requirements.",
+    "Do not assume desktop thread pool behavior in WASM builds."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Uno.",
+    "Initialize ReactiveUI through the Uno builder extension.",
+    "Validate behavior on both native and WASM targets."
+  ],
+  "commonPitfalls": [
+    "Missing startup-window parameters.",
+    "Unexpected scheduler behavior on WebAssembly."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "Splat"
+  ],
+  "keywords": [
+    "uno",
+    "wasm",
+    "startup window",
+    "webassembly"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI Uno repository",
+      "url": "https://github.com/reactiveui/ReactiveUI.Uno",
+      "notes": "Uno-specific platform integration guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "reactiveui-avalonia",
+  "displayName": "ReactiveUI Avalonia",
+  "repositoryUrl": "https://github.com/reactiveui/Avalonia",
+  "category": "platform",
+  "summary": "Avalonia-specific ReactiveUI guidance with its own startup model and assembly view registration conventions.",
+  "supportedTargets": [
+    "Avalonia",
+    "desktop",
+    "cross-platform"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Avalonia"
+  ],
+  "recommendedPatterns": [
+    "Use Avalonia AppBuilder.UseReactiveUI startup integration.",
+    "Register reactive views from the entry assembly where appropriate.",
+    "Use AvaloniaScheduler as the UI scheduler."
+  ],
+  "avoidPatterns": [
+    "Do not blindly force the generic RxAppBuilder startup story onto Avalonia.",
+    "Do not assume WPF-specific view primitives."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Avalonia.",
+    "Initialize ReactiveUI through Avalonia AppBuilder.",
+    "Use Avalonia reactive view base types and view registration helpers."
+  ],
+  "commonPitfalls": [
+    "Mixing Avalonia startup guidance with other XAML platforms.",
+    "Incorrect scheduler assumptions for Avalonia UI updates."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "Splat"
+  ],
+  "keywords": [
+    "avalonia",
+    "appbuilder",
+    "avaloniascheduler",
+    "cross-platform desktop"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI Avalonia repository",
+      "url": "https://github.com/reactiveui/Avalonia",
+      "notes": "Avalonia-specific startup and view registration guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

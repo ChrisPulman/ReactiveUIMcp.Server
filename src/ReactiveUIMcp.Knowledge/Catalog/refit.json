@@ -1,0 +1,55 @@
+{
+  "id": "refit",
+  "displayName": "Refit",
+  "repositoryUrl": "https://github.com/reactiveui/refit",
+  "category": "networking",
+  "summary": "Type-safe REST API client generation using interface-first design and modern HttpClient practices.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "Refit"
+  ],
+  "recommendedPatterns": [
+    "Define typed HTTP interfaces rather than ad hoc request strings.",
+    "Prefer System.Text.Json unless compatibility requires Newtonsoft.",
+    "Use IHttpClientFactory where the host platform supports it."
+  ],
+  "avoidPatterns": [
+    "Do not hand-roll repetitive REST clients when a typed Refit interface is a better fit.",
+    "Do not ignore response error modeling and API exception handling."
+  ],
+  "setupSteps": [
+    "Add Refit.",
+    "Create interface contracts for HTTP APIs.",
+    "Register typed clients with the host container or factory integration."
+  ],
+  "commonPitfalls": [
+    "Guessing package/API names without checking Refit contracts.",
+    "Ignoring API error surfaces or serialization choices."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "Akavache",
+    "Fusillade"
+  ],
+  "keywords": [
+    "refit",
+    "httpclient",
+    "rest",
+    "api",
+    "system.text.json"
+  ],
+  "sources": [
+    {
+      "title": "Refit repository",
+      "url": "https://github.com/reactiveui/refit",
+      "notes": "Typed REST client guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

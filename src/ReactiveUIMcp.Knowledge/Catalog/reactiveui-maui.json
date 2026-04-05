@@ -1,0 +1,60 @@
+{
+  "id": "reactiveui-maui",
+  "displayName": "ReactiveUI MAUI",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "platform",
+  "summary": "Preferred modern mobile/cross-platform ReactiveUI option using MAUI with platform-aware scheduler setup.",
+  "supportedTargets": [
+    "MAUI",
+    "Android",
+    "iOS",
+    "MacCatalyst",
+    "Windows"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Maui"
+  ],
+  "recommendedPatterns": [
+    "Use MauiAppBuilder.UseReactiveUI with the ReactiveUI MAUI integration.",
+    "Use ReactiveContentPage<TViewModel> and WhenActivated.",
+    "Keep scheduler boundaries explicit because MAUI platform dispatchers vary by target."
+  ],
+  "avoidPatterns": [
+    "Do not generate legacy Xamarin.Forms guidance for new code.",
+    "Do not update UI-bound state from background tasks without marshaling back to the platform scheduler."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Maui.",
+    "Initialize ReactiveUI through the MAUI app builder.",
+    "Use reactive MAUI page types or explicit IViewFor wiring."
+  ],
+  "commonPitfalls": [
+    "Reusing outdated Xamarin guidance.",
+    "Ignoring platform differences in scheduler setup."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "ReactiveUI.Validation",
+    "Akavache",
+    "Refit"
+  ],
+  "keywords": [
+    "maui",
+    "mobile",
+    "cross-platform",
+    "reactivecontentpage",
+    "scheduler"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI MAUI builder extensions",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "Current MAUI-specific hosting guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

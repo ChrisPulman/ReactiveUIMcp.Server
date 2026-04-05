@@ -1,0 +1,58 @@
+{
+  "id": "reactiveui-binding-sourcegenerators",
+  "displayName": "ReactiveUI.Binding.SourceGenerators",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators",
+  "category": "code-generation",
+  "summary": "Compile-time binding generation for ReactiveUI bindings, observation APIs, trimming safety, and AOT-friendly code.",
+  "supportedTargets": [
+    "WPF",
+    "WinForms",
+    "MAUI",
+    "general"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Binding",
+    "ReactiveUI.Binding.Reactive"
+  ],
+  "recommendedPatterns": [
+    "Keep binding lambdas inline and simple so compile-time generation can optimize them.",
+    "Prefer compile-time bindings when AOT, trimming, or startup performance matters.",
+    "Use platform-specific binding packages where needed."
+  ],
+  "avoidPatterns": [
+    "Do not hide binding expressions behind variables or indirection that breaks generator analysis.",
+    "Do not mix runtime and compile-time binding styles without team conventions."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Binding and any required platform package.",
+    "Keep binding expressions generator-friendly.",
+    "Watch diagnostics after refactors and renames."
+  ],
+  "commonPitfalls": [
+    "Unsupported expression shapes.",
+    "Assuming classic runtime binding idioms will all translate to generator-optimized code."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "ReactiveUI.SourceGenerators"
+  ],
+  "keywords": [
+    "binding source generators",
+    "aot",
+    "trimming",
+    "bind",
+    "whenanyvalue"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI.Binding.SourceGenerators repository",
+      "url": "https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators",
+      "notes": "Compile-time binding guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}
