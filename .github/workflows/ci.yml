@@ -1,10 +1,10 @@
 name: build-test-pack-publish
 
 on:
-  push:
-    branches: [main]
   pull_request:
-    branches: [main]
+  push:
+    branches:
+      - main
 
 # Needed so the reusable workflow can optionally delete the temp per-OS artifacts it creates.
 permissions:
