@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download package artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: nuget-packages
           path: src/artifacts
