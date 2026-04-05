@@ -34,7 +34,7 @@ jobs:
         run: dotnet build src/ReactiveUIMcpServer.slnx -c Release --no-restore /p:ContinuousIntegrationBuild=true
 
       - name: Test
-        run: dotnet test --project src/ReactiveUIMcp.Tests/ReactiveUIMcp.Tests.csproj -c Release --no-build --logger "console;verbosity=normal"
+        run: dotnet test --project src/ReactiveUIMcp.Tests/ReactiveUIMcp.Tests.csproj -c Release --no-build
 
       - name: Pack
         run: dotnet pack src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj -c Release --no-build -o artifacts /p:ContinuousIntegrationBuild=true
