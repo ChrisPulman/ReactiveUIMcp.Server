@@ -5,13 +5,11 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'
-  workflow_dispatch:
 
 # Needed so the reusable workflow can optionally delete the temp per-OS artifacts it creates.
 permissions:
-  contents: read
+  contents: write
+  id-token: write
   actions: write
 
 jobs:
@@ -62,10 +60,11 @@ jobs:
           if-no-files-found: error
 
   publish_nuget:
-    if: startsWith(github.ref, 'refs/tags/v')
     needs: build_test_pack
     runs-on: windows-latest
-
+    
+    environment:
+      name: release
     steps:
       - uses: actions/checkout@v6
         with:
