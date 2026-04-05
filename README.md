@@ -237,8 +237,8 @@ Config example:
 ```json
 {
   "mcpServers": {
-    "dotnet-mtp-coverage-mcp": {
-      "command": "dotnet-mtp-coverage-mcp"
+    "reactiveui-mcp-server": {
+      "command": "dotnet-reactiveui-mcp-server"
     }
   }
 }

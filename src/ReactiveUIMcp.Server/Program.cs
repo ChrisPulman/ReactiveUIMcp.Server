@@ -2,7 +2,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ModelContextProtocol.Protocol;
-using ModelContextProtocol.Server;
 using ReactiveUIMcp.Core.Abstractions;
 using ReactiveUIMcp.Core.Services;
 using ReactiveUIMcp.Knowledge.Services;
@@ -27,26 +26,40 @@ public static class Program
     {
         var builder = Host.CreateApplicationBuilder(args);
 
-        builder.Logging.AddConsole(options =>
-        {
-            options.LogToStandardErrorThreshold = LogLevel.Trace;
-        });
+        builder.Logging.AddConsole(options => options.LogToStandardErrorThreshold = LogLevel.Trace);
 
         builder.Services.AddSingleton<IKnowledgeCatalog, EmbeddedKnowledgeCatalog>();
         builder.Services.AddSingleton<IReactiveUiGuidanceService, ReactiveUiGuidanceService>();
         builder.Services.AddSingleton<IReactiveUiSolutionScaffolder, ReactiveUiSolutionScaffolder>();
 
-        builder.Services.AddMcpServer(options =>
-            {
-                options.ServerInfo = new Implementation
-                {
-                    Name = "io.github.chrispulman/reactiveui-mcp-server",
-                    Version = "0.1.0",
-                    Title = "ReactiveUI MCP Server",
-                    Description = "ReactiveUI ecosystem guidance for AI-assisted code generation, review, project creation, and migration planning.",
-                    WebsiteUrl = "https://github.com/ChrisPulman/ReactiveUIMcp.Server",
-                };
-            })
+        builder.Services.AddMcpServer(options => options.ServerInfo = new Implementation
+        {
+            Name = "reactiveui-mcp-server",
+            Version = typeof(Program).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+                .OfType<System.Reflection.AssemblyInformationalVersionAttribute>()
+                .FirstOrDefault()?.InformationalVersion
+            ?? typeof(Program).Assembly.GetName().Version?.ToString()
+            ?? "0.0.0",
+            Title = "ReactiveUI MCP Server",
+            Description = "ReactiveUI ecosystem guidance for AI-assisted code generation, review, project creation, and migration planning.",
+            WebsiteUrl = "https://github.com/ChrisPulman/ReactiveUIMcp.Server",
+            Icons =
+                    [
+                        new Icon
+                        {
+                            Source = "https://raw.githubusercontent.com/microsoft/fluentui-emoji/62ecdc0d7ca5c6df32148c169556bc8d3782fca4/assets/Gear/Flat/gear_flat.svg",
+                            MimeType = "image/svg+xml",
+                            Sizes = ["any"],
+                            Theme = "light"
+                        },
+                        new Icon
+                        {
+                            Source = "https://raw.githubusercontent.com/microsoft/fluentui-emoji/62ecdc0d7ca5c6df32148c169556bc8d3782fca4/assets/Gear/3D/gear_3d.png",
+                            MimeType = "image/png",
+                            Sizes = ["256x256"]
+                        }
+                    ]
+        })
             .WithStdioServerTransport()
             .WithTools<CatalogTools>()
             .WithTools<GuidanceTools>()
@@ -62,8 +75,5 @@ public static class Program
     /// </summary>
     /// <param name="args">Command line arguments.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public static async Task Main(string[] args)
-    {
-        await CreateHost(args).RunAsync();
-    }
+    public static async Task Main(string[] args) => await CreateHost(args).RunAsync();
 }
