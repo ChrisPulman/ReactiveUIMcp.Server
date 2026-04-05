@@ -40,6 +40,10 @@ public class GeneratedSolutionTests
             await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.slnx"))).IsTrue();
             await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Core", "Contoso.GeneratedApp.Core.csproj"))).IsTrue();
             await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Tests", "Contoso.GeneratedApp.Tests.csproj"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.WPF", "App.xaml"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.WPF", "Views", "LoginView.xaml"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Blazor", "Program.cs"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Blazor", "Components", "Pages", "Home.razor"))).IsTrue();
             await Assert.That(result.CreatedFiles.Any(file => file.EndsWith("LoginViewModel.cs", StringComparison.Ordinal))).IsTrue();
         }
         finally
