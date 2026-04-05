@@ -1,0 +1,55 @@
+{
+  "id": "fusillade",
+  "displayName": "Fusillade",
+  "repositoryUrl": "https://github.com/reactiveui/Fusillade",
+  "category": "networking",
+  "summary": "Priority-aware HTTP request orchestration for mobile/offline-sensitive scenarios, often paired with punchclock.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "Fusillade"
+  ],
+  "recommendedPatterns": [
+    "Use Fusillade when request prioritization or deduplication is a real product requirement.",
+    "Pair it with Akavache when offline cache behavior matters.",
+    "Keep networking policy explicit."
+  ],
+  "avoidPatterns": [
+    "Do not add Fusillade for trivial API access.",
+    "Do not hide prioritization rules in scattered call sites."
+  ],
+  "setupSteps": [
+    "Add Fusillade.",
+    "Define priority-aware HTTP clients or handlers.",
+    "Integrate with caching only when justified."
+  ],
+  "commonPitfalls": [
+    "Over-engineering simple HTTP scenarios.",
+    "Forgetting that Fusillade policy should be visible at the composition root."
+  ],
+  "relatedLibraries": [
+    "punchclock",
+    "Akavache",
+    "Refit"
+  ],
+  "keywords": [
+    "fusillade",
+    "priority",
+    "deduplication",
+    "networking",
+    "offline"
+  ],
+  "sources": [
+    {
+      "title": "Fusillade repository",
+      "url": "https://github.com/reactiveui/Fusillade",
+      "notes": "Priority-aware networking guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

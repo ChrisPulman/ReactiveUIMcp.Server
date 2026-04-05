@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ReactiveUIMcp.Knowledge</AssemblyName>
+    <RootNamespace>ReactiveUIMcp.Knowledge</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveUIMcp.Core\ReactiveUIMcp.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Catalog\*.json" />
+  </ItemGroup>
+</Project>

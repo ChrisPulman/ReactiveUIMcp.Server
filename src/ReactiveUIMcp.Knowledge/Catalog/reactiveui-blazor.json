@@ -1,0 +1,54 @@
+{
+  "id": "reactiveui-blazor",
+  "displayName": "ReactiveUI Blazor",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "platform",
+  "summary": "Blazor-specific ReactiveUI guidance for reactive components, lifecycle hooks, and server/WASM execution differences.",
+  "supportedTargets": [
+    "Blazor",
+    "net10.0"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Blazor"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveComponentBase<T> or related reactive base components.",
+    "Be explicit about rerender boundaries and component lifecycle.",
+    "Keep ViewModel lifetime and subscription management deliberate."
+  ],
+  "avoidPatterns": [
+    "Do not assume desktop UI thread semantics in Blazor.",
+    "Do not bury component updates inside ad hoc event glue when ReactiveUI activation can be used."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Blazor.",
+    "Choose server or WASM-specific hosting setup as needed.",
+    "Use reactive component base classes for view integration."
+  ],
+  "commonPitfalls": [
+    "Confusing server and WASM scheduler behavior.",
+    "Ignoring StateHasChanged or component refresh semantics in reactive flows."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI"
+  ],
+  "keywords": [
+    "blazor",
+    "component",
+    "wasm",
+    "server",
+    "reactivecomponentbase"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI Blazor builder extensions",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "Blazor builder and documentation guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

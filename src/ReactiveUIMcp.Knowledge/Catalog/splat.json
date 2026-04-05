@@ -1,0 +1,54 @@
+{
+  "id": "splat",
+  "displayName": "Splat",
+  "repositoryUrl": "https://github.com/reactiveui/splat",
+  "category": "infrastructure",
+  "summary": "ReactiveUI ecosystem infrastructure for DI, service location, logging, and composition-root registration.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "Splat"
+  ],
+  "recommendedPatterns": [
+    "Use Splat registration at the composition root.",
+    "Prefer generic registration and resolution APIs.",
+    "Prefer constructor injection in application code."
+  ],
+  "avoidPatterns": [
+    "Do not spread global service-location calls through feature logic.",
+    "Do not assume shared mutable global resolver state is safe for libraries or tests."
+  ],
+  "setupSteps": [
+    "Add Splat when DI or resolver integration is needed.",
+    "Register infrastructure services at startup.",
+    "Keep library code independent from global resolver mutation where possible."
+  ],
+  "commonPitfalls": [
+    "Leaking global resolver state between tests.",
+    "Using service locator instead of explicit dependencies in business logic."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "Akavache"
+  ],
+  "keywords": [
+    "splat",
+    "di",
+    "locator",
+    "composition root",
+    "logging"
+  ],
+  "sources": [
+    {
+      "title": "Splat repository",
+      "url": "https://github.com/reactiveui/splat",
+      "notes": "Modern generic-first resolver guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

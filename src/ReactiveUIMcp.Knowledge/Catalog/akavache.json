@@ -1,0 +1,56 @@
+{
+  "id": "akavache",
+  "displayName": "Akavache",
+  "repositoryUrl": "https://github.com/reactiveui/Akavache",
+  "category": "persistence",
+  "summary": "Persistent caching for ReactiveUI apps with explicit serializer and SQLite-provider configuration.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "Akavache.Sqlite3",
+    "Akavache.SystemTextJson"
+  ],
+  "recommendedPatterns": [
+    "Initialize Akavache with the builder pattern.",
+    "Call WithSqliteProvider before WithSqliteDefaults.",
+    "Keep Akavache behind repository or service abstractions."
+  ],
+  "avoidPatterns": [
+    "Do not hide caching policy directly in views.",
+    "Do not scatter unstable cache keys throughout the codebase."
+  ],
+  "setupSteps": [
+    "Add Akavache.Sqlite3 and a serializer package.",
+    "Configure the cache database through the builder.",
+    "Use the appropriate cache buckets intentionally."
+  ],
+  "commonPitfalls": [
+    "Missing serializer/provider setup.",
+    "Treating the cache like an unversioned key-value junk drawer."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "Splat",
+    "Refit"
+  ],
+  "keywords": [
+    "akavache",
+    "cache",
+    "sqlite",
+    "offline",
+    "persistence"
+  ],
+  "sources": [
+    {
+      "title": "Akavache repository",
+      "url": "https://github.com/reactiveui/Akavache",
+      "notes": "Builder-based initialization and cache guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "reactiveui-core",
+  "displayName": "ReactiveUI Core",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "core",
+  "summary": "Core reactive MVVM primitives, commands, activation, routing, platform-neutral guidance, and upgrade paths for legacy ReactiveUI applications.",
+  "supportedTargets": [
+    "WPF",
+    "WinForms",
+    "Blazor",
+    "MAUI",
+    "WinUI",
+    "AndroidX",
+    "Avalonia",
+    "Uno"
+  ],
+  "nugetPackages": [
+    "ReactiveUI"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveObject and ReactiveCommand for mutable state and user actions.",
+    "Prefer WhenAnyValue and OAPH/source-generator derived properties over imperative setter side effects.",
+    "Plan upgrades from legacy ReactiveUI codebases by modernizing startup, disposal, command handling, and generator usage incrementally."
+  ],
+  "avoidPatterns": [
+    "Do not create long-lived subscriptions in constructors without disposal.",
+    "Do not mutate UI-bound state from background threads.",
+    "Do not leave legacy initialization, obsolete collection types, or stale package combinations in upgraded apps when a modern equivalent exists."
+  ],
+  "setupSteps": [
+    "Add the ReactiveUI package.",
+    "Select the correct platform package for the target UI stack.",
+    "For legacy upgrades, align packages first, then replace obsolete patterns incrementally with modern ReactiveUI guidance."
+  ],
+  "commonPitfalls": [
+    "Ignoring ReactiveCommand.ThrownExceptions.",
+    "Mixing imperative state mutation with derived observable state.",
+    "Failing to scope bindings with activation on XAML-style platforms during upgrades."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI.SourceGenerators",
+    "ReactiveUI.Validation",
+    "ReactiveUI.Extensions",
+    "Splat",
+    "ReactiveUI.Testing"
+  ],
+  "keywords": [
+    "reactiveobject",
+    "reactivecommand",
+    "whenactivated",
+    "oaph",
+    "routing",
+    "mvvm",
+    "upgrade",
+    "migration",
+    "legacy"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI repository",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "Primary ReactiveUI framework source and upgrade guidance basis."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

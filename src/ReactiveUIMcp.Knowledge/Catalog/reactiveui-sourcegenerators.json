@@ -1,0 +1,58 @@
+{
+  "id": "reactiveui-sourcegenerators",
+  "displayName": "ReactiveUI.SourceGenerators",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI.SourceGenerators",
+  "category": "code-generation",
+  "summary": "Preferred modern source-generator package for ReactiveUI properties, commands, OAPHs, view wiring, and Fody-era migrations.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.SourceGenerators"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveUI.SourceGenerators as the primary choice for new ReactiveUI code.",
+    "Use [Reactive], [ObservableAsProperty], and [ReactiveCommand] on partial types.",
+    "Generate migration guidance from ReactiveUI.Fody to ReactiveUI.SourceGenerators for legacy projects rather than preserving Fody by default."
+  ],
+  "avoidPatterns": [
+    "Do not choose ReactiveUI.Fody for new projects when ReactiveUI.SourceGenerators is available.",
+    "Do not mix Fody and source generators randomly on the same code path.",
+    "Do not forget partial type requirements and generator package setup."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.SourceGenerators with PrivateAssets=all when appropriate.",
+    "Mark participating types as partial.",
+    "If migrating from ReactiveUI.Fody, remove Fody package/configuration and convert properties/commands incrementally."
+  ],
+  "commonPitfalls": [
+    "Forgetting partial types.",
+    "Assuming generated members are visible to other generators in the same compilation round.",
+    "Leaving legacy Fody configuration behind after migration."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "ReactiveUI.Binding.SourceGenerators"
+  ],
+  "keywords": [
+    "source generators",
+    "reactive",
+    "observableasproperty",
+    "reactivecommand",
+    "partial",
+    "reactiveui.fody",
+    "migration"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI.SourceGenerators repository",
+      "url": "https://github.com/reactiveui/ReactiveUI.SourceGenerators",
+      "notes": "Modern source-generator guidance and Fody replacement direction."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

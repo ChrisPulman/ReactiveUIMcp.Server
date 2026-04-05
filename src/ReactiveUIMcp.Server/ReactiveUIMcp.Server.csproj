@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>ReactiveUIMcp.Server</AssemblyName>
+    <RootNamespace>ReactiveUIMcp.Server</RootNamespace>
+    <PackageId>CP.ReactiveUI.Mcp.Server</PackageId>
+    <Title>ReactiveUI MCP Server</Title>
+    <Description>ReactiveUI ecosystem guidance MCP server for AI-assisted code generation, review, and package/platform recommendations.</Description>
+    <Authors>Chris Pulman</Authors>
+    <PackageProjectUrl>https://github.com/ChrisPulman/ReactiveUIMcp.Server</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ChrisPulman/ReactiveUIMcp.Server</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>ReactiveUI;MCP;Model Context Protocol;C#;dotnet;WPF;WinForms;Blazor;MAUI;WinUI;Avalonia;Uno;Akavache;Refit;DynamicData</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="ModelContextProtocol" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveUIMcp.Core\ReactiveUIMcp.Core.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Knowledge\ReactiveUIMcp.Knowledge.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
+    <None Include="..\..\.mcp\server.json" Pack="true" PackagePath=".mcp\server.json" Link=".mcp\server.json" />
+  </ItemGroup>
+</Project>

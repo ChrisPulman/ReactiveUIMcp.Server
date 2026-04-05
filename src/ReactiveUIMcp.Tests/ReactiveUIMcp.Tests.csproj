@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ReactiveUIMcp.Tests</AssemblyName>
+    <RootNamespace>ReactiveUIMcp.Tests</RootNamespace>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TUnit" />
+    <PackageReference Include="TUnit.Assertions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReactiveUIMcp.Core\ReactiveUIMcp.Core.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Knowledge\ReactiveUIMcp.Knowledge.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Server\ReactiveUIMcp.Server.csproj" />
+  </ItemGroup>
+</Project>

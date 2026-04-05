@@ -1,0 +1,51 @@
+{
+  "id": "punchclock",
+  "displayName": "punchclock",
+  "repositoryUrl": "https://github.com/reactiveui/punchclock",
+  "category": "infrastructure",
+  "summary": "Concurrency and prioritization primitives used by Fusillade for queueing and serialized work execution.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "punchclock"
+  ],
+  "recommendedPatterns": [
+    "Use punchclock for bounded, prioritized work queues when concurrency policy matters.",
+    "Give queued work meaningful keys and keep tasks idempotent."
+  ],
+  "avoidPatterns": [
+    "Do not use punchclock for routine workflows that do not need queueing or prioritization.",
+    "Do not hide queue policy in magic numbers."
+  ],
+  "setupSteps": [
+    "Add punchclock when advanced queueing is needed.",
+    "Define priority and serialization rules explicitly.",
+    "Test concurrency behavior."
+  ],
+  "commonPitfalls": [
+    "Using queueing infrastructure where a simpler async flow would do.",
+    "Ignoring the need for deterministic keys and cancellation."
+  ],
+  "relatedLibraries": [
+    "Fusillade"
+  ],
+  "keywords": [
+    "punchclock",
+    "queue",
+    "priority",
+    "concurrency"
+  ],
+  "sources": [
+    {
+      "title": "punchclock repository",
+      "url": "https://github.com/reactiveui/punchclock",
+      "notes": "Queueing and concurrency guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

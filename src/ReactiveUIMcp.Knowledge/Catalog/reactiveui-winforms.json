@@ -1,0 +1,54 @@
+{
+  "id": "reactiveui-winforms",
+  "displayName": "ReactiveUI WinForms",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
+  "category": "platform",
+  "summary": "WinForms-specific ReactiveUI guidance focused on synchronization context usage and reactive form/view patterns.",
+  "supportedTargets": [
+    "WinForms",
+    "net10.0-windows"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.WinForms"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveForm<TViewModel> or reactive control base types.",
+    "Keep bindings in WhenActivated so they follow control lifetime.",
+    "Use the WinForms platform scheduler for UI updates."
+  ],
+  "avoidPatterns": [
+    "Do not embed business logic in event handlers when a ReactiveCommand belongs in the ViewModel.",
+    "Do not assume bindings clean themselves up without disposal."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.WinForms.",
+    "Use the WinForms platform setup.",
+    "Create reactive forms and controls for view integration."
+  ],
+  "commonPitfalls": [
+    "Leaking bindings on form reuse.",
+    "Updating controls from background work without marshaling to the UI thread."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "ReactiveUI.Binding.SourceGenerators"
+  ],
+  "keywords": [
+    "winforms",
+    "forms",
+    "synchronizationcontext",
+    "reactiveform"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI WinForms builder extensions",
+      "url": "https://github.com/reactiveui/ReactiveUI",
+      "notes": "WinForms-specific initialization and scheduler behavior."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}

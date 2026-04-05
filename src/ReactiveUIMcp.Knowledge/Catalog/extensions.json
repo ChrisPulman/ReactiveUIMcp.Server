@@ -1,0 +1,58 @@
+{
+  "id": "extensions",
+  "displayName": "ReactiveUI.Extensions",
+  "repositoryUrl": "https://github.com/reactiveui/Extensions",
+  "category": "extensions",
+  "summary": "Extra Rx operators and async observable helpers, including IObservableAsync patterns from ReactiveUI.Extensions.Async.",
+  "supportedTargets": [
+    "All"
+  ],
+  "nugetPackages": [
+    "ReactiveUI.Extensions"
+  ],
+  "recommendedPatterns": [
+    "Use ReactiveUI.Extensions.Async IObservableAsync-based flows when async streams are a better fit than ad hoc Task glue.",
+    "Use library operators such as RetryWithBackoff, Conflate, DropIfBusy, and SelectLatestAsync when they match the domain clearly.",
+    "Adopt async observable composition deliberately for IO-heavy or streaming workflows so generated code stays idiomatic and reusable."
+  ],
+  "avoidPatterns": [
+    "Do not add ReactiveUI.Extensions by default to every project without a clear need.",
+    "Do not reimplement async observable helpers when ReactiveUI.Extensions.Async already models the workflow cleanly.",
+    "Do not mix Task-based and async-observable-based orchestration randomly without a consistent boundary."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Extensions when advanced Rx or async observable composition is justified.",
+    "Prefer ReactiveUI.Extensions.Async namespaces when generating IObservableAsync-based code.",
+    "Document why async observables are used so the generated codebase remains maintainable."
+  ],
+  "commonPitfalls": [
+    "Adding unnecessary dependencies for simple Rx pipelines.",
+    "Hiding domain intent behind overly clever operator chains.",
+    "Ignoring IObservableAsync patterns even when async streaming semantics would simplify the code."
+  ],
+  "relatedLibraries": [
+    "ReactiveUI",
+    "System.Reactive"
+  ],
+  "keywords": [
+    "extensions",
+    "retrywithbackoff",
+    "conflate",
+    "heartbeat",
+    "rx operators",
+    "iobservableasync",
+    "reactiveui.extensions.async"
+  ],
+  "sources": [
+    {
+      "title": "ReactiveUI Extensions repository",
+      "url": "https://github.com/reactiveui/Extensions",
+      "notes": "Operator catalog and async observable guidance."
+    }
+  ],
+  "harvest": {
+    "harvestedAtUtc": "2026-04-05T15:39:00Z",
+    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
+    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+  }
+}
