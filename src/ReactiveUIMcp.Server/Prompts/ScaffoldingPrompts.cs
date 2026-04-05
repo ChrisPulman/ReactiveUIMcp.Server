@@ -1,10 +1,10 @@
-namespace ReactiveUIMcp.Server.Prompts;
 
 using ModelContextProtocol.Server;
 using ReactiveUIMcp.Core.Abstractions;
 using ReactiveUIMcp.Core.Models;
 using System.ComponentModel;
 
+namespace ReactiveUIMcp.Server.Prompts;
 /// <summary>
 /// MCP prompts for generating ReactiveUI-family code with ecosystem-aware constraints.
 /// </summary>

@@ -1,4 +1,3 @@
-namespace ReactiveUIMcp.Server.Tools;
 
 using ModelContextProtocol.Server;
 using ReactiveUIMcp.Core.Abstractions;
@@ -6,6 +5,7 @@ using ReactiveUIMcp.Core.Models;
 using ReactiveUIMcp.Server.Serialization;
 using System.ComponentModel;
 
+namespace ReactiveUIMcp.Server.Tools;
 /// <summary>
 /// Wizard-oriented MCP tools for creating new ReactiveUI solutions.
 /// </summary>
@@ -15,7 +15,7 @@ public sealed class SolutionWizardTools
     /// <summary>
     /// Runs the Create ReactiveUI Solution wizard as a multi-step MCP tool.
     /// </summary>
-    [McpServerTool(Name = "/CreateReactiveUISolution"), Description("Create a wizard-like ReactiveUI solution plan supporting multiple UI endpoints, Splat DI provider choice, companion libraries, settings stores, common app features, validation, and scaffolded views/viewmodels. Optionally generates the solution on disk when generateFiles is true.")]
+    [McpServerTool(Name = "reactiveui_create_solution"), Description("Create a wizard-like ReactiveUI solution plan supporting multiple UI endpoints, Splat DI provider choice, companion libraries, settings stores, common app features, validation, and scaffolded views/viewmodels. Optionally generates the solution on disk when generateFiles is true.")]
     public static string CreateReactiveUiSolution(
         IReactiveUiGuidanceService guidanceService,
         IReactiveUiSolutionScaffolder scaffolder,

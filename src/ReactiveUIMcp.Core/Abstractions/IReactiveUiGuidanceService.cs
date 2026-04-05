@@ -1,7 +1,7 @@
-namespace ReactiveUIMcp.Core.Abstractions;
 
 using ReactiveUIMcp.Core.Models;
 
+namespace ReactiveUIMcp.Core.Abstractions;
 /// <summary>
 /// Produces recommendations, comparisons, and review findings from the knowledge catalog.
 /// </summary>

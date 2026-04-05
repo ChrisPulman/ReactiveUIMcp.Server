@@ -44,7 +44,12 @@ public class GeneratedSolutionTests
             await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.WPF", "Views", "LoginView.xaml"))).IsTrue();
             await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Blazor", "Program.cs"))).IsTrue();
             await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Blazor", "Components", "Pages", "Home.razor"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Core", "Services", "ServiceCollectionExtensions.cs"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Core", "Settings", "AkavacheSetup.cs"))).IsTrue();
+            await Assert.That(File.Exists(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Core", "ViewModels", "ThemeDesignerViewModel.cs"))).IsTrue();
             await Assert.That(result.CreatedFiles.Any(file => file.EndsWith("LoginViewModel.cs", StringComparison.Ordinal))).IsTrue();
+            await Assert.That(File.ReadAllText(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Core", "Services", "ServiceCollectionExtensions.cs"))).Contains("AddGeneratedApplicationServices");
+            await Assert.That(File.ReadAllText(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Core", "Settings", "AkavacheSetup.cs"))).Contains("Registrations.Start");
         }
         finally
         {

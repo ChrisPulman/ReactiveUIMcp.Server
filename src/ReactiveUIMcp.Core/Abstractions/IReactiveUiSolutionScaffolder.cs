@@ -1,7 +1,7 @@
-namespace ReactiveUIMcp.Core.Abstractions;
 
 using ReactiveUIMcp.Core.Models;
 
+namespace ReactiveUIMcp.Core.Abstractions;
 /// <summary>
 /// Generates an on-disk ReactiveUI solution from wizard selections.
 /// </summary>

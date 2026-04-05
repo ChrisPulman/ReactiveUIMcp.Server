@@ -1,4 +1,3 @@
-namespace ReactiveUIMcp.Server.Tools;
 
 using ModelContextProtocol.Server;
 using ReactiveUIMcp.Core.Abstractions;
@@ -6,6 +5,7 @@ using ReactiveUIMcp.Core.Models;
 using ReactiveUIMcp.Server.Serialization;
 using System.ComponentModel;
 
+namespace ReactiveUIMcp.Server.Tools;
 /// <summary>
 /// MCP tools for generating recommendations and reviewing ReactiveUI plans.
 /// </summary>

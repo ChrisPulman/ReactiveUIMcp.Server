@@ -1,10 +1,10 @@
-namespace ReactiveUIMcp.Server.Resources;
 
 using ModelContextProtocol.Server;
 using ReactiveUIMcp.Core.Abstractions;
 using ReactiveUIMcp.Server.Serialization;
 using System.ComponentModel;
 
+namespace ReactiveUIMcp.Server.Resources;
 /// <summary>
 /// Read-only MCP resources exposing the ecosystem catalog and individual guidance packs.
 /// </summary>

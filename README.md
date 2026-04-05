@@ -40,7 +40,7 @@ Click to install in your preferred environment:
 
 Note:
 - These install links are prepared for the intended NuGet package identity `CP.ReactiveUI.Mcp.Server`.
-- If the package has not been published yet, use the manual source-build configuration below.
+- If the latest package has not been published yet, use the manual source-build configuration below.
 
 ## What this MCP server helps with
 
@@ -62,7 +62,7 @@ It helps with:
 - migrating older test projects to current `ReactiveUI.Testing` practices
 - guiding users through a wizard-based multi-endpoint solution design flow
 - generating a starter solution on disk when requested
-- reviewing plans for anti-patterns like `ReactiveList`, constructor subscriptions, and global service-location abuse
+- reviewing plans for anti-patterns like `ReactiveUI.ReactiveList`, constructor subscriptions, and global service-location abuse
 
 ## Available MCP Tools
 
@@ -86,7 +86,7 @@ The current server surface includes these MCP tools:
   - Produces a project-generation blueprint for new ReactiveUI applications, libraries, and test projects
 - `reactiveui_migration_plan`
   - Produces a migration plan for legacy ReactiveUI, ReactiveUI.Fody, and ReactiveUI.Testing-based projects
-- `/CreateReactiveUISolution`
+- `reactiveui_create_solution`
   - Runs a wizard-like multi-step solution planning tool for building a ReactiveUI solution with multiple UI endpoints, Splat DI provider selection, optional features, settings stores, themes, validation, scaffolded views/viewmodels, and optional on-disk generation
 
 ## Available MCP Resources
@@ -112,7 +112,7 @@ Examples:
 
 Once configured, you can ask things like:
 
-- "Run /CreateReactiveUISolution and help me design a multi-endpoint solution with WPF, MAUI, and Blazor"
+- "Run reactiveui_create_solution and help me design a multi-endpoint solution with WPF, MAUI, and Blazor"
 - "Generate the solution on disk under D:\\Temp\\GeneratedApps using the completed wizard selections"
 - "Create a new ReactiveUI MAUI project blueprint with Akavache, Refit, and ReactiveUI.SourceGenerators"
 - "Generate a test project blueprint using the latest ReactiveUI.Testing"
@@ -126,7 +126,7 @@ Once configured, you can ask things like:
 - "Should I use Akavache or a custom SQLite repository here?"
 - "What should a ReactiveUI WPF view do with WhenActivated and DisposeWith?"
 
-## /CreateReactiveUISolution wizard flow
+## reactiveui_create_solution wizard flow
 
 The wizard-oriented tool is designed to behave like a guided planning assistant for solution creation.
 
@@ -170,7 +170,7 @@ Wizard stages:
   - final blueprint output, with optional file generation
 
 The tool is called as:
-- `/CreateReactiveUISolution`
+- `reactiveui_create_solution`
 
 To generate files on disk, provide:
 - `step = 9` or `complete`
@@ -211,7 +211,7 @@ Add to settings JSON:
       "args": [
         "run",
         "--project",
-        "/path/to/dotnet-mcp/ReactiveUIMcp.Server/src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj"
+        "/path/to/ReactiveUI-mcp/ReactiveUIMcp.Server/src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj"
       ]
     }
   }
@@ -227,12 +227,24 @@ Add an MCP server with:
 - Arguments:
 
 ```text
-run --project /path/to/dotnet-mcp/ReactiveUIMcp.Server/src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj
+run --project /path/to/ReactiveUI-mcp/ReactiveUIMcp.Server/src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj
 ```
 
 ### Claude Desktop
 
-Windows config example:
+Config example:
+
+```json
+{
+  "mcpServers": {
+    "dotnet-mtp-coverage-mcp": {
+      "command": "dotnet-mtp-coverage-mcp"
+    }
+  }
+}
+```
+
+Config for running from source:
 
 ```json
 {
@@ -242,7 +254,7 @@ Windows config example:
       "args": [
         "run",
         "--project",
-        "/path/to/dotnet-mcp/ReactiveUIMcp.Server/src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj"
+        "/path/to/ReactiveUI-mcp/ReactiveUIMcp.Server/src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj"
       ]
     }
   }
@@ -296,7 +308,7 @@ Implemented:
 - stdio transport
 - catalog/recommend/review/compare/prompt tools
 - project blueprint and migration-plan tools
-- wizard-based solution planning via `/CreateReactiveUISolution`
+- wizard-based solution planning via `reactiveui_create_solution`
 - optional on-disk solution generation from wizard selections
 - read-only catalog resources including project-generation guidance
 - scaffold, test-project, and migration prompts
@@ -304,8 +316,6 @@ Implemented:
 - TUnit test project with passing tests
 
 Not yet implemented:
-- published NuGet package for `dnx` install
-- automated GitHub harvesting/update pipeline
 - advanced code-shape linting over parsed C# syntax trees
 - full per-platform production-ready generated UI code instead of starter placeholders for some endpoints
 
@@ -314,9 +324,6 @@ Not yet implemented:
 Current local verification completed:
 - solution build passes
 - TUnit tests pass
-
-Test report example output file:
-- `src/ReactiveUIMcp.Tests/bin/Debug/net10.0/TestResults/ReactiveUIMcp.Tests-windows-net10.0-report.html`
 
 ## MCP metadata
 
@@ -334,8 +341,11 @@ Before publishing the package, update:
 - package metadata in `src/ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj`
 - version in `.mcp/server.json`
 - install badge links if the package id or version changes
-- repository URL if the remote changes
 
 ## License
 
-Intended license metadata is MIT.
+MIT License — see `LICENSE`.
+
+---
+
+**CP.ReactiveUI.Mcp.Server** - Empowering Agentic Automation with Reactive Technology ⚡🏭
