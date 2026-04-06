@@ -47,7 +47,7 @@ jobs:
         working-directory: src
 
       - name: Pack
-        run: dotnet pack ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj -c Release -o artifacts /p:ContinuousIntegrationBuild=true
+        run: dotnet pack ReactiveUIMcpServer.slnx -c Release -o artifacts /p:ContinuousIntegrationBuild=true
         working-directory: src
 
       - name: Upload package artifacts
@@ -98,7 +98,7 @@ jobs:
         run: git-release-notes --release-version "${{ steps.nbgv.outputs.SemVer2 }}" --output-file release-notes.md
 
       - name: Pack
-        run: dotnet pack ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj -c Release -o artifacts /p:ContinuousIntegrationBuild=true
+        run: dotnet pack ReactiveUIMcpServer.slnx -c Release -o artifacts /p:ContinuousIntegrationBuild=true
         working-directory: src
 
       - name: Publish to NuGet
