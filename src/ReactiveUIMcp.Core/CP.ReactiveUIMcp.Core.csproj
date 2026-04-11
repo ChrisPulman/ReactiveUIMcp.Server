@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>ReactiveUIMcp.Core</AssemblyName>
+    <AssemblyName>CP.ReactiveUIMcp.Core</AssemblyName>
     <RootNamespace>ReactiveUIMcp.Core</RootNamespace>
     <PackageId>CP.ReactiveUI.Mcp.Core</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>

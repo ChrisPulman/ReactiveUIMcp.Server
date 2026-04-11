@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReactiveUIMcp.Core\ReactiveUIMcp.Core.csproj" />
-    <ProjectReference Include="..\ReactiveUIMcp.Knowledge\ReactiveUIMcp.Knowledge.csproj" />
-    <ProjectReference Include="..\ReactiveUIMcp.Server\ReactiveUIMcp.Server.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Core\CP.ReactiveUIMcp.Core.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Knowledge\CP.ReactiveUIMcp.Knowledge.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Server\CP.ReactiveUIMcp.Server.csproj" />
   </ItemGroup>
 
   <ItemGroup>
