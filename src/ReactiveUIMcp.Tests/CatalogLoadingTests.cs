@@ -1,7 +1,3 @@
-
-using ReactiveUIMcp.Core.Abstractions;
-using ReactiveUIMcp.Knowledge.Services;
-
 namespace ReactiveUIMcp.Tests;
 /// <summary>
 /// Tests for manifest loading and lookup behavior.
