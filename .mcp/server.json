@@ -31,5 +31,14 @@
   "repository": {
     "url": "https://github.com/ChrisPulman/ReactiveUIMcp.Server",
     "source": "github"
-  }
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/ChrisPulman/ReactiveUIMcp.Server/main/Images/icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "991x970"
+      ]
+    }
+  ]
 }
