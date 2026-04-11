@@ -9,6 +9,7 @@ using ReactiveUIMcp.Server.Prompts;
 using ReactiveUIMcp.Server.Resources;
 using ReactiveUIMcp.Server.Services;
 using ReactiveUIMcp.Server.Tools;
+using System.Reflection;
 
 namespace ReactiveUIMcp.Server;
 
@@ -17,6 +18,14 @@ namespace ReactiveUIMcp.Server;
 /// </summary>
 public static class Program
 {
+    private static readonly string[] RiskyClientMetadataKeys =
+    [
+        "Title",
+        "Description",
+        "WebsiteUrl",
+        "Icons"
+    ];
+
     /// <summary>
     /// Builds the host used by the ReactiveUI MCP server.
     /// </summary>
@@ -26,40 +35,14 @@ public static class Program
     {
         var builder = Host.CreateApplicationBuilder(args);
 
-        builder.Logging.AddConsole(options => options.LogToStandardErrorThreshold = LogLevel.Trace);
+        ConfigureLogging(builder);
 
         builder.Services.AddSingleton<IKnowledgeCatalog, EmbeddedKnowledgeCatalog>();
         builder.Services.AddSingleton<IReactiveUiGuidanceService, ReactiveUiGuidanceService>();
         builder.Services.AddSingleton<IReactiveUiSolutionScaffolder, ReactiveUiSolutionScaffolder>();
 
-        builder.Services.AddMcpServer(options => options.ServerInfo = new Implementation
-        {
-            Name = "reactiveui-mcp-server",
-            Version = typeof(Program).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
-                .OfType<System.Reflection.AssemblyInformationalVersionAttribute>()
-                .FirstOrDefault()?.InformationalVersion
-            ?? typeof(Program).Assembly.GetName().Version?.ToString()
-            ?? "0.0.0",
-            Title = "ReactiveUI MCP Server",
-            Description = "ReactiveUI ecosystem guidance for AI-assisted code generation, review, project creation, and migration planning.",
-            WebsiteUrl = "https://github.com/ChrisPulman/ReactiveUIMcp.Server",
-            Icons =
-                    [
-                        new Icon
-                        {
-                            Source = "https://raw.githubusercontent.com/microsoft/fluentui-emoji/62ecdc0d7ca5c6df32148c169556bc8d3782fca4/assets/Gear/Flat/gear_flat.svg",
-                            MimeType = "image/svg+xml",
-                            Sizes = ["any"],
-                            Theme = "light"
-                        },
-                        new Icon
-                        {
-                            Source = "https://raw.githubusercontent.com/microsoft/fluentui-emoji/62ecdc0d7ca5c6df32148c169556bc8d3782fca4/assets/Gear/3D/gear_3d.png",
-                            MimeType = "image/png",
-                            Sizes = ["256x256"]
-                        }
-                    ]
-        })
+        builder.Services
+            .AddMcpServer(options => options.ServerInfo = BuildServerInfo())
             .WithStdioServerTransport()
             .WithTools<CatalogTools>()
             .WithTools<GuidanceTools>()
@@ -68,6 +51,69 @@ public static class Program
             .WithPrompts<ScaffoldingPrompts>();
 
         return builder.Build();
+    }
+
+    /// <summary>
+    /// Builds the MCP server metadata sent during initialization.
+    /// </summary>
+    /// <returns>The server metadata advertised to MCP clients.</returns>
+    public static Implementation BuildServerInfo()
+    {
+        var assembly = typeof(Program).Assembly;
+        var serverInfo = new Implementation
+        {
+            Name = "reactiveui-mcp-server",
+            Version = assembly
+                .GetCustomAttributes<AssemblyInformationalVersionAttribute>()
+                .FirstOrDefault()?.InformationalVersion
+                ?? assembly.GetName().Version?.ToString()
+                ?? "0.0.0"
+        };
+
+        if (!ShouldAdvertiseRichClientMetadata())
+        {
+            return serverInfo;
+        }
+
+        serverInfo.Title = "ReactiveUI MCP Server";
+        serverInfo.Description = "ReactiveUI ecosystem guidance for AI-assisted code generation, review, project creation, and migration planning.";
+        serverInfo.WebsiteUrl = "https://github.com/ChrisPulman/ReactiveUIMcp.Server";
+        serverInfo.Icons =
+        [
+            new Icon
+            {
+                Source = "https://raw.githubusercontent.com/microsoft/fluentui-emoji/62ecdc0d7ca5c6df32148c169556bc8d3782fca4/assets/Gear/Flat/gear_flat.svg",
+                MimeType = "image/svg+xml",
+                Sizes = ["any"],
+                Theme = "light"
+            },
+            new Icon
+            {
+                Source = "https://raw.githubusercontent.com/microsoft/fluentui-emoji/62ecdc0d7ca5c6df32148c169556bc8d3782fca4/assets/Gear/3D/gear_3d.png",
+                MimeType = "image/png",
+                Sizes = ["256x256"]
+            }
+        ];
+
+        return serverInfo;
+    }
+
+    /// <summary>
+    /// Returns a value indicating whether rich MCP metadata should be advertised.
+    /// </summary>
+    /// <returns><see langword="false"/> because compatibility mode is always enforced for editor stability.</returns>
+    internal static bool ShouldAdvertiseRichClientMetadata() => false;
+
+    /// <summary>
+    /// Gets the client metadata fields that are omitted in safe mode.
+    /// </summary>
+    /// <returns>The names of optional metadata fields suppressed for compatibility.</returns>
+    public static IReadOnlyList<string> GetSuppressedClientMetadataKeys() => RiskyClientMetadataKeys;
+
+    private static void ConfigureLogging(HostApplicationBuilder builder)
+    {
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConsole(options => options.LogToStandardErrorThreshold = LogLevel.Trace);
     }
 
     /// <summary>

@@ -3,13 +3,13 @@
   "name": "io.github.chrispulman/reactiveui-mcp-server",
   "title": "ReactiveUI MCP Server",
   "description": "ReactiveUI ecosystem guidance for AI-assisted code generation, review, and package/platform recommendations.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "packages": [
     {
       "registryType": "nuget",
       "registryBaseUrl": "https://api.nuget.org/v3/index.json",
       "identifier": "CP.ReactiveUI.Mcp.Server",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "runtimeHint": "dnx",
       "transport": {
         "type": "stdio"
