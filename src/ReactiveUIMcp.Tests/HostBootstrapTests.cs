@@ -1,9 +1,3 @@
-
-using Microsoft.Extensions.DependencyInjection;
-using ModelContextProtocol.Protocol;
-using ReactiveUIMcp.Core.Abstractions;
-using ReactiveUIMcp.Server;
-
 namespace ReactiveUIMcp.Tests;
 /// <summary>
 /// Tests for the MCP host bootstrap and DI registration.

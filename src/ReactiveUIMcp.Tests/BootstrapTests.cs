@@ -1,7 +1,3 @@
-
-using ReactiveUIMcp.Core.Abstractions;
-using ReactiveUIMcp.Knowledge.Services;
-
 namespace ReactiveUIMcp.Tests;
 /// <summary>
 /// Smoke tests for the initial solution bootstrap.
