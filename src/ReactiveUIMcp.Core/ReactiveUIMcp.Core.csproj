@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>ReactiveUIMcp.Core</AssemblyName>
     <RootNamespace>ReactiveUIMcp.Core</RootNamespace>
@@ -7,6 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
-    <None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />
+    <!--<None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />-->
   </ItemGroup>
 </Project>

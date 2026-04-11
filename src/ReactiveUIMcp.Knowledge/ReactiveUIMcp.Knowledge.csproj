@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>ReactiveUIMcp.Knowledge</AssemblyName>
     <RootNamespace>ReactiveUIMcp.Knowledge</RootNamespace>
@@ -15,6 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
-    <None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />
+    <!--<None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />-->
   </ItemGroup>
 </Project>
