@@ -2,6 +2,7 @@
   <PropertyGroup>
     <AssemblyName>ReactiveUIMcp.Knowledge</AssemblyName>
     <RootNamespace>ReactiveUIMcp.Knowledge</RootNamespace>
+    <PackageId>CP.ReactiveUI.Mcp.Knowledge</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +11,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Catalog\*.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
+    <None Include="..\..\images\icon.png" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>
