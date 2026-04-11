@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <AssemblyName>ReactiveUIMcp.Server</AssemblyName>
+    <AssemblyName>CP.ReactiveUIMcp.Server</AssemblyName>
     <RootNamespace>ReactiveUIMcp.Server</RootNamespace>
     <PackageId>CP.ReactiveUI.Mcp.Server</PackageId>
     <Title>ReactiveUI MCP Server</Title>
@@ -26,13 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReactiveUIMcp.Core\ReactiveUIMcp.Core.csproj" />
-    <ProjectReference Include="..\ReactiveUIMcp.Knowledge\ReactiveUIMcp.Knowledge.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Core\CP.ReactiveUIMcp.Core.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Knowledge\CP.ReactiveUIMcp.Knowledge.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
-    <None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />
+    <!--<None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />-->
     <None Include="..\..\.mcp\server.json" Pack="true" PackagePath=".mcp\server.json" Link=".mcp\server.json" />
   </ItemGroup>
 </Project>

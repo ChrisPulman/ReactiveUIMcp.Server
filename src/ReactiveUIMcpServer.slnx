@@ -13,8 +13,8 @@
     <File Path="../testconfig.json" />
     <File Path="../version.json" />
   </Folder>
-  <Project Path="ReactiveUIMcp.Core/ReactiveUIMcp.Core.csproj" />
-  <Project Path="ReactiveUIMcp.Knowledge/ReactiveUIMcp.Knowledge.csproj" />
-  <Project Path="ReactiveUIMcp.Server/ReactiveUIMcp.Server.csproj" />
+  <Project Path="ReactiveUIMcp.Core/CP.ReactiveUIMcp.Core.csproj" />
+  <Project Path="ReactiveUIMcp.Knowledge/CP.ReactiveUIMcp.Knowledge.csproj" />
+  <Project Path="ReactiveUIMcp.Server/CP.ReactiveUIMcp.Server.csproj" />
   <Project Path="ReactiveUIMcp.Tests/ReactiveUIMcp.Tests.csproj" />
 </Solution>

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>ReactiveUIMcp.Knowledge</AssemblyName>
+    <AssemblyName>CP.ReactiveUIMcp.Knowledge</AssemblyName>
     <RootNamespace>ReactiveUIMcp.Knowledge</RootNamespace>
     <PackageId>CP.ReactiveUI.Mcp.Knowledge</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReactiveUIMcp.Core\ReactiveUIMcp.Core.csproj" />
+    <ProjectReference Include="..\ReactiveUIMcp.Core\CP.ReactiveUIMcp.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
