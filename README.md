@@ -34,9 +34,9 @@ The server is implemented in C# on `net10.0` using:
 
 Click to install in your preferred environment:
 
-[![VS Code - Install ReactiveUI MCP](https://img.shields.io/badge/VS_Code-Install_ReactiveUI_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=reactiveui-mcp-server&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22dnx%22%2C%22args%22%3A%5B%22CP.ReactiveUI.Mcp.Server%400.1.0%22%2C%22--yes%22%5D%7D)
-[![VS Code Insiders - Install ReactiveUI MCP](https://img.shields.io/badge/VS_Code_Insiders-Install_ReactiveUI_MCP-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=reactiveui-mcp-server&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22dnx%22%2C%22args%22%3A%5B%22CP.ReactiveUI.Mcp.Server%400.1.0%22%2C%22--yes%22%5D%7D&quality=insiders)
-[![Visual Studio - Install ReactiveUI MCP](https://img.shields.io/badge/Visual_Studio-Install_ReactiveUI_MCP-5C2D91?style=flat-square&logo=visualstudio&logoColor=white)](https://vs-open.link/mcp-install?%7B%22name%22%3A%22CP.ReactiveUI.Mcp.Server%22%2C%22type%22%3A%22stdio%22%2C%22command%22%3A%22dnx%22%2C%22args%22%3A%5B%22CP.ReactiveUI.Mcp.Server%400.1.0%22%2C%22--yes%22%5D%7D)
+[![VS Code - Install ReactiveUI MCP](https://img.shields.io/badge/VS_Code-Install_ReactiveUI_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=reactiveui-mcp-server&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22dnx%22%2C%22args%22%3A%5B%22CP.ReactiveUI.Mcp.Server%400.*%22%2C%22--yes%22%5D%7D)
+[![VS Code Insiders - Install ReactiveUI MCP](https://img.shields.io/badge/VS_Code_Insiders-Install_ReactiveUI_MCP-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=reactiveui-mcp-server&config=%7B%22type%22%3A%22stdio%22%2C%22command%22%3A%22dnx%22%2C%22args%22%3A%5B%22CP.ReactiveUI.Mcp.Server%400.*%22%2C%22--yes%22%5D%7D&quality=insiders)
+[![Visual Studio - Install ReactiveUI MCP](https://img.shields.io/badge/Visual_Studio-Install_ReactiveUI_MCP-5C2D91?style=flat-square&logo=visualstudio&logoColor=white)](https://vs-open.link/mcp-install?%7B%22name%22%3A%22CP.ReactiveUI.Mcp.Server%22%2C%22type%22%3A%22stdio%22%2C%22command%22%3A%22dnx%22%2C%22args%22%3A%5B%22CP.ReactiveUI.Mcp.Server%400.*%22%2C%22--yes%22%5D%7D)
 
 Note:
 - These install links are prepared for the intended NuGet package identity `CP.ReactiveUI.Mcp.Server`.
