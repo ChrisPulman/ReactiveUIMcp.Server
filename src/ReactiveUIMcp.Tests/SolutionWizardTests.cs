@@ -58,6 +58,161 @@ public class SolutionWizardTests
     }
 
     /// <summary>
+    /// Verifies that wizard step 3 asks for additional ReactiveUI features.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Step3_Asks_For_Additional_Features()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "3",
+            "Contoso.AppSuite",
+            ["WPF"],
+            "Splat",
+            [],
+            null,
+            [],
+            null,
+            null,
+            null));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("3");
+        await Assert.That(result.Questions.Any(question => question.Id == "additionalFeatures")).IsTrue();
+        await Assert.That(result.Questions.Single(question => question.Id == "additionalFeatures").Options).Contains("ReactiveUI.SourceGenerators");
+    }
+
+    /// <summary>
+    /// Verifies that wizard step 4 asks for the settings store option.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Step4_Asks_For_Settings_Store()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "4",
+            "Contoso.AppSuite",
+            ["WPF"],
+            "Splat",
+            [],
+            null,
+            [],
+            null,
+            null,
+            null));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("4");
+        await Assert.That(result.Questions.Any(question => question.Id == "settingsStore")).IsTrue();
+        await Assert.That(result.Questions.Single(question => question.Id == "settingsStore").Options).Contains("Akavache SQLite");
+    }
+
+    /// <summary>
+    /// Verifies that wizard step 5 asks for application features, primary colors, and validation mode.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Step5_Asks_For_Application_Features_Colors_And_Validation()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "5",
+            "Contoso.AppSuite",
+            ["WPF"],
+            "Splat",
+            [],
+            "Akavache SQLite",
+            [],
+            null,
+            null,
+            null));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("5");
+        await Assert.That(result.Questions.Any(question => question.Id == "applicationFeatures")).IsTrue();
+        await Assert.That(result.Questions.Any(question => question.Id == "primaryColors")).IsTrue();
+        await Assert.That(result.Questions.Any(question => question.Id == "validationMode")).IsTrue();
+        await Assert.That(result.Questions.Single(question => question.Id == "validationMode").Options).Contains("ReactiveUI.Validation");
+    }
+
+    /// <summary>
+    /// Verifies that wizard step 6 asks for the views-by-endpoint mapping.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Step6_Asks_For_ViewsByEndpoint()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "6",
+            "Contoso.AppSuite",
+            ["WPF"],
+            "Splat",
+            [],
+            "None",
+            ["Authentication"],
+            null,
+            "ReactiveUI.Validation",
+            null));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("6");
+        await Assert.That(result.Questions.Any(question => question.Id == "viewsByEndpoint")).IsTrue();
+    }
+
+    /// <summary>
+    /// Verifies that wizard step 7 returns a blueprint-review confirmation question.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Step7_Returns_Blueprint_Review_Question()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "7",
+            "Contoso.AppSuite",
+            ["WPF"],
+            "Splat",
+            [],
+            "None",
+            [],
+            null,
+            null,
+            "WPF:Login,Dashboard"));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("7");
+        await Assert.That(result.Questions.Any(question => question.Id == "blueprintReview")).IsTrue();
+    }
+
+    /// <summary>
+    /// Verifies that wizard step 8 asks for any legacy migration notes.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Step8_Asks_For_Migration_Notes()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "8",
+            "Contoso.AppSuite",
+            ["WPF"],
+            "Splat",
+            [],
+            "None",
+            [],
+            null,
+            null,
+            "WPF:Login,Dashboard"));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("8");
+        await Assert.That(result.Questions.Any(question => question.Id == "migrationNotes")).IsTrue();
+    }
+
+    /// <summary>
     /// Verifies that the completed wizard returns a multi-endpoint blueprint with view scaffolds and test guidance.
     /// </summary>
     [Test]
@@ -88,5 +243,56 @@ public class SolutionWizardTests
         await Assert.That(result.Projects.Any(project => project.Notes.Any(note => note.Contains("Splat.Microsoft.Extensions.DependencyInjection", StringComparison.Ordinal)))).IsTrue();
         await Assert.That(result.ViewScaffolds!.Any(view => view.ViewName == "Login")).IsTrue();
         await Assert.That(result.Blueprint!.SuggestedPackages).Contains("ReactiveUI.Testing");
+    }
+
+    /// <summary>
+    /// Verifies that the completed wizard response records all wizard selections in the Selections dictionary.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Complete_Captures_All_Selections_In_Response()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            "9",
+            "Acme.Suite",
+            ["Blazor"],
+            "Splat",
+            [],
+            "JSON File",
+            [],
+            null,
+            null,
+            null));
+
+        await Assert.That(result.CurrentSelections["solutionName"]).IsEqualTo("Acme.Suite");
+        await Assert.That(result.CurrentSelections["diProvider"]).IsEqualTo("Splat");
+        await Assert.That(result.CurrentSelections["settingsStore"]).IsEqualTo("JSON File");
+    }
+
+    /// <summary>
+    /// Verifies that a null/missing step value defaults to step 1.
+    /// </summary>
+    [Test]
+    public async Task Wizard_Null_Step_Defaults_To_Step1()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+
+        var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
+            null,
+            null,
+            [],
+            null,
+            [],
+            null,
+            [],
+            null,
+            null,
+            null));
+
+        await Assert.That(result.CurrentStep).IsEqualTo("1");
+        await Assert.That(result.IsComplete).IsFalse();
     }
 }
