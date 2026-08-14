@@ -8,6 +8,22 @@ namespace ReactiveUIMcp.Tests;
 /// </summary>
 public class CatalogResourcesTests
 {
+    /// <summary>
+    /// Verifies that the dedicated source-repository resource returns the exact current set.
+    /// </summary>
+    [Test]
+    public async Task GetSourceRepositories_Returns_Exact_Current_Repository_Inventories()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        using var document = JsonDocument.Parse(CatalogResources.GetSourceRepositories(catalog));
+        var root = document.RootElement;
+
+        await Assert.That(root.GetProperty("count").GetInt32()).IsEqualTo(15);
+        await Assert.That(root.GetProperty("repositories").EnumerateArray().Any(static item => item.GetProperty("id").GetString() == "splat")).IsTrue();
+        await Assert.That(root.GetProperty("repositories").EnumerateArray().All(static item => item.GetProperty("inventory").ValueKind == JsonValueKind.Object)).IsTrue();
+    }
+
     // ── GetCatalog ────────────────────────────────────────────────────────────
 
     /// <summary>
@@ -154,7 +170,10 @@ public class CatalogResourcesTests
             .ToList();
 
         await Assert.That(ids).Contains("reactiveui-core");
+        await Assert.That(ids).Contains("reactiveui-primitives");
         await Assert.That(ids).Contains("reactiveui-sourcegenerators");
+        await Assert.That(ids).Contains("splat");
+        await Assert.That(ids).Contains("splat-di-sourcegenerator");
         await Assert.That(ids).Contains("reactiveui-testing");
         await Assert.That(ids).Contains("dynamicdata");
     }

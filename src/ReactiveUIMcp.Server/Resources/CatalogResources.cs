@@ -2,6 +2,7 @@
 using ModelContextProtocol.Server;
 using ReactiveUIMcp.Core.Abstractions;
 using ReactiveUIMcp.Server.Serialization;
+using ReactiveUIMcp.Server.Tools;
 using System.ComponentModel;
 
 namespace ReactiveUIMcp.Server.Resources;
@@ -55,6 +56,16 @@ public sealed class CatalogResources
     }
 
     /// <summary>
+    /// Gets the exact current ReactiveUI source-repository inventory and selection policies.
+    /// </summary>
+    /// <param name="catalog">The knowledge catalog service.</param>
+    /// <returns>The serialized source-repository inventory.</returns>
+    [McpServerResource(UriTemplate = "reactiveui://source-repositories", Name = "ReactiveUI Source Repositories", MimeType = "application/json")]
+    [Description("The current ReactiveUI source repositories with complete application/library capability inventories and generator/Primitives selection policies.")]
+    public static string GetSourceRepositories(IKnowledgeCatalog catalog) =>
+        CatalogTools.ListRepositoryInventories(catalog);
+
+    /// <summary>
     /// Gets a focused resource describing project-generation guidance.
     /// </summary>
     /// <param name="catalog">The knowledge catalog service.</param>
@@ -68,9 +79,11 @@ public sealed class CatalogResources
         var ids = new[]
         {
             "reactiveui-core",
+            "reactiveui-primitives",
             "reactiveui-sourcegenerators",
             "reactiveui-binding-sourcegenerators",
-            "extensions",
+            "splat",
+            "splat-di-sourcegenerator",
             "dynamicdata",
             "reactiveui-testing"
         };

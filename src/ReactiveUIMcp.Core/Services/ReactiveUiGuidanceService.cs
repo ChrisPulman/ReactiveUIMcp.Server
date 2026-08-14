@@ -13,8 +13,8 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
     private static readonly string[] s_supportedEndpoints = ["WPF", "WinForms", "Blazor", "MAUI", "WinUI", "Avalonia", "Uno", "AndroidX"];
     private static readonly string[] s_diProviderOptions =
     [
-        "Splat",
         "Splat.DependencyInjection.SourceGenerator",
+        "Splat",
         "Splat.Microsoft.Extensions.DependencyInjection",
         "Splat.Autofac",
         "Splat.DryIoc",
@@ -25,7 +25,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
     [
         "ReactiveUI.SourceGenerators",
         "ReactiveUI.Binding.SourceGenerators",
-        "ReactiveUI.Extensions.Async",
+        "ReactiveUI.Primitives.Async",
         "Refit",
         "Akavache",
         "ReactiveUI.Validation",
@@ -71,6 +71,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         var manifestIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "reactiveui-core",
+            "reactiveui-primitives",
             "reactiveui-sourcegenerators"
         };
 
@@ -113,6 +114,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         var recommendedIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "reactiveui-core",
+            "reactiveui-primitives",
             "reactiveui-sourcegenerators"
         };
 
@@ -193,15 +195,17 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
                 "Prefer WhenAnyValue pipelines and ObservableAsPropertyHelper or [ObservableAsProperty]."));
         }
 
-        if (combined.Contains("iobservableasync", StringComparison.Ordinal) || combined.Contains("reactiveui.extensions.async", StringComparison.Ordinal))
+        if (combined.Contains("iobservableasync", StringComparison.Ordinal) ||
+            combined.Contains("reactiveui.extensions.async", StringComparison.Ordinal) ||
+            combined.Contains("reactiveui.primitives.async", StringComparison.Ordinal))
         {
             findings.Add(new ReviewFinding(
                 "info",
                 "RXUI008",
-                "The plan references ReactiveUI.Extensions.Async patterns.",
-                "When async observable semantics are the right fit, use IObservableAsync-based code intentionally rather than improvised Task wrappers."));
+                "The plan references async observable patterns.",
+                "Use ReactiveUI.Primitives.Async for IObservableAsync-based code; the former ReactiveUI.Extensions helpers are now included in the Primitives packages."));
 
-            recommendedIds.Add("extensions");
+            recommendedIds.Add("reactiveui-primitives");
         }
 
         if (combined.Contains("test", StringComparison.Ordinal) || combined.Contains("reactiveui.testing", StringComparison.Ordinal))
@@ -290,7 +294,9 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         builder.AppendLine("- Derived state uses observable pipelines or OAPH/source-generator equivalents.");
         builder.AppendLine("- Scheduler boundaries are explicit for UI updates.");
         builder.AppendLine("- ReactiveUI.SourceGenerators is the default choice unless an existing codebase requires an explicit migration path.");
-        builder.AppendLine("- ReactiveUI.Extensions.Async is used intentionally when async observable semantics are required.");
+        builder.AppendLine("- ReactiveUI.Binding's included source generator is the default for supported static binding paths.");
+        builder.AppendLine("- ReactiveUI.Primitives is the default reactive foundation; .Reactive is used only for full System.Reactive compatibility.");
+        builder.AppendLine("- ReactiveUI.Primitives.Async is used intentionally when async observable semantics are required.");
         builder.AppendLine("- Test projects use ReactiveUI.Testing where reactive behavior and schedulers must be validated.");
         return builder.ToString().TrimEnd();
     }
@@ -312,9 +318,11 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         var codeRules = new List<string>
         {
             "Prefer ReactiveUI.SourceGenerators over ReactiveUI.Fody for new work.",
+            "Prefer ReactiveUI.Binding's included source generator for supported static observation and binding paths.",
             "Use WhenActivated and DisposeWith in views where lifecycle scoping matters.",
             "Use DynamicData for live sorted/filtered collections instead of ReactiveList.",
-            "Use ReactiveUI.Extensions.Async IObservableAsync-based code when async streaming semantics are a good fit.",
+            "Use ReactiveUI.Primitives as the default reactive foundation and .Reactive only for full System.Reactive compatibility.",
+            "Use ReactiveUI.Primitives.Async IObservableAsync-based code when async streaming semantics are a good fit.",
             "Prefer System.Text.Json and typed API abstractions when Refit or Akavache serialization is involved."
         };
 
@@ -352,9 +360,70 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
 
         var current = string.Join(' ', request.CurrentPackages).ToLowerInvariant();
         var goals = string.Join(' ', request.UpgradeGoals).ToLowerInvariant();
+        var constraints = string.Join(' ', request.Constraints).ToLowerInvariant();
         var projectType = request.ProjectType?.ToLowerInvariant() ?? string.Empty;
+        var migrationSignals = string.Join(' ', current, goals, constraints);
+        var compatibilitySignals = string.Join(' ', goals, constraints);
+        var usesSystemReactive = ContainsAny(
+            migrationSignals,
+            "system.reactive",
+            "reactiveui.reactive",
+            "system.reactive.linq",
+            "system.reactive.subjects",
+            "system.reactive.disposables",
+            "system.reactive.concurrency",
+            "migrate to primitives",
+            "remove rx");
+        var requiresSystemReactiveCompatibility = ContainsAny(
+            compatibilitySignals,
+            "full system.reactive compatibility",
+            "preserve system.reactive",
+            "keep system.reactive",
+            "system.reactive public api",
+            "system.reactive compatibility",
+            "rx compatibility",
+            "public unit",
+            "system.reactive unit",
+            "ischeduler",
+            "minimal rx source change",
+            "drop-in rx");
 
         packageActions.Add("Align ReactiveUI core and platform package versions first.");
+
+        if (usesSystemReactive)
+        {
+            if (requiresSystemReactiveCompatibility)
+            {
+                packageActions.Add("Use ReactiveUI.Primitives.Reactive to retain full System.Reactive Unit, IScheduler, Subject, namespace, and public-API compatibility on the Primitives engine.");
+                AddPrimitivesPlatformPackage(packageActions, request.Platform, reactiveCompatibility: true);
+                codeActions.Add("Keep System.Reactive-facing types in an explicit .Reactive compatibility project or boundary; do not mix lean and .Reactive types inside one pipeline.");
+                codeActions.Add("Preserve familiar Rx operator names while moving execution to the Primitives-backed .Reactive packages.");
+                risks.Add("ReactiveUI.Primitives.Reactive intentionally depends on System.Reactive; it is a compatibility distribution, not a generated bridge.");
+            }
+            else
+            {
+                packageActions.Add("Replace System.Reactive with ReactiveUI.Primitives; do not add System.Reactive for core Primitives usage.");
+                AddPrimitivesPlatformPackage(packageActions, request.Platform, reactiveCompatibility: false);
+                codeActions.Add("Replace Unit with RxVoid and IScheduler with ISequencer.");
+                codeActions.Add("Replace Subject<T>, BehaviorSubject<T>, ReplaySubject<T>, and AsyncSubject<T> with Signal<T>, BehaviorSignal<T>/StateSignal<T>, ReplaySignal<T>, and FinalSignal<T>.");
+                codeActions.Add("Replace CompositeDisposable and SerialDisposable with MultipleDisposable/Pocket and SingleReplaceableDisposable/Slot.");
+                codeActions.Add("Map Observable factories to Signal factories: Return/Empty/Never/Throw/Range/Defer/Timer/Interval/Create to Emit/None/Silent/Fail/Sequence/Lazy/After/Every/Create.");
+                codeActions.Add("Keep Rx-name operator aliases initially, then prefer Map, Keep, Fold, Blend, Chain, FlatMap, SyncLatest, Latch, Shift, and Expire in new code.");
+                codeActions.Add("Replace schedulers with ISequencer implementations and VirtualClock for deterministic tests.");
+                packageActions.Add("Remove System.Reactive package references only after imports and public APIs no longer expose its types.");
+                risks.Add("The lean migration changes public Unit, IScheduler, Subject, and disposable types; migrate package boundaries before removing System.Reactive.");
+            }
+
+            if (ContainsAny(migrationSignals, "async", "iobservableasync", "async observable"))
+            {
+                packageActions.Add(requiresSystemReactiveCompatibility
+                    ? "Add ReactiveUI.Primitives.Async.Reactive for async-native observables that must retain System.Reactive scheduler/unit conventions."
+                    : "Add ReactiveUI.Primitives.Async only when IObservableAsync/IObserverAsync contracts are required.");
+            }
+
+            codeActions.Add("Use extension-helper APIs from ReactiveUI.Primitives or ReactiveUI.Primitives.Reactive; the former ReactiveUI.Primitives.Extensions packages were folded into those base packages.");
+            validationSteps.Add("Build and test each lean and .Reactive compatibility project separately; verify no pipeline accidentally mixes RxVoid/ISequencer with Unit/IScheduler.");
+        }
 
         if (current.Contains("reactiveui.fody", StringComparison.Ordinal) || goals.Contains("fody", StringComparison.Ordinal))
         {
@@ -370,7 +439,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
 
         if (current.Contains("extensions", StringComparison.Ordinal) || goals.Contains("async", StringComparison.Ordinal) || goals.Contains("stream", StringComparison.Ordinal))
         {
-            codeActions.Add("Use ReactiveUI.Extensions.Async namespaces when migrating or introducing IObservableAsync-based code paths.");
+            codeActions.Add("Use ReactiveUI.Primitives.Async when migrating or introducing IObservableAsync-based code paths; extension helpers ship from the Primitives base packages.");
         }
 
         if (projectType.Contains("test", StringComparison.Ordinal) || current.Contains("reactiveui.testing", StringComparison.Ordinal) || goals.Contains("test", StringComparison.Ordinal))
@@ -441,7 +510,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
                         false,
                         s_diProviderOptions,
                         null,
-                        "Splat is a direct dependency. Choose the concrete Splat integration package that best matches the solution architecture.")
+                        "Prefer Splat.DependencyInjection.SourceGenerator for compile-time-known registrations. Choose a manual/container integration only for dynamic graphs, plugins, open generics, or required container-specific behavior.")
                 ],
                 selections),
             "3" => new ReactiveUiSolutionWizardResponse(
@@ -457,7 +526,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
                         true,
                         s_additionalFeatureOptions,
                         null,
-                        "Splat and DynamicData are treated as direct dependencies and are not offered again here. ReactiveUI.SourceGenerators remains the primary recommendation for new code. ReactiveUI.Extensions.Async is available for IObservableAsync-based flows.")
+                        "Splat, DynamicData, and ReactiveUI.Primitives are treated as direct dependencies and are not offered again here. ReactiveUI.SourceGenerators remains the primary recommendation for supported boilerplate, and ReactiveUI.Primitives.Async is available for IObservableAsync-based flows.")
                 ],
                 selections),
             "4" => new ReactiveUiSolutionWizardResponse(
@@ -811,8 +880,12 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         if (ContainsAny(signalText, "cache", "offline", "persist", "sqlite", "sync", "settings store", "settings")) manifestIds.Add("akavache");
         if (ContainsAny(signalText, "aot", "trim", "trimming", "binding", "bind")) manifestIds.Add("reactiveui-binding-sourcegenerators");
         if (ContainsAny(signalText, "dynamicdata", "collections", "sourcecache", "sourcelist", "live updates")) manifestIds.Add("dynamicdata");
-        if (ContainsAny(signalText, "retry", "backoff", "heartbeat", "conflate", "extensions", "iobservableasync", "reactiveui.extensions.async")) manifestIds.Add("extensions");
+        if (ContainsAny(signalText, "primitives", "system.reactive", "rx compatibility", "isequencer", "rxvoid", "signal")) manifestIds.Add("reactiveui-primitives");
+        if (ContainsAny(signalText, "retry", "backoff", "heartbeat", "conflate", "extensions", "iobservableasync", "reactiveui.extensions.async", "reactiveui.primitives.async")) manifestIds.Add("reactiveui-primitives");
         if (ContainsAny(signalText, "splat", "di", "ioc", "composition root", "autofac", "dryioc", "ninject", "simpleinjector", "microsoft.extensions.dependencyinjection")) manifestIds.Add("splat");
+        if (ContainsAny(signalText, "splat source generator", "generated di", "setupioc", "dependencyinjectionconstructor")) manifestIds.Add("splat-di-sourcegenerator");
+        if (ContainsAny(signalText, "navigation", "iviewstackservice", "sextant", "modal stack")) manifestIds.Add("sextant");
+        if (ContainsAny(signalText, "mopup", "popup navigation", "reactive popup")) manifestIds.Add("maui-plugins-popup");
         if (ContainsAny(signalText, "priority", "prioritization", "dedup", "network queue", "speculative"))
         {
             manifestIds.Add("fusillade");
@@ -832,4 +905,29 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
 
     private static bool ContainsAny(string source, params string[] values) =>
         values.Any(value => source.Contains(value, StringComparison.OrdinalIgnoreCase));
+
+    private static void AddPrimitivesPlatformPackage(ICollection<string> packageActions, string? platform, bool reactiveCompatibility)
+    {
+        if (string.IsNullOrWhiteSpace(platform))
+        {
+            return;
+        }
+
+        var suffix = reactiveCompatibility ? ".Reactive" : string.Empty;
+        var platformPackage = platform.ToLowerInvariant() switch
+        {
+            var value when value.Contains("wpf", StringComparison.Ordinal) => $"ReactiveUI.Primitives.Wpf{suffix}",
+            var value when value.Contains("winforms", StringComparison.Ordinal) => $"ReactiveUI.Primitives.WinForms{suffix}",
+            var value when value.Contains("winui", StringComparison.Ordinal) => $"ReactiveUI.Primitives.WinUI{suffix}",
+            var value when value.Contains("blazor", StringComparison.Ordinal) => $"ReactiveUI.Primitives.Blazor{suffix}",
+            var value when value.Contains("avalonia", StringComparison.Ordinal) => $"ReactiveUI.Primitives.Avalonia{suffix}",
+            var value when value.Contains("maui", StringComparison.Ordinal) => $"ReactiveUI.Primitives.Maui{suffix}",
+            _ => null,
+        };
+
+        if (platformPackage is not null)
+        {
+            packageActions.Add($"Add {platformPackage} for the matching UI-thread sequencing integration.");
+        }
+    }
 }

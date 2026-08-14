@@ -8,7 +8,8 @@
     "All"
   ],
   "nugetPackages": [
-    "ReactiveUI.Validation"
+    "ReactiveUI.Validation",
+    "ReactiveUI.Validation.AndroidX"
   ],
   "recommendedPatterns": [
     "Use ValidationRule and BindValidation instead of ad hoc imperative validation glue.",
@@ -37,6 +38,16 @@
     "bindvalidation",
     "errors"
   ],
+  "inventory": {
+    "applicationTypes": ["ReactiveUI applications", "form-heavy desktop/mobile applications", "XAML applications", "AndroidX applications", "validation libraries"],
+    "features": ["Reactive validation context", "Property and model-level validation rules", "Observable/custom validation states", "Validation message formatting", "ReactiveUI view binding", "INotifyDataErrorInfo/XAML integration", "Android Material TextInputLayout integration"],
+    "functions": ["IValidatableViewModel", "ValidationContext", "ValidationRule overloads", "IValidationState and ValidationState.Valid", "BindValidation", "ReactiveValidationObject", "IValidationTextFormatter and formatters", "ValidationHelper"],
+    "options": ["Single-property or cross-property rule", "Predicate/message or IObservable<IValidationState>", "Property-associated or model-wide message", "ReactiveUI BindValidation or XAML INotifyDataErrorInfo", "Default or custom text formatter", "AndroidX TextInputLayout error output"],
+    "packageSelection": ["Use ReactiveUI.Validation for cross-platform validation.", "Add ReactiveUI.Validation.AndroidX only for Android Material TextInputLayout extensions."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators for validated reactive properties and commands before writing manual RaiseAndSetIfChanged boilerplate.", "Validation rules remain runtime pipelines because validity changes dynamically."],
+    "compatibilityNotes": ["INotifyDataErrorInfo is intended for XAML binding; ReactiveUI bindings use BindValidation.", "Observable rules must identify target properties when property-level error association is required."],
+    "migrationGuidance": ["Move ad-hoc setter validation to ValidationRule pipelines after properties are generated.", "Replace System.Reactive operators with ReactiveUI.Primitives equivalents in lean validation code, keeping .Reactive only at required compatibility boundaries."]
+  },
   "sources": [
     {
       "title": "ReactiveUI.Validation repository",
@@ -45,8 +56,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

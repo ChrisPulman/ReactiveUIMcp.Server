@@ -8,7 +8,11 @@
     "All"
   ],
   "nugetPackages": [
-    "Refit"
+    "Refit",
+    "Refit.HttpClientFactory",
+    "Refit.Newtonsoft.Json",
+    "Refit.Testing",
+    "Refit.Reflection"
   ],
   "recommendedPatterns": [
     "Define typed HTTP interfaces rather than ad hoc request strings.",
@@ -40,6 +44,16 @@
     "api",
     "system.text.json"
   ],
+  "inventory": {
+    "applicationTypes": ["web/mobile/desktop applications", "typed API client libraries", "ASP.NET Core services", "NativeAOT/trimmed applications", "API contract test projects"],
+    "features": ["Generated strongly typed REST clients", "HttpClientFactory integration", "Route/query/body/header/multipart modeling", "JSON/content serializer selection", "Streaming and ApiResponse metadata", "Authentication and delegating handlers", "Testing helpers and opt-in reflection fallback"],
+    "functions": ["RestService.For<T>", "AddRefitClient<T>", "RefitSettings", "Get/Post/Put/Delete/Patch/Head/Options attributes", "Query/Body/Header/HeaderCollection/AliasAs/Multipart", "ApiResponse<T> and IApiResponse", "IHttpContentSerializer", "IUrlParameterFormatter", "IFormUrlEncodedParameterFormatter"],
+    "options": ["System.Text.Json or Newtonsoft.Json serializer", "HttpClientFactory or direct client", "Static/dynamic headers and authorization", "Query collection/dictionary/delimiter/format behavior", "Buffered or streamed body/content", "CancellationToken and timeout", "Generated or opt-in reflection factory"],
+    "packageSelection": ["Use Refit; its source generator is the default client implementation.", "Add Refit.HttpClientFactory for dependency-injected resilient HttpClient pipelines.", "Add Refit.Newtonsoft.Json only when Newtonsoft-specific serialization is required.", "Use Refit.Reflection only as an explicit fallback where generated factories cannot be registered, especially legacy .NET Framework cases.", "Use Refit.Testing only in tests."],
+    "sourceGeneratorGuidance": ["Generated Refit clients are the primary choice for all statically declared service interfaces.", "Do not choose reflection when the interface can be generated; reflection is an opt-in compatibility escape hatch."],
+    "compatibilityNotes": ["Generated clients are trimming/NativeAOT friendly when serializer models are also configured appropriately.", "Response ownership/disposal differs between T, ApiResponse<T>, HttpResponseMessage, and Stream return types."],
+    "migrationGuidance": ["Move hand-written REST wrappers to annotated interfaces incrementally and preserve headers, serialization, cancellation, and error semantics in contract tests.", "Replace reflection factory use with generated factories where supported; keep Refit.Reflection only at verified legacy boundaries."]
+  },
   "sources": [
     {
       "title": "Refit repository",
@@ -48,8 +62,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

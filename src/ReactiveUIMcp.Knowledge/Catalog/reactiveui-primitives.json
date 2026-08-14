@@ -1,0 +1,79 @@
+{
+  "id": "reactiveui-primitives",
+  "displayName": "ReactiveUI.Primitives",
+  "repositoryUrl": "https://github.com/reactiveui/Primitives",
+  "category": "reactive-foundation",
+  "summary": "The preferred lean, low-allocation IObservable foundation for ReactiveUI 24+, with explicit System.Reactive-compatible package variants.",
+  "supportedTargets": ["applications", "libraries", "WPF", "WinForms", "WinUI", "Blazor", "Avalonia", "MAUI", "Android", "Apple", ".NET Framework"],
+  "nugetPackages": ["ReactiveUI.Primitives"],
+  "recommendedPatterns": [
+    "Choose ReactiveUI.Primitives for new application and library pipelines.",
+    "Choose ReactiveUI.Primitives.Reactive only when full System.Reactive Unit, IScheduler, Subject, namespace, or public API compatibility is required.",
+    "Keep a pipeline in one reactive model and convert only at explicit package or application boundaries."
+  ],
+  "avoidPatterns": [
+    "Do not add System.Reactive to a lean Primitives project solely for operators, scheduling, Unit, subjects, or disposables.",
+    "Do not reference removed ReactiveUI.Primitives.Extensions packages; those namespaces now ship from the base packages.",
+    "Do not mix ReactiveUI.Primitives and System.Reactive LINQ imports in the same file when shared operator names would be ambiguous."
+  ],
+  "setupSteps": [
+    "Add ReactiveUI.Primitives for the default synchronous IObservable surface.",
+    "Add ReactiveUI.Primitives.Async only for IObservableAsync pipelines and a matching UI package only for the target framework.",
+    "Add ReactiveUI.Primitives.R3Bridge.Generator only when a consuming project needs generated R3 or R3Async boundary adapters."
+  ],
+  "commonPitfalls": [
+    "The lean surface uses RxVoid and ISequencer instead of System.Reactive Unit and IScheduler.",
+    "The .Reactive packages intentionally retain a System.Reactive dependency and are not source-generator bridges.",
+    "R3 bridge generation requires the external R3 or R3Async symbols to be referenced by the consuming compilation."
+  ],
+  "relatedLibraries": ["ReactiveUI", "ReactiveUI.SourceGenerators", "ReactiveUI.Binding.SourceGenerators"],
+  "keywords": ["primitives", "signal", "isequencer", "rxvoid", "iobservableasync", "system.reactive migration", "aot", "r3 bridge"],
+  "inventory": {
+    "applicationTypes": ["new applications", "high-throughput services", "reusable libraries", "UI applications", "System.Reactive compatibility libraries", "async-stream libraries"],
+    "features": [
+      "BCL IObservable/IObserver pipelines without a System.Reactive runtime dependency",
+      "Low-allocation signals, sinks, state, commands, scheduling, virtual time, and disposables",
+      "Async-native IObservableAsync/IObserverAsync pipelines",
+      "WPF, WinForms, WinUI, Blazor, Avalonia, MAUI, Android, and Apple sequencing adapters",
+      "System.Reactive-compatible recompilations and optional generated R3/R3Async bridges"
+    ],
+    "functions": [
+      "Signal.Create/CreateSafe/Lazy/Emit/None/Silent/Fail/Sequence/Loop/Unfold/Use/FromEventPattern/FromEnumerable/FromAsyncEnumerable/FromTask/FromAsync/After/Every/Pulse",
+      "Map/Select, Keep/Where, Fold/Scan, Reduce/Aggregate, Blend/Merge, Chain/Concat, Race/Amb, SwitchTo/Switch, Pair/Zip, SyncLatest/CombineLatest, Latch/WithLatestFrom, FlatMap/SelectMany",
+      "StateSignal, BehaviorSignal, ReplaySignal, FinalSignal, ConnectableSignal, ScheduledSignal, DelayableSignal, CommandSignal, TaskSignal",
+      "ImmediateSequencer, CurrentThreadSequencer, ThreadPoolSequencer, TaskPoolSequencer, SynchronizationContextSequencer, VirtualClock",
+      "Disposable.Create, MultipleDisposable/CompositeDisposable, Pocket, Slot, AssignmentSlot, CancellationDisposable, DisposeWith"
+    ],
+    "options": [
+      "Lean RxVoid/ISequencer or .Reactive Unit/IScheduler package family",
+      "Synchronous or async-native observable contracts",
+      "Matching lean or .Reactive UI sequencer package",
+      "Primitives-named or Rx/LINQ-compatible operator names",
+      "Optional standalone R3 bridge analyzer with no runtime R3 dependency"
+    ],
+    "packageSelection": [
+      "Default: ReactiveUI.Primitives; disposables-only: ReactiveUI.Disposables; low-level composition: ReactiveUI.Primitives.Core",
+      "Async: ReactiveUI.Primitives.Async or ReactiveUI.Primitives.Async.Core",
+      "Full System.Reactive compatibility: ReactiveUI.Primitives.Reactive and, when needed, ReactiveUI.Primitives.Async.Reactive",
+      "UI: ReactiveUI.Primitives.Wpf, WinForms, WinUI, Blazor, Avalonia, or Maui; append .Reactive only for full Rx compatibility",
+      "R3/R3Async boundary generation: ReactiveUI.Primitives.R3Bridge.Generator"
+    ],
+    "sourceGeneratorGuidance": [
+      "Source generators are not needed for core IObservable operators.",
+      "Prefer the R3Bridge generator over handwritten R3/R3Async adapters when the supported external symbols are present."
+    ],
+    "compatibilityNotes": [
+      "ReactiveUI.Primitives.Reactive recompiles the same engine against System.Reactive Unit and IScheduler.",
+      "Extension-helper namespaces remain available from ReactiveUI.Primitives and ReactiveUI.Primitives.Reactive after the old Extensions packages were folded in.",
+      "Mixed System.Reactive.Linq and ReactiveUI.Primitives imports can make shared names ambiguous; use Map/Keep or complete the file migration."
+    ],
+    "migrationGuidance": [
+      "Map Unit to RxVoid, IScheduler to ISequencer, Subject<T> to Signal<T>, BehaviorSubject<T> to BehaviorSignal<T>/StateSignal<T>, and ReplaySubject<T> to ReplaySignal<T>.",
+      "Map Observable factories to Signal factories and CompositeDisposable/SerialDisposable to MultipleDisposable/Slot equivalents.",
+      "Preserve Rx operator aliases initially, then adopt Primitives names incrementally; remove System.Reactive only after public API and imports are clean.",
+      "If binary/source compatibility must be preserved, move that surface to a .Reactive boundary rather than mixing lean types internally."
+    ]
+  },
+  "sources": [{"title": "ReactiveUI.Primitives README", "url": "https://github.com/reactiveui/Primitives/blob/main/README.md", "notes": "Current package topology, APIs, compatibility variants, and migration guide."}],
+  "harvest": {"harvestedAtUtc": "2026-08-09T23:20:00Z", "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.", "notes": "Current source-repository inventory."}
+}

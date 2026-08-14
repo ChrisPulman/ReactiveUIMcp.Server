@@ -43,6 +43,16 @@
     "bind",
     "whenanyvalue"
   ],
+  "inventory": {
+    "applicationTypes": ["WPF applications", "WinForms applications", ".NET MAUI applications", "cross-platform view libraries", "NativeAOT/trimmed applications"],
+    "features": ["Incremental compile-time property observation", "Compile-time one-way/two-way binding and command binding", "Zero-reflection AOT/trimming-safe access", "Generated per-type observation factories and per-call-site dispatch", "AOT-safe view location", "Platform notification integration"],
+    "functions": ["WhenChanged", "WhenChanging", "WhenAnyValue", "WhenAny", "WhenAnyObservable", "BindOneWay", "BindTwoWay", "OneWayBind", "Bind", "BindCommand", "generated view-location registration"],
+    "options": ["Before-change or after-change observation", "Initial value emission", "One-way or two-way binding", "Value conversion and null fallback", "Lean built-in observable or .Reactive scheduler adapter", "WPF, WinForms, or MAUI platform package"],
+    "packageSelection": ["Default: ReactiveUI.Binding; the generator/analyzers are included automatically.", "Add ReactiveUI.Binding.Reactive only for IScheduler/System.Reactive overload compatibility.", "Add ReactiveUI.Binding.Wpf, ReactiveUI.Binding.WinForms, or ReactiveUI.Binding.Maui for platform notification support.", "ReactiveUI.Binding.SourceGenerators is a compatibility package; new projects install the runtime package."],
+    "sourceGeneratorGuidance": ["Primary choice for static simple property observation/binding paths.", "Use runtime/manual binding only for unsupported indexers, fields, method calls, or genuinely dynamic member paths."],
+    "compatibilityNotes": ["The base package has no System.Reactive dependency; .Reactive provides scheduler/Rx compatibility.", "Supported paths are simple property-access chains; RXUIBIND diagnostics identify unsupported expressions.", "Notification factories cover INotifyPropertyChanged/IReactiveObject and supported platform dependency/KVO/component mechanisms."],
+    "migrationGuidance": ["Install ReactiveUI.Binding and keep binding lambdas inline so the generator can identify the call site.", "Resolve generator diagnostics, then remove redundant runtime expression-tree/reflection binding setup.", "Choose ReactiveUI.Binding.Reactive only where existing public APIs or schedulers require System.Reactive compatibility."]
+  },
   "sources": [
     {
       "title": "ReactiveUI.Binding.SourceGenerators repository",
@@ -51,8 +61,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

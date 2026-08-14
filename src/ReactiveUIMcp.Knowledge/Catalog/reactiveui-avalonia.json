@@ -1,7 +1,7 @@
 {
   "id": "reactiveui-avalonia",
   "displayName": "ReactiveUI Avalonia",
-  "repositoryUrl": "https://github.com/reactiveui/Avalonia",
+  "repositoryUrl": "https://github.com/reactiveui/ReactiveUI.Avalonia",
   "category": "platform",
   "summary": "Avalonia-specific ReactiveUI guidance with its own startup model and assembly view registration conventions.",
   "supportedTargets": [
@@ -10,7 +10,11 @@
     "cross-platform"
   ],
   "nugetPackages": [
-    "ReactiveUI.Avalonia"
+    "ReactiveUI.Avalonia",
+    "ReactiveUI.Avalonia.Autofac",
+    "ReactiveUI.Avalonia.DryIoc",
+    "ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection",
+    "ReactiveUI.Avalonia.Ninject"
   ],
   "recommendedPatterns": [
     "Use Avalonia AppBuilder.UseReactiveUI startup integration.",
@@ -40,16 +44,26 @@
     "avaloniascheduler",
     "cross-platform desktop"
   ],
+  "inventory": {
+    "applicationTypes": ["Avalonia desktop applications", "cross-platform Windows/macOS/Linux applications", "Avalonia control/view libraries"],
+    "features": ["Avalonia scheduler integration", "Reactive view bases and activation", "Dependency-property observation and command binding", "Routed/ViewModel host controls", "View discovery/registration", "Autofac, DryIoc, Microsoft DI, Ninject, or Splat-only startup"],
+    "functions": ["UseReactiveUI", "UseReactiveUI(Action<ReactiveUIBuilder>)", "UseReactiveUIWithAutofac/DryIoc/MicrosoftDependencyResolver/Ninject", "UseReactiveUIWithDIContainer", "RegisterReactiveUIViews", "RegisterReactiveUIViewsFromEntryAssembly", "RegisterReactiveUIViewsFromAssemblyOf<T>", "ReactiveUserControl<T>", "RoutedViewHost", "ViewModelViewHost"],
+    "options": ["Splat-only or selected DI container", "Entry, marker, or explicit assembly view scan", "Lean Avalonia scheduler or host compatibility surface", "Custom registration through ReactiveUIBuilder"],
+    "packageSelection": ["Always add ReactiveUI.Avalonia.", "Add exactly one ReactiveUI.Avalonia.Autofac, DryIoc, Microsoft.Extensions.DependencyInjection, or Ninject integration when that container owns composition.", "Use ReactiveUI.Primitives.Avalonia directly for sequencing in non-ReactiveUI Avalonia libraries."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators for Avalonia view models and IViewFor registration before assembly scanning/manual registration where supported.", "Use ReactiveUI.Binding generated static paths for AOT/trimming-sensitive bindings; retain runtime Avalonia paths only when dynamic."],
+    "compatibilityNotes": ["UseReactiveUI registers the matching ReactiveUI.Primitives.Avalonia scheduler and platform hooks.", "Microsoft DI builds its ServiceProvider during setup, so register all services/views in the callback first."],
+    "migrationGuidance": ["Move manual platform registration to UseReactiveUI/ReactiveUIBuilder, preserving custom registrations through WithRegistration.", "Replace System.Reactive dispatcher code with ReactiveUI.Primitives.Avalonia for lean projects; choose a compatibility boundary only when Unit/IScheduler APIs must remain."]
+  },
   "sources": [
     {
       "title": "ReactiveUI Avalonia repository",
-      "url": "https://github.com/reactiveui/Avalonia",
+      "url": "https://github.com/reactiveui/ReactiveUI.Avalonia",
       "notes": "Avalonia-specific startup and view registration guidance."
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

@@ -8,6 +8,103 @@ namespace ReactiveUIMcp.Tests;
 /// </summary>
 public class CatalogToolsTests
 {
+    /// <summary>
+    /// Verifies that the repository inventory tool exposes the exact repository set and governing policies.
+    /// </summary>
+    [Test]
+    public async Task ListRepositoryInventories_Returns_Exact_Current_Set_And_Policies()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        using var document = JsonDocument.Parse(CatalogTools.ListRepositoryInventories(catalog));
+        var root = document.RootElement;
+
+        await Assert.That(root.GetProperty("count").GetInt32()).IsEqualTo(15);
+        await Assert.That(root.GetProperty("repositories").GetArrayLength()).IsEqualTo(15);
+        await Assert.That(root.GetProperty("repositories").EnumerateArray().Any(static repository => repository.GetProperty("id").GetString() == "splat")).IsTrue();
+        await Assert.That(root.GetProperty("policies").GetProperty("sourceGenerators").GetString()!).Contains("Prefer");
+        await Assert.That(root.GetProperty("policies").GetProperty("reactiveFoundation").GetString()!).Contains("ReactiveUI.Primitives.Reactive only");
+    }
+
+    /// <summary>
+    /// Verifies that a single repository tool response includes the complete nested inventory.
+    /// </summary>
+    [Test]
+    public async Task GetRepositoryInventory_Returns_Features_Functions_And_Options()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        using var document = JsonDocument.Parse(CatalogTools.GetRepositoryInventory(catalog, "reactiveui-primitives"));
+        var inventory = document.RootElement.GetProperty("inventory");
+
+        await Assert.That(inventory.GetProperty("features").GetArrayLength()).IsGreaterThan(0);
+        await Assert.That(inventory.GetProperty("functions").GetArrayLength()).IsGreaterThan(0);
+        await Assert.That(inventory.GetProperty("options").GetArrayLength()).IsGreaterThan(0);
+        await Assert.That(inventory.GetProperty("migrationGuidance").EnumerateArray().Any(static item => item.GetString()!.Contains("Unit", StringComparison.Ordinal))).IsTrue();
+    }
+
+    /// <summary>
+    /// Verifies that Splat exposes its complete package and resolver inventory.
+    /// </summary>
+    [Test]
+    public async Task GetRepositoryInventory_Splat_Returns_Packages_Resolvers_And_Generator_Guidance()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        using var document = JsonDocument.Parse(CatalogTools.GetRepositoryInventory(catalog, "splat"));
+        var root = document.RootElement;
+        var inventory = root.GetProperty("inventory");
+        var packages = root.GetProperty("nuGetPackages")
+            .EnumerateArray()
+            .Select(static item => item.GetString()!)
+            .ToHashSet(StringComparer.Ordinal);
+
+        string[] expectedPackages =
+        [
+            "Splat",
+            "Splat.Builder",
+            "Splat.Core",
+            "Splat.Drawing",
+            "Splat.Logging",
+            "Splat.SkiaSharp",
+            "Splat.Autofac",
+            "Splat.DryIoc",
+            "Splat.Microsoft.Extensions.DependencyInjection",
+            "Splat.Ninject",
+            "Splat.Prism",
+            "Splat.SimpleInjector",
+            "Splat.Log4Net",
+            "Splat.Microsoft.Extensions.Logging",
+            "Splat.NLog",
+            "Splat.Serilog",
+            "Splat.ApplicationInsights",
+            "Splat.ApplicationInsightsV3",
+            "Splat.Exceptionless",
+            "Splat.Raygun"
+        ];
+
+        await Assert.That(packages.Count).IsEqualTo(expectedPackages.Length);
+        foreach (var expectedPackage in expectedPackages)
+        {
+            await Assert.That(packages).Contains(expectedPackage);
+        }
+
+        await Assert.That(inventory.GetProperty("functions").EnumerateArray().Any(static item => item.GetString()!.Contains("GenericFirstDependencyResolver", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(inventory.GetProperty("sourceGeneratorGuidance").EnumerateArray().Any(static item => item.GetString()!.Contains("Splat.DependencyInjection.SourceGenerator", StringComparison.Ordinal))).IsTrue();
+    }
+
+    /// <summary>
+    /// Verifies that non-current ecosystem manifests cannot be presented as current repository inventories.
+    /// </summary>
+    [Test]
+    public async Task GetRepositoryInventory_Rejects_Manifest_Without_Current_Inventory()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        await Assert.That(() => CatalogTools.GetRepositoryInventory(catalog, "dynamicdata"))
+            .Throws<InvalidOperationException>();
+    }
+
     // ── ListCatalog ──────────────────────────────────────────────────────────
 
     /// <summary>

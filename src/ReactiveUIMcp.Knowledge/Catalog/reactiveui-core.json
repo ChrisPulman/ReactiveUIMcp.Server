@@ -15,7 +15,8 @@
     "Uno"
   ],
   "nugetPackages": [
-    "ReactiveUI"
+    "ReactiveUI",
+    "ReactiveUI.Primitives"
   ],
   "recommendedPatterns": [
     "Use ReactiveObject and ReactiveCommand for mutable state and user actions.",
@@ -55,6 +56,16 @@
     "migration",
     "legacy"
   ],
+  "inventory": {
+    "applicationTypes": ["cross-platform applications", "desktop applications", "mobile applications", "Blazor applications", "platform-neutral MVVM libraries", "test libraries"],
+    "features": ["Reactive MVVM state and notifications", "Commands and command status/errors", "Activation and lifetime-scoped bindings", "View location and property/command binding", "Routing and navigation hosts", "Builder-based application startup", "Platform packages and scheduler integration", "Testing helpers"],
+    "functions": ["ReactiveObject and IReactiveObject", "ReactiveCommand.Create/CreateFromTask and CanExecute/IsExecuting/ThrownExceptions", "WhenAnyValue/WhenAny/ObservableAsPropertyHelper", "WhenActivated and DisposeWith", "IViewFor/IViewLocator and binding APIs", "RoutingState/IScreen/RoutedViewHost", "RxAppBuilder and ReactiveUIBuilder extensions"],
+    "options": ["Lean ReactiveUI or ReactiveUI.Reactive distribution", "WPF, WinForms, WinUI, MAUI, Blazor, AndroidX, Avalonia, or Uno host package", "Core routing or DynamicData-based ReactiveUI.Routing extensions", "Runtime/manual or generated property/command/view/binding implementation", "App-wide main-thread/task-pool sequencers and service registrations"],
+    "packageSelection": ["Default: ReactiveUI plus the matching lean platform package and a direct ReactiveUI.Primitives reference when its analyzers/APIs are used.", "Full System.Reactive compatibility: ReactiveUI.Reactive plus matching *.Reactive platform packages.", "Add ReactiveUI.Routing or ReactiveUI.Routing.Reactive only for DynamicData change-set routing/auto-persist helpers.", "Add ReactiveUI.Testing only to test projects."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators first for properties, OAPHs, commands, IViewFor, IReactiveObject, collections, and supported hosts.", "Use ReactiveUI.Binding's included generator first for static observation and binding call sites.", "Use manual core APIs only for dynamic or unsupported generator scenarios and document the limitation."],
+    "compatibilityNotes": ["ReactiveUI 24 lean and .Reactive distributions share the same Primitives engine and MVVM shape but expose different reactive interop types.", "Lean uses RxVoid/ISequencer/Signal; .Reactive uses Unit/IScheduler/Subject for existing Rx boundaries.", "Core routing remains in ReactiveUI; DynamicData-based routing extensions moved to ReactiveUI.Routing."],
+    "migrationGuidance": ["Move Fody and handwritten boilerplate to ReactiveUI.SourceGenerators before broad behavioral refactoring.", "Prefer lean ReactiveUI/ReactiveUI.Primitives for new code; use the .Reactive family only when existing public API compatibility requires it.", "Move constructor-created view subscriptions into WhenActivated and preserve command exception/scheduler behavior with tests."]
+  },
   "sources": [
     {
       "title": "ReactiveUI repository",
@@ -63,8 +74,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }
