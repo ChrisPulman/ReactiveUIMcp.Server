@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/ChrisPulman/ReactiveUIMcp.Server</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ChrisPulman/ReactiveUIMcp.Server</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>ReactiveUI;MCP;Model Context Protocol;C#;dotnet;WPF;WinForms;Blazor;MAUI;WinUI;Avalonia;Uno;Akavache;Refit;DynamicData;Splat;ReactiveUI.Primitives;SourceGenerators</PackageTags>
+    <PackageTags>ReactiveUI;MCP;Model Context Protocol;Agent Skills;Codex;Claude Code;C#;dotnet;WPF;WinForms;Blazor;MAUI;WinUI;Avalonia;Uno;Akavache;Refit;DynamicData;Splat;ReactiveUI.Primitives;SourceGenerators</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -34,5 +34,10 @@
     <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
     <!--<None Include="..\..\Images\icon.png" Pack="true" PackagePath="" Link="icon.png" />-->
     <None Include="..\..\.mcp\server.json" Pack="true" PackagePath=".mcp\server.json" Link=".mcp\server.json" />
+    <None Include="..\..\skills\reactiveui-mcp\**\*.*"
+          Pack="true"
+          PackagePath="skills\reactiveui-mcp\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest"
+          LinkBase="skills\reactiveui-mcp" />
   </ItemGroup>
 </Project>

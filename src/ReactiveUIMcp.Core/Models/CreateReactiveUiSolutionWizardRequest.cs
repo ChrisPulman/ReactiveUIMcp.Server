@@ -47,7 +47,7 @@ public sealed record CreateReactiveUiSolutionWizardRequest(
             outputRoot,
             generateFiles);
 
-    private static IReadOnlyList<string> Split(string? value) =>
+    private static string[] Split(string? value) =>
         string.IsNullOrWhiteSpace(value)
             ? []
             : value

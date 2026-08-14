@@ -11,7 +11,7 @@ public class MigrationPlanTests
     [Test]
     public async Task MigrationPlan_SystemReactive_Defaults_To_Lean_Primitives()
     {
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
+        var guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
 
         var result = guidance.CreateMigrationPlan(new MigrationRequest(
             "WPF",
@@ -34,7 +34,7 @@ public class MigrationPlanTests
     [Test]
     public async Task MigrationPlan_SystemReactive_Compatibility_Uses_Reactive_Variants()
     {
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
+        var guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
 
         var result = guidance.CreateMigrationPlan(new MigrationRequest(
             "WPF",
@@ -55,7 +55,7 @@ public class MigrationPlanTests
     [Test]
     public async Task MigrationPlan_Lean_Migrations_Select_Matching_Ui_Primitives_Packages()
     {
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
+        var guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
         (string Platform, string Package)[] cases =
         [
             ("WinForms", "ReactiveUI.Primitives.WinForms"),
@@ -84,7 +84,7 @@ public class MigrationPlanTests
     [Test]
     public async Task MigrationPlan_Async_Lean_Migration_Uses_Primitives_Async()
     {
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
+        var guidance = new ReactiveUiGuidanceService(new EmbeddedKnowledgeCatalog());
 
         var result = guidance.CreateMigrationPlan(new MigrationRequest(
             null,
@@ -103,8 +103,8 @@ public class MigrationPlanTests
     [Test]
     public async Task MigrationPlan_Includes_Fody_Replacement_And_Testing_Updates()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateMigrationPlan(new MigrationRequest(
             "WPF",

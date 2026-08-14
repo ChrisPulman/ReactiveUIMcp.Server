@@ -10,8 +10,8 @@ public class GuidanceToolsTests
 {
     private static (IKnowledgeCatalog catalog, IReactiveUiGuidanceService guidance) BuildServices()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
         return (catalog, guidance);
     }
 

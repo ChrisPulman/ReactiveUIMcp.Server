@@ -1,0 +1,10 @@
+interface:
+  display_name: "ReactiveUI MCP"
+  short_description: "Plan and review ReactiveUI projects with MCP"
+  default_prompt: "Use $reactiveui-mcp to plan, review, scaffold, or migrate a ReactiveUI .NET project using current ecosystem guidance."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "reactiveui-mcp-server"
+      description: "ReactiveUI MCP server for packages, patterns, migrations, and project blueprints"

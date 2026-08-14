@@ -107,8 +107,7 @@ public static class Program
     /// <summary>
     /// Gets the client metadata fields that are omitted in safe mode.
     /// </summary>
-    /// <returns>The names of optional metadata fields suppressed for compatibility.</returns>
-    public static IReadOnlyList<string> GetSuppressedClientMetadataKeys() => RiskyClientMetadataKeys;
+    public static IReadOnlyList<string> SuppressedClientMetadataKeys => RiskyClientMetadataKeys;
 
     private static void ConfigureLogging(HostApplicationBuilder builder)
     {

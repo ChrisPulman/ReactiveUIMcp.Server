@@ -11,8 +11,8 @@ public class RecommendationTests
     [Test]
     public async Task Recommend_Includes_Maui_Akavache_And_DynamicData_When_Signals_Match()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.Recommend(new RecommendationRequest(
             "MAUI",
@@ -34,8 +34,8 @@ public class RecommendationTests
     [Test]
     public async Task Recommend_Includes_ReactiveUiTesting_For_Test_Projects()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.Recommend(new RecommendationRequest(
             "WPF",
@@ -54,8 +54,8 @@ public class RecommendationTests
     [Test]
     public async Task Compare_Returns_A_Summary_For_Two_Manifest_Areas()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.Compare("reactiveui-maui", "reactiveui-androidx");
 
@@ -69,8 +69,8 @@ public class RecommendationTests
     [Test]
     public async Task ProjectBlueprint_Promotes_SourceGenerators_Primitives_Async_And_Testing()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateProjectBlueprint(new RecommendationRequest(
             "MAUI",

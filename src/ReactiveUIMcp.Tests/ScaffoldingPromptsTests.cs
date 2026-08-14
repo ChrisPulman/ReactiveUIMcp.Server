@@ -7,9 +7,9 @@ namespace ReactiveUIMcp.Tests;
 /// </summary>
 public class ScaffoldingPromptsTests
 {
-    private static IReactiveUiGuidanceService BuildGuidance()
+    private static ReactiveUiGuidanceService BuildGuidance()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
         return new ReactiveUiGuidanceService(catalog);
     }
 

@@ -11,8 +11,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Flags_Constructor_Subscriptions_And_ReactiveList()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         const string plan = """
             Use ReactiveList for the main list.
@@ -34,8 +34,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Flags_Fody_And_AsyncObservable_Migration_Guidance()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         const string plan = """
             Migrate this legacy ReactiveUI.Fody codebase.
@@ -57,8 +57,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Flags_RXUI003_For_Xaml_Platform_Missing_WhenActivated()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.ReviewPlan("WPF", null, "Create bindings in the constructor.");
 
@@ -71,8 +71,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Flags_RXUI006_For_ObservableCollection_Sort_And_Filter()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.ReviewPlan(null, null, "Use ObservableCollection to display sorted and filtered live updates.");
 
@@ -86,8 +86,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Flags_RXUI007_For_Property_Setter_Side_Effect()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.ReviewPlan(null, null, "Compute derived state using property setter side effect.");
 
@@ -100,8 +100,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Returns_RXUI000_For_Clean_Modern_Plan()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         const string plan = """
             Use ReactiveUI.SourceGenerators for all reactive properties and commands.
@@ -121,8 +121,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Each_Finding_Has_Required_Fields()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.ReviewPlan("WPF", null, "Use ReactiveList. Subscribe without DisposeWith.");
 
@@ -140,8 +140,8 @@ public class ReviewPlanTests
     [Test]
     public async Task ReviewPlan_Throws_For_Empty_Plan_Text()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         await Assert.That(() => guidance.ReviewPlan(null, null, "   ")).Throws<ArgumentException>();
     }
