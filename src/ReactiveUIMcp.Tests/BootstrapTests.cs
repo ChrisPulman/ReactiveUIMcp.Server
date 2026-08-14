@@ -10,7 +10,7 @@ public class BootstrapTests
     [Test]
     public async Task EmbeddedCatalog_Service_Can_Be_Created()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
         await Assert.That(catalog).IsNotNull();
     }
 }

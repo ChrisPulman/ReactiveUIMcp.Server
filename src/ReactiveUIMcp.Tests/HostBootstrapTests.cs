@@ -49,9 +49,9 @@ public class HostBootstrapTests
     /// Verifies the documented list of metadata fields suppressed in compatibility mode.
     /// </summary>
     [Test]
-    public async Task GetSuppressedClientMetadataKeys_Returns_Expected_Fields()
+    public async Task SuppressedClientMetadataKeys_Returns_Expected_Fields()
     {
-        var keys = Program.GetSuppressedClientMetadataKeys();
+        var keys = Program.SuppressedClientMetadataKeys;
 
         await Assert.That(keys).Contains("Title");
         await Assert.That(keys).Contains("Description");

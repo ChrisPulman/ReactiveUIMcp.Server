@@ -2,7 +2,8 @@
   <Folder Name="/Config/">
     <File Path="../.editorconfig" />
     <File Path="../.gitattributes" />
-    <File Path="../.github/workflows/ci.yml" />
+    <File Path="../.github/workflows/BuildDeploy.yml" />
+    <File Path="../.github/workflows/BuildOnly.yml" />
     <File Path="../.gitignore" />
     <File Path="../design.md" />
     <File Path="../Directory.Build.props" />
@@ -11,7 +12,13 @@
     <File Path="../LICENSE" />
     <File Path="../README.md" />
     <File Path="../testconfig.json" />
-    <File Path="../version.json" />
+  </Folder>
+  <Folder Name="/Build/">
+    <Project Path="../build/_build.csproj" />
+  </Folder>
+  <Folder Name="/Skill/">
+    <File Path="../skills/reactiveui-mcp/SKILL.md" />
+    <File Path="../skills/reactiveui-mcp/agents/openai.yaml" />
   </Folder>
   <Project Path="ReactiveUIMcp.Core/CP.ReactiveUIMcp.Core.csproj" />
   <Project Path="ReactiveUIMcp.Knowledge/CP.ReactiveUIMcp.Knowledge.csproj" />

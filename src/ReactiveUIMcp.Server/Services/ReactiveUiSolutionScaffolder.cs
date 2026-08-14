@@ -127,7 +127,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         return new GeneratedReactiveUiSolutionResult(solutionRoot, createdFiles, notes);
     }
 
-    private static IReadOnlyList<ReactiveUiViewScaffold> ParseViews(CreateReactiveUiSolutionWizardRequest request)
+    private static List<ReactiveUiViewScaffold> ParseViews(CreateReactiveUiSolutionWizardRequest request)
     {
         var results = new List<ReactiveUiViewScaffold>();
         if (string.IsNullOrWhiteSpace(request.ViewsByEndpoint))
@@ -153,7 +153,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         return results;
     }
 
-    private static IReadOnlyList<ReactiveUiViewScaffold> EnsureFeatureViews(
+    private static List<ReactiveUiViewScaffold> EnsureFeatureViews(
         CreateReactiveUiSolutionWizardRequest request,
         IReadOnlyList<ReactiveUiViewScaffold> views)
     {
@@ -171,7 +171,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
     }
 
     private static void AddFeatureViewIfMissing(
-        ICollection<ReactiveUiViewScaffold> views,
+        List<ReactiveUiViewScaffold> views,
         string endpoint,
         IReadOnlyList<string> features,
         string featureName,
@@ -192,7 +192,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         views.Add(new ReactiveUiViewScaffold(endpoint, viewName, $"{viewName}ViewModel", [], []));
     }
 
-    private static IReadOnlyList<string> BuildCorePackages(CreateReactiveUiSolutionWizardRequest request)
+    private static string[] BuildCorePackages(CreateReactiveUiSolutionWizardRequest request)
     {
         var packages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -681,13 +681,13 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         return builder.ToString();
     }
 
-    private static string CreateEndpointNotes(string endpoint, CreateReactiveUiSolutionWizardRequest request, IReadOnlyList<ReactiveUiViewScaffold> endpointViews) =>
+    private static string CreateEndpointNotes(string endpoint, CreateReactiveUiSolutionWizardRequest request, ReactiveUiViewScaffold[] endpointViews) =>
         $"Endpoint: {endpoint}\n" +
         $"DI Provider: {request.DiProvider ?? "Splat"}\n" +
         $"Settings Store: {request.SettingsStore ?? "None"}\n" +
-        $"Generated Views: {(endpointViews.Count == 0 ? "None" : string.Join(", ", endpointViews.Select(view => view.ViewName)))}\n";
+        $"Generated Views: {(endpointViews.Length == 0 ? "None" : string.Join(", ", endpointViews.Select(view => view.ViewName)))}\n";
 
-    private static IReadOnlyList<(string Path, string Content)> CreateEndpointHostFiles(
+    private static List<(string Path, string Content)> CreateEndpointHostFiles(
         string endpointProjectDir,
         string endpointProjectName,
         string endpoint,
@@ -723,7 +723,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         return results;
     }
 
-    private static IReadOnlyList<(string Path, string Content)> CreateEndpointViewFiles(
+    private static List<(string Path, string Content)> CreateEndpointViewFiles(
         string endpointProjectDir,
         string endpointProjectName,
         string endpoint,
@@ -1041,7 +1041,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         "<h1>@ViewModel.Title</h1>\n" +
         "<p>Generated ReactiveUI Blazor page. Extend this with forms, state, and commands as needed.</p>\n";
 
-    private static void WriteFile(string path, string content, ICollection<string> createdFiles)
+    private static void WriteFile(string path, string content, List<string> createdFiles)
     {
         var directory = Path.GetDirectoryName(path);
         if (!string.IsNullOrWhiteSpace(directory))

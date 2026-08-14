@@ -16,7 +16,7 @@ public class GeneratedSolutionTests
 
         try
         {
-            IReactiveUiSolutionScaffolder scaffolder = new ReactiveUiSolutionScaffolder();
+            var scaffolder = new ReactiveUiSolutionScaffolder();
             var result = scaffolder.Generate(new CreateReactiveUiSolutionWizardRequest(
                 "9",
                 "Contoso.GeneratedApp",

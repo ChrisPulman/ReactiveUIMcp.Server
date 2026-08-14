@@ -10,7 +10,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task EmbeddedCatalog_Loads_All_Requested_Manifest_Areas()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         await Assert.That(catalog.GetAll().Count).IsGreaterThanOrEqualTo(19);
         await Assert.That(catalog.GetById("reactiveui-core")).IsNotNull();
@@ -24,7 +24,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Search_Finds_Binding_Source_Generator_Guidance()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var results = catalog.Search("binding source generators");
         await Assert.That(results.Any(result => result.Id == "reactiveui-binding-sourcegenerators")).IsTrue();
@@ -36,7 +36,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task GetById_Returns_Null_For_Unknown_Id()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var result = catalog.GetById("this-manifest-does-not-exist");
         await Assert.That(result).IsNull();
@@ -48,7 +48,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task GetById_Is_Case_Insensitive()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var lower = catalog.GetById("reactiveui-core");
         var upper = catalog.GetById("ReactiveUI-Core");
@@ -64,7 +64,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Search_With_No_Arguments_Returns_All_Manifests()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var all = catalog.GetAll();
         var searchAll = catalog.Search();
@@ -78,7 +78,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Search_With_Null_Query_And_Category_Returns_All_Manifests()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var results = catalog.Search(null, null);
         await Assert.That(results.Count).IsEqualTo(catalog.GetAll().Count);
@@ -90,7 +90,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Search_Category_Filter_Returns_Only_Matching_Category()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var results = catalog.Search(null, "platform");
 
@@ -104,7 +104,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task GetAll_Every_Manifest_Has_NonEmpty_Id_And_DisplayName()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var manifests = catalog.GetAll();
         await Assert.That(manifests.All(m => !string.IsNullOrWhiteSpace(m.Id))).IsTrue();
@@ -117,7 +117,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task GetAll_Every_Manifest_Has_At_Least_One_NuGetPackage()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var manifests = catalog.GetAll();
         await Assert.That(manifests.All(m => m.NuGetPackages.Count > 0)).IsTrue();
@@ -129,7 +129,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task GetAll_Contains_All_Core_Platform_Manifests()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var ids = catalog.GetAll().Select(m => m.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -148,7 +148,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task GetAll_Contains_Exactly_The_Current_Source_Repository_Inventories()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
         var inventories = catalog.GetAll().Where(static manifest => manifest.Inventory is not null).ToArray();
         var repositoryUrls = inventories.Select(static manifest => manifest.RepositoryUrl).ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -184,7 +184,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Current_Source_Repositories_Have_Full_Feature_Function_And_Option_Inventories()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
         var inventories = catalog.GetAll()
             .Where(static manifest => manifest.Inventory is not null)
             .Select(static manifest => manifest.Inventory!)
@@ -206,7 +206,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Search_Indexes_Repository_Functions_And_Options()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var results = catalog.Search("SetupIOC constructor injection");
 
@@ -219,7 +219,7 @@ public class CatalogLoadingTests
     [Test]
     public async Task Search_Indexes_Splat_GenericFirst_AppBuilder_And_Module_Inventory()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var results = catalog.Search("GenericFirst AppBuilder IModule");
 

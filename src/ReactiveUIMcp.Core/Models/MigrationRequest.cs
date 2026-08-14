@@ -32,7 +32,7 @@ public sealed record MigrationRequest(
             Split(upgradeGoals),
             Split(constraints));
 
-    private static IReadOnlyList<string> Split(string? value) =>
+    private static string[] Split(string? value) =>
         string.IsNullOrWhiteSpace(value)
             ? []
             : value

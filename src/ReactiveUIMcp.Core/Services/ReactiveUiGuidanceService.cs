@@ -732,7 +732,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
             views);
     }
 
-    private static IReadOnlyDictionary<string, string> BuildSelections(CreateReactiveUiSolutionWizardRequest request)
+    private static Dictionary<string, string> BuildSelections(CreateReactiveUiSolutionWizardRequest request)
     {
         var selections = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -751,7 +751,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         return selections;
     }
 
-    private static IReadOnlyList<ReactiveUiSolutionProjectPlan> BuildProjectPlans(
+    private static List<ReactiveUiSolutionProjectPlan> BuildProjectPlans(
         CreateReactiveUiSolutionWizardRequest request,
         RecommendationResult recommendation)
     {
@@ -799,7 +799,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         return projects;
     }
 
-    private static IReadOnlyList<ReactiveUiViewScaffold> BuildViewScaffolds(CreateReactiveUiSolutionWizardRequest request)
+    private static List<ReactiveUiViewScaffold> BuildViewScaffolds(CreateReactiveUiSolutionWizardRequest request)
     {
         var results = new List<ReactiveUiViewScaffold>();
         if (string.IsNullOrWhiteSpace(request.ViewsByEndpoint))
@@ -848,14 +848,14 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
 
     private static string Format(IReadOnlyList<string> values) => values.Count == 0 ? "none" : string.Join(", ", values);
 
-    private static IReadOnlyList<string> Merge(IEnumerable<EcosystemManifest> manifests, Func<EcosystemManifest, IReadOnlyList<string>> selector) =>
+    private static string[] Merge(IEnumerable<EcosystemManifest> manifests, Func<EcosystemManifest, IReadOnlyList<string>> selector) =>
         manifests
             .SelectMany(selector)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(static value => value, StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
-    private static void AddPlatformManifest(string? platform, ISet<string> manifestIds)
+    private static void AddPlatformManifest(string? platform, HashSet<string> manifestIds)
     {
         if (string.IsNullOrWhiteSpace(platform))
         {
@@ -873,7 +873,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         if (key.Contains("uno", StringComparison.Ordinal)) manifestIds.Add("reactiveui-uno");
     }
 
-    private static void AddBySignals(string signalText, ISet<string> manifestIds)
+    private static void AddBySignals(string signalText, HashSet<string> manifestIds)
     {
         if (ContainsAny(signalText, "validation", "form validation", "errors")) manifestIds.Add("reactiveui-validation");
         if (ContainsAny(signalText, "http", "api", "rest", "refit")) manifestIds.Add("refit");
@@ -906,7 +906,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
     private static bool ContainsAny(string source, params string[] values) =>
         values.Any(value => source.Contains(value, StringComparison.OrdinalIgnoreCase));
 
-    private static void AddPrimitivesPlatformPackage(ICollection<string> packageActions, string? platform, bool reactiveCompatibility)
+    private static void AddPrimitivesPlatformPackage(List<string> packageActions, string? platform, bool reactiveCompatibility)
     {
         if (string.IsNullOrWhiteSpace(platform))
         {

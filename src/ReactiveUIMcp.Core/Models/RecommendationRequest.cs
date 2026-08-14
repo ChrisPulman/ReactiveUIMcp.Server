@@ -32,7 +32,7 @@ public sealed record RecommendationRequest(
             Split(constraints),
             Split(existingLibraries));
 
-    private static IReadOnlyList<string> Split(string? value) =>
+    private static string[] Split(string? value) =>
         string.IsNullOrWhiteSpace(value)
             ? []
             : value

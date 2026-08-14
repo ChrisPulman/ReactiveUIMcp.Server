@@ -154,6 +154,12 @@ For any client that supports local `stdio` servers, register these values using 
 
 Configuration property names vary between MCP clients. Some use `servers`; others use `mcpServers`. Use the schema documented by your client rather than copying a different client's wrapper object.
 
+## Bundled agent skill
+
+The NuGet package includes a portable Agent Skill at `skills/reactiveui-mcp/SKILL.md`. It teaches Codex, Claude Code, and other skill-aware agents how to select the right MCP operation, preserve source-backed guidance, and run the solution generator safely.
+
+Codex-specific discovery metadata is included separately at `skills/reactiveui-mcp/agents/openai.yaml`; clients that do not use that metadata can ignore it. Both files are packaged at the NuGet archive root and inside the .NET tool payload. When installing the skill manually, copy the complete `skills/reactiveui-mcp` directory to the skill directory supported by the agent so its layout remains intact. The MCP server must also be registered and available to the agent.
+
 ## Running from source
 
 Clone this repository and replace the packaged command with:

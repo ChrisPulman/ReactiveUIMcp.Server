@@ -13,9 +13,9 @@ public class SolutionWizardToolsTests
 {
     private static (IReactiveUiGuidanceService guidance, IReactiveUiSolutionScaffolder scaffolder) BuildServices()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
-        IReactiveUiSolutionScaffolder scaffolder = new ReactiveUiSolutionScaffolder();
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
+        var scaffolder = new ReactiveUiSolutionScaffolder();
         return (guidance, scaffolder);
     }
 
@@ -431,7 +431,7 @@ public class SolutionWizardToolsTests
     [Test]
     public async Task CreateReactiveUiSolution_Throws_When_GuidanceService_Is_Null()
     {
-        IReactiveUiSolutionScaffolder scaffolder = new ReactiveUiSolutionScaffolder();
+        var scaffolder = new ReactiveUiSolutionScaffolder();
 
         await Assert.That(() => SolutionWizardTools.CreateReactiveUiSolution(null!, scaffolder, step: "1"))
             .Throws<ArgumentNullException>();
@@ -444,8 +444,8 @@ public class SolutionWizardToolsTests
     [Test]
     public async Task CreateReactiveUiSolution_Throws_When_Scaffolder_Is_Null()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         await Assert.That(() => SolutionWizardTools.CreateReactiveUiSolution(guidance, null!, step: "1"))
             .Throws<ArgumentNullException>();

@@ -49,7 +49,7 @@ public sealed class EmbeddedKnowledgeCatalog : IKnowledgeCatalog
             .ToArray();
     }
 
-    private static IReadOnlyList<EcosystemManifest> LoadManifests()
+    private static List<EcosystemManifest> LoadManifests()
     {
         var assembly = typeof(EmbeddedKnowledgeCatalog).Assembly;
         var resourceNames = assembly.GetManifestResourceNames()

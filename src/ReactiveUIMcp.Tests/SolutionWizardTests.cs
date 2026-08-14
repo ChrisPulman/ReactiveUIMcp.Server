@@ -11,8 +11,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Start_Returns_Project_Type_And_Endpoint_Questions()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "1",
@@ -37,8 +37,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step2_Asks_For_Splat_Di_Provider()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "2",
@@ -63,8 +63,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step3_Asks_For_Additional_Features()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "3",
@@ -89,8 +89,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step4_Asks_For_Settings_Store()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "4",
@@ -115,8 +115,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step5_Asks_For_Application_Features_Colors_And_Validation()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "5",
@@ -143,8 +143,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step6_Asks_For_ViewsByEndpoint()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "6",
@@ -168,8 +168,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step7_Returns_Blueprint_Review_Question()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "7",
@@ -193,8 +193,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Step8_Asks_For_Migration_Notes()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "8",
@@ -218,8 +218,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Complete_Returns_Blueprint_Projects_And_ViewScaffolds()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "9",
@@ -251,8 +251,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Complete_Captures_All_Selections_In_Response()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             "9",
@@ -277,8 +277,8 @@ public class SolutionWizardTests
     [Test]
     public async Task Wizard_Null_Step_Defaults_To_Step1()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
-        IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var guidance = new ReactiveUiGuidanceService(catalog);
 
         var result = guidance.CreateReactiveUiSolutionWizard(new CreateReactiveUiSolutionWizardRequest(
             null,

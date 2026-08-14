@@ -14,7 +14,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetSourceRepositories_Returns_Exact_Current_Repository_Inventories()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         using var document = JsonDocument.Parse(CatalogResources.GetSourceRepositories(catalog));
         var root = document.RootElement;
@@ -33,7 +33,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetCatalog_Returns_Json_With_Count_Categories_And_Items()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogResources.GetCatalog(catalog);
         using var doc = JsonDocument.Parse(json);
@@ -50,7 +50,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetCatalog_Categories_Include_Platform_And_Core()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogResources.GetCatalog(catalog);
         using var doc = JsonDocument.Parse(json);
@@ -70,7 +70,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetCatalog_Items_Expose_Id_DisplayName_And_Category()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogResources.GetCatalog(catalog);
         using var doc = JsonDocument.Parse(json);
@@ -99,7 +99,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetManifest_Returns_Full_Manifest_For_Known_Id()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogResources.GetManifest(catalog, "reactiveui-testing");
         using var doc = JsonDocument.Parse(json);
@@ -117,7 +117,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetManifest_Throws_For_Unknown_Id()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         await Assert.That(() => CatalogResources.GetManifest(catalog, "not-a-real-manifest"))
             .Throws<InvalidOperationException>();
@@ -142,7 +142,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetProjectGenerationGuidance_Contains_Purpose_And_Manifests()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogResources.GetProjectGenerationGuidance(catalog);
         using var doc = JsonDocument.Parse(json);
@@ -159,7 +159,7 @@ public class CatalogResourcesTests
     [Test]
     public async Task GetProjectGenerationGuidance_Includes_Core_SourceGenerators_And_Testing_Manifests()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogResources.GetProjectGenerationGuidance(catalog);
         using var doc = JsonDocument.Parse(json);

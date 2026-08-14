@@ -14,7 +14,7 @@ public class CatalogToolsTests
     [Test]
     public async Task ListRepositoryInventories_Returns_Exact_Current_Set_And_Policies()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         using var document = JsonDocument.Parse(CatalogTools.ListRepositoryInventories(catalog));
         var root = document.RootElement;
@@ -32,7 +32,7 @@ public class CatalogToolsTests
     [Test]
     public async Task GetRepositoryInventory_Returns_Features_Functions_And_Options()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         using var document = JsonDocument.Parse(CatalogTools.GetRepositoryInventory(catalog, "reactiveui-primitives"));
         var inventory = document.RootElement.GetProperty("inventory");
@@ -49,7 +49,7 @@ public class CatalogToolsTests
     [Test]
     public async Task GetRepositoryInventory_Splat_Returns_Packages_Resolvers_And_Generator_Guidance()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         using var document = JsonDocument.Parse(CatalogTools.GetRepositoryInventory(catalog, "splat"));
         var root = document.RootElement;
@@ -99,7 +99,7 @@ public class CatalogToolsTests
     [Test]
     public async Task GetRepositoryInventory_Rejects_Manifest_Without_Current_Inventory()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         await Assert.That(() => CatalogTools.GetRepositoryInventory(catalog, "dynamicdata"))
             .Throws<InvalidOperationException>();
@@ -114,7 +114,7 @@ public class CatalogToolsTests
     [Test]
     public async Task ListCatalog_Returns_Valid_Json_With_Count_And_Items()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.ListCatalog(catalog);
         using var doc = JsonDocument.Parse(json);
@@ -130,7 +130,7 @@ public class CatalogToolsTests
     [Test]
     public async Task ListCatalog_Items_Expose_Required_Fields()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.ListCatalog(catalog);
         using var doc = JsonDocument.Parse(json);
@@ -160,7 +160,7 @@ public class CatalogToolsTests
     [Test]
     public async Task SearchCatalog_With_Query_Returns_Relevant_Results()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.SearchCatalog(catalog, query: "maui");
         using var doc = JsonDocument.Parse(json);
@@ -176,7 +176,7 @@ public class CatalogToolsTests
     [Test]
     public async Task SearchCatalog_With_Category_Returns_Only_Matching_Category()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.SearchCatalog(catalog, category: "platform");
         using var doc = JsonDocument.Parse(json);
@@ -193,7 +193,7 @@ public class CatalogToolsTests
     [Test]
     public async Task SearchCatalog_Result_Echoes_Query_And_Category()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.SearchCatalog(catalog, query: "akavache", category: "persistence");
         using var doc = JsonDocument.Parse(json);
@@ -209,7 +209,7 @@ public class CatalogToolsTests
     [Test]
     public async Task SearchCatalog_Results_Include_NuGetPackages_Field()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.SearchCatalog(catalog, query: "dynamicdata");
         using var doc = JsonDocument.Parse(json);
@@ -238,7 +238,7 @@ public class CatalogToolsTests
     [Test]
     public async Task GetManifest_Returns_Full_Manifest_For_Known_Id()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.GetManifest(catalog, "reactiveui-core");
         using var doc = JsonDocument.Parse(json);
@@ -257,7 +257,7 @@ public class CatalogToolsTests
     [Test]
     public async Task GetManifest_DynamicData_Contains_Primary_Package()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         var json = CatalogTools.GetManifest(catalog, "dynamicdata");
         using var doc = JsonDocument.Parse(json);
@@ -277,7 +277,7 @@ public class CatalogToolsTests
     [Test]
     public async Task GetManifest_Throws_InvalidOperationException_For_Unknown_Id()
     {
-        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var catalog = new EmbeddedKnowledgeCatalog();
 
         await Assert.That(() => CatalogTools.GetManifest(catalog, "unknown-does-not-exist"))
             .Throws<InvalidOperationException>();
