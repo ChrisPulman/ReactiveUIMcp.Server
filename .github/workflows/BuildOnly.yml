@@ -1,9 +1,8 @@
 name: BuildOnly
 
 on:
-  pull_request:
   push:
-    branches:
+    branches-ignore:
       - main
 
 jobs:
