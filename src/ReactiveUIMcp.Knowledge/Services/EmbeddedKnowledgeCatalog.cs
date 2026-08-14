@@ -79,7 +79,23 @@ public sealed class EmbeddedKnowledgeCatalog : IKnowledgeCatalog
             manifest.DisplayName,
             manifest.Category,
             manifest.Summary,
+            manifest.RepositoryUrl,
             string.Join(' ', manifest.NuGetPackages),
             string.Join(' ', manifest.Keywords),
-            string.Join(' ', manifest.RelatedLibraries));
+            string.Join(' ', manifest.RelatedLibraries),
+            SearchInventoryText(manifest.Inventory));
+
+    private static string SearchInventoryText(RepositoryInventory? inventory) =>
+        inventory is null
+            ? string.Empty
+            : string.Join(
+                ' ',
+                string.Join(' ', inventory.ApplicationTypes),
+                string.Join(' ', inventory.Features),
+                string.Join(' ', inventory.Functions),
+                string.Join(' ', inventory.Options),
+                string.Join(' ', inventory.PackageSelection),
+                string.Join(' ', inventory.SourceGeneratorGuidance),
+                string.Join(' ', inventory.CompatibilityNotes),
+                string.Join(' ', inventory.MigrationGuidance));
 }

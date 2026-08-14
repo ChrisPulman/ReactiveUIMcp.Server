@@ -1,0 +1,27 @@
+{
+  "id": "splat-di-sourcegenerator",
+  "displayName": "Splat.DI.SourceGenerator",
+  "repositoryUrl": "https://github.com/reactiveui/Splat.DI.SourceGenerator",
+  "category": "code-generation",
+  "summary": "Primary compile-time choice for statically analyzable Splat registrations, constructor/property injection, diagnostics, and AOT-friendly object graphs.",
+  "supportedTargets": ["applications", "libraries", "AOT", "trimmed applications", "Splat composition roots"],
+  "nugetPackages": ["Splat.DependencyInjection.SourceGenerator"],
+  "recommendedPatterns": ["Prefer generated Splat registration for compile-time-known services.", "Keep registrations in one composition-root SetupIOC method.", "Use constructor injection and Lazy<T> for deferred dependencies."],
+  "avoidPatterns": ["Do not hand-write registration factories when the generator supports the graph.", "Do not use service location throughout feature code.", "Do not force dynamic/plugin/open-generic registrations through a static generator."],
+  "setupSteps": ["Add Splat.DependencyInjection.SourceGenerator with PrivateAssets=all.", "Declare Register/RegisterLazySingleton calls in a statically analyzable SetupIOC flow.", "Resolve analyzer diagnostics and use manual/container registration only for documented dynamic cases."],
+  "commonPitfalls": ["Ambiguous constructors require DependencyInjectionConstructor.", "Property injection requires an accessible setter.", "Cycles, duplicate interfaces, inaccessible types, and mismatched lazy registrations are diagnosed at compile time."],
+  "relatedLibraries": ["Splat", "ReactiveUI", "ReactiveUI.SourceGenerators"],
+  "keywords": ["splat", "dependency injection", "source generator", "constructor injection", "property injection", "aot", "setupioc"],
+  "inventory": {
+    "applicationTypes": ["desktop applications", "mobile applications", "web applications", "service libraries with a static composition root", "AOT/trimmed applications"],
+    "features": ["Compile-time registration graph", "Direct construction without reflection", "Constructor, Lazy<T>, and property injection", "Named contracts and singleton/transient lifetimes", "Analyzers and code fixes for invalid graphs"],
+    "functions": ["SplatRegistrations.Register", "SplatRegistrations.RegisterLazySingleton", "constant/contract registration", "SetupIOC-generated registration entry point", "DependencyInjectionConstructor", "DependencyInjectionProperty"],
+    "options": ["Transient or lazy singleton lifetime", "Service contract/name", "Selected constructor", "Property injection", "Lazy<T> dependency", "Manual fallback for runtime-selected services"],
+    "packageSelection": ["Use Splat.DependencyInjection.SourceGenerator as a PrivateAssets=all analyzer reference alongside Splat.", "Use a container adapter/manual Splat registration only for runtime discovery, plugins, unsupported open generics, or intentional container-specific behavior."],
+    "sourceGeneratorGuidance": ["This generator is the primary choice over handwritten Splat factories and reflection for static graphs.", "Treat analyzer errors as graph defects; do not suppress a diagnostic that can be fixed in registration or constructor/property accessibility."],
+    "compatibilityNotes": ["Generated registrations target Splat; constructor injection remains usable from other application code.", "Dynamic assemblies and runtime plugin discovery cannot be fully generated."],
+    "migrationGuidance": ["Move manual Register/RegisterLazySingleton factories into a single generated SetupIOC flow in slices.", "Mark the intended constructor/property only when the generator cannot infer it, then remove redundant service-locator calls from feature code."]
+  },
+  "sources": [{"title": "Splat DI Source Generator README", "url": "https://github.com/reactiveui/Splat.DI.SourceGenerator/blob/main/README.md", "notes": "Generator APIs, attributes, diagnostics, and limitations."}],
+  "harvest": {"harvestedAtUtc": "2026-08-09T23:20:00Z", "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.", "notes": "Current source-repository inventory."}
+}

@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/ChrisPulman/ReactiveUIMcp.Server</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ChrisPulman/ReactiveUIMcp.Server</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>ReactiveUI;MCP;Model Context Protocol;C#;dotnet;WPF;WinForms;Blazor;MAUI;WinUI;Avalonia;Uno;Akavache;Refit;DynamicData</PackageTags>
+    <PackageTags>ReactiveUI;MCP;Model Context Protocol;C#;dotnet;WPF;WinForms;Blazor;MAUI;WinUI;Avalonia;Uno;Akavache;Refit;DynamicData;Splat;ReactiveUI.Primitives;SourceGenerators</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

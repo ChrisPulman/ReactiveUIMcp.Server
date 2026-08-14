@@ -30,8 +30,58 @@ public sealed class CatalogTools
                 manifest.DisplayName,
                 manifest.Category,
                 manifest.Summary,
+                HasRepositoryInventory = manifest.Inventory is not null,
             }),
         });
+    }
+
+    /// <summary>
+    /// Lists the current ReactiveUI organization source repositories with full capability inventories.
+    /// </summary>
+    /// <param name="catalog">The knowledge catalog service.</param>
+    /// <returns>A JSON payload containing the current source-repository inventories.</returns>
+    [McpServerTool(Name = "reactiveui_repository_inventory_list"), Description("List the current ReactiveUI source repositories and their application/library feature, function, option, package, generator, compatibility, and migration inventories.")]
+    public static string ListRepositoryInventories(IKnowledgeCatalog catalog)
+    {
+        ArgumentNullException.ThrowIfNull(catalog);
+
+        var manifests = catalog.GetAll()
+            .Where(static manifest => manifest.Inventory is not null)
+            .OrderBy(static manifest => manifest.DisplayName, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        return JsonOutput.Serialize(new
+        {
+            Count = manifests.Length,
+            Policies = new
+            {
+                SourceGenerators = "Prefer the relevant source generator whenever it provides the required static functionality; use manual/runtime APIs only for documented unsupported or dynamic cases.",
+                ReactiveFoundation = "Prefer ReactiveUI.Primitives. Use ReactiveUI.Primitives.Reactive only when full System.Reactive Unit, IScheduler, Subject, namespace, or public-API compatibility is required.",
+            },
+            Repositories = manifests,
+        });
+    }
+
+    /// <summary>
+    /// Gets the full source-repository inventory for one manifest identifier.
+    /// </summary>
+    /// <param name="catalog">The knowledge catalog service.</param>
+    /// <param name="id">The stable manifest identifier.</param>
+    /// <returns>A JSON representation of the source-repository manifest.</returns>
+    [McpServerTool(Name = "reactiveui_repository_inventory_get"), Description("Get the complete feature, function, option, package, source-generator, compatibility, and migration inventory for one current ReactiveUI source repository.")]
+    public static string GetRepositoryInventory(
+        IKnowledgeCatalog catalog,
+        [Description("Repository manifest id such as reactiveui-core, reactiveui-primitives, sextant, or splat-di-sourcegenerator.")] string id)
+    {
+        ArgumentNullException.ThrowIfNull(catalog);
+
+        var manifest = catalog.GetById(id) ?? throw new InvalidOperationException($"Unknown manifest id '{id}'.");
+        if (manifest.Inventory is null)
+        {
+            throw new InvalidOperationException($"Manifest '{id}' is not a current source-repository inventory.");
+        }
+
+        return JsonOutput.Serialize(manifest);
     }
 
     /// <summary>

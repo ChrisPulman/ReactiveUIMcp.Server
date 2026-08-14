@@ -1,0 +1,27 @@
+{
+  "id": "maui-plugins-popup",
+  "displayName": "ReactiveUI.Maui.Plugins.Popup",
+  "repositoryUrl": "https://github.com/reactiveui/Maui.Plugins.Popup",
+  "category": "platform",
+  "summary": "ReactiveUI integration for Mopups popup views, navigation operations, and popup lifecycle event streams in .NET MAUI.",
+  "supportedTargets": [".NET MAUI applications"],
+  "nugetPackages": ["ReactiveUI.Maui.Plugins.Popup"],
+  "recommendedPatterns": ["Call ConfigureReactiveUIPopup during MauiApp construction.", "Use ReactivePopupPage<TViewModel> for strongly typed popups.", "Subscribe once to cold navigation operations and scope hot event subscriptions."],
+  "avoidPatterns": ["Do not assume a popup navigation observable starts before subscription.", "Do not subscribe repeatedly to the same cold push/pop operation.", "Do not leave global popup event subscriptions undisposed."],
+  "setupSteps": ["Add ReactiveUI.Maui.Plugins.Popup.", "Call ConfigureReactiveUIPopup on MauiAppBuilder.", "Create generated ReactiveUI view models and ReactivePopupPage views, then bind inside WhenActivated."],
+  "commonPitfalls": ["Cold navigation operations execute once per subscription.", "Pushing/Pushed/Popping/Popped event streams are hot.", "Popup navigation uses a stack separate from normal MAUI navigation."],
+  "relatedLibraries": ["ReactiveUI.Maui", "Mopups", "Sextant.Plugins.Popup", "ReactiveUI.SourceGenerators"],
+  "keywords": ["maui", "popup", "mopups", "reactivepopuppage", "pushpopup", "poppopup", "hot", "cold"],
+  "inventory": {
+    "applicationTypes": [".NET MAUI mobile applications", ".NET MAUI desktop applications", "ReactiveUI popup component libraries"],
+    "features": ["Reactive popup page bases", "Cold popup navigation observables", "Hot pre/post navigation event observables", "INavigation and IPopupNavigation extensions", "MauiAppBuilder registration"],
+    "functions": ["ConfigureReactiveUIPopup", "ReactivePopupPage", "ReactivePopupPage<TViewModel>", "PushPopup", "PopPopup", "PopAllPopup", "RemovePopupPage", "PushingObservable", "PushedObservable", "PoppingObservable", "PoppedObservable"],
+    "options": ["Animated or non-animated navigation", "INavigation or IPopupNavigation receiver", "Typed or untyped ReactivePopupPage", "Specific-page removal or LIFO/all pop", "Pre-event or post-event observation"],
+    "packageSelection": ["Use ReactiveUI.Maui.Plugins.Popup for direct ReactiveUI/Mopups integration.", "Use Sextant.Plugins.Popup only when the application standardizes navigation behind Sextant."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators for popup view-model properties and commands and generated IViewFor registration where supported.", "Keep popup navigation runtime-based because stack changes are dynamic."],
+    "compatibilityNotes": ["Current examples may show System.Reactive Unit; new code should use the lean ReactiveUI/Primitives command types unless full Rx compatibility is required.", "Cold operations require subscription; hot event streams exist independently of subscribers."],
+    "migrationGuidance": ["Replace System.Reactive Unit and scheduler types with RxVoid/ISequencer in lean popup view models, or choose the matching ReactiveUI .Reactive family only for full compatibility.", "Move popup bindings into WhenActivated and dispose event subscriptions with the view lifecycle."]
+  },
+  "sources": [{"title": "ReactiveUI MAUI Popup README", "url": "https://github.com/reactiveui/Maui.Plugins.Popup/blob/main/README.md", "notes": "Startup, navigation operations, event streams, and controls."}],
+  "harvest": {"harvestedAtUtc": "2026-08-09T23:20:00Z", "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.", "notes": "Current source-repository inventory."}
+}

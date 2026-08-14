@@ -141,4 +141,88 @@ public class CatalogLoadingTests
         await Assert.That(ids).Contains("akavache");
         await Assert.That(ids).Contains("reactiveui-testing");
     }
+
+    /// <summary>
+    /// Verifies that exactly the current source repositories named by the organization inventory are present.
+    /// </summary>
+    [Test]
+    public async Task GetAll_Contains_Exactly_The_Current_Source_Repository_Inventories()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var inventories = catalog.GetAll().Where(static manifest => manifest.Inventory is not null).ToArray();
+        var repositoryUrls = inventories.Select(static manifest => manifest.RepositoryUrl).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        string[] expectedRepositoryUrls =
+        [
+            "https://github.com/reactiveui/Fusillade",
+            "https://github.com/reactiveui/Akavache",
+            "https://github.com/reactiveui/ReactiveUI.Avalonia",
+            "https://github.com/reactiveui/ReactiveUI.Validation",
+            "https://github.com/reactiveui/ReactiveUI.SourceGenerators",
+            "https://github.com/reactiveui/ReactiveUI.Uno",
+            "https://github.com/reactiveui/Primitives",
+            "https://github.com/reactiveui/punchclock",
+            "https://github.com/reactiveui/refit",
+            "https://github.com/reactiveui/Sextant",
+            "https://github.com/reactiveui/splat",
+            "https://github.com/reactiveui/Splat.DI.SourceGenerator",
+            "https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators",
+            "https://github.com/reactiveui/ReactiveUI",
+            "https://github.com/reactiveui/Maui.Plugins.Popup"
+        ];
+
+        await Assert.That(inventories.Length).IsEqualTo(expectedRepositoryUrls.Length);
+        foreach (var repositoryUrl in expectedRepositoryUrls)
+        {
+            await Assert.That(repositoryUrls).Contains(repositoryUrl);
+        }
+    }
+
+    /// <summary>
+    /// Verifies that each current repository supplies all required inventory sections.
+    /// </summary>
+    [Test]
+    public async Task Current_Source_Repositories_Have_Full_Feature_Function_And_Option_Inventories()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+        var inventories = catalog.GetAll()
+            .Where(static manifest => manifest.Inventory is not null)
+            .Select(static manifest => manifest.Inventory!)
+            .ToArray();
+
+        await Assert.That(inventories.All(static inventory => inventory.ApplicationTypes.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.Features.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.Functions.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.Options.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.PackageSelection.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.SourceGeneratorGuidance.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.CompatibilityNotes.Count > 0)).IsTrue();
+        await Assert.That(inventories.All(static inventory => inventory.MigrationGuidance.Count > 0)).IsTrue();
+    }
+
+    /// <summary>
+    /// Verifies that inventory text participates in catalog search.
+    /// </summary>
+    [Test]
+    public async Task Search_Indexes_Repository_Functions_And_Options()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        var results = catalog.Search("SetupIOC constructor injection");
+
+        await Assert.That(results.Select(static result => result.Id)).Contains("splat-di-sourcegenerator");
+    }
+
+    /// <summary>
+    /// Verifies that Splat's resolver, builder, and module APIs participate in catalog search.
+    /// </summary>
+    [Test]
+    public async Task Search_Indexes_Splat_GenericFirst_AppBuilder_And_Module_Inventory()
+    {
+        IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
+
+        var results = catalog.Search("GenericFirst AppBuilder IModule");
+
+        await Assert.That(results.Select(static result => result.Id)).Contains("splat");
+    }
 }

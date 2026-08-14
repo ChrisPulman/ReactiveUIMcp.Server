@@ -43,6 +43,16 @@
     "reactiveui.fody",
     "migration"
   ],
+  "inventory": {
+    "applicationTypes": ["ReactiveUI applications", "view-model class libraries", "view libraries", "WinForms applications", "AOT/trimmed applications"],
+    "features": ["Reactive property generation", "ObservableAsPropertyHelper property generation", "ReactiveCommand generation", "IViewFor implementation and view registration", "IReactiveObject implementation without inheritance", "Reactive collection and bindable derived-list generation", "WinForms routed/view-model host generation"],
+    "functions": ["[Reactive]", "[ObservableAsProperty]", "[ReactiveCommand]", "[IViewFor] and [IViewFor<T>]", "[IReactiveObject]", "[ReactiveCollection]", "[BindableDerivedList]", "[RoutedControlHost]", "[ViewModelControlHost]", "RegisterViewsForViewModelsSourceGenerated"],
+    "options": ["Reactive SetModifier, Inheritance, UseRequired, and additional-property notifications", "ObservableAsProperty ReadOnly, PropertyName, and InitialValue", "ReactiveCommand CanExecute, RunInBackground, OutputScheduler, AccessModifier, and attribute pass-through", "IViewFor view/view-model registration lifetime: PerRequest, LazySingleton, or Constant", "Field-backed or supported partial-property/member generation"],
+    "packageSelection": ["Use ReactiveUI.SourceGenerators with PrivateAssets=all for both lean ReactiveUI and ReactiveUI.Reactive consumers.", "Minimum documented surface: C# 12, ReactiveUI 23.2.28+, and a supported Roslyn analyzer band."],
+    "sourceGeneratorGuidance": ["Primary choice for reactive properties, OAPHs, commands, IViewFor, IReactiveObject, generated collection notifications, and supported hosts.", "Use hand-written RaiseAndSetIfChanged, ToProperty fields, ReactiveCommand.Create, or view registrations only when a documented generator limitation applies."],
+    "compatibilityNotes": ["The generator detects ReactiveUI 24 lean or .Reactive API surfaces automatically.", "Participating types/members must meet partial-declaration and language-version requirements.", "One generator cannot consume code or attributes emitted by another generator in the same compilation round."],
+    "migrationGuidance": ["Remove ReactiveUI.Fody, FodyWeavers.xml/xsd, and ReactiveUI.Fody.Helpers imports after converting members.", "Convert properties, OAPHs, commands, views, and IReactiveObject implementations incrementally and inspect generated code/diagnostics after each slice."]
+  },
   "sources": [
     {
       "title": "ReactiveUI.SourceGenerators repository",
@@ -51,8 +61,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

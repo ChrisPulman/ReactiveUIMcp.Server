@@ -197,6 +197,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         var packages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "ReactiveUI",
+            "ReactiveUI.Primitives",
             "ReactiveUI.SourceGenerators",
             "DynamicData",
             "Splat"
@@ -213,10 +214,10 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
             {
                 case "ReactiveUI.Binding.SourceGenerators":
                     packages.Add("ReactiveUI.Binding");
-                    packages.Add("ReactiveUI.Binding.Reactive");
                     break;
                 case "ReactiveUI.Extensions.Async":
-                    packages.Add("ReactiveUI.Extensions");
+                case "ReactiveUI.Primitives.Async":
+                    packages.Add("ReactiveUI.Primitives.Async");
                     break;
                 case "Akavache":
                     packages.Add("Akavache.Sqlite3");
@@ -275,36 +276,37 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
     {
         var versions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            ["ReactiveUI"] = "23.2.1",
-            ["ReactiveUI.SourceGenerators"] = "2.6.1",
-            ["DynamicData"] = "9.4.31",
-            ["Splat"] = "19.3.1",
-            ["ReactiveUI.Binding"] = "3.2.1",
-            ["ReactiveUI.Binding.Reactive"] = "3.2.1",
-            ["ReactiveUI.Extensions"] = "2.3.1",
-            ["Refit"] = "10.1.6",
-            ["Akavache.Sqlite3"] = "11.5.1",
-            ["Akavache.SystemTextJson"] = "11.5.1",
-            ["ReactiveUI.Validation"] = "7.0.5",
-            ["ReactiveUI.Testing"] = "23.2.1",
-            ["Fusillade"] = "4.0.3",
-            ["punchclock"] = "6.0.1",
-            ["TUnit"] = "1.28.5",
-            ["TUnit.Assertions"] = "1.28.5"
+            ["ReactiveUI"] = "24.1.0",
+            ["ReactiveUI.Primitives"] = "7.1.0",
+            ["ReactiveUI.Primitives.Async"] = "7.1.0",
+            ["ReactiveUI.SourceGenerators"] = "3.2.0",
+            ["DynamicData"] = "9.4.33",
+            ["Splat"] = "21.0.0",
+            ["Splat.DependencyInjection.SourceGenerator"] = "2.3.0",
+            ["ReactiveUI.Binding"] = "4.0.0",
+            ["Refit"] = "15.0.0",
+            ["Akavache.Sqlite3"] = "13.0.0",
+            ["Akavache.SystemTextJson"] = "13.0.0",
+            ["ReactiveUI.Validation"] = "7.1.0",
+            ["ReactiveUI.Testing"] = "24.1.0",
+            ["Fusillade"] = "6.0.0",
+            ["punchclock"] = "7.1.0",
+            ["TUnit"] = "1.64.6",
+            ["TUnit.Assertions"] = "1.64.6"
         };
 
         foreach (var endpoint in request.UiEndpoints)
         {
             switch (endpoint)
             {
-                case "WPF": versions["ReactiveUI.WPF"] = "23.2.1"; break;
-                case "WinForms": versions["ReactiveUI.WinForms"] = "23.2.1"; break;
-                case "Blazor": versions["ReactiveUI.Blazor"] = "23.2.1"; break;
-                case "MAUI": versions["ReactiveUI.Maui"] = "23.2.1"; break;
-                case "WinUI": versions["ReactiveUI.WinUI"] = "23.2.1"; break;
-                case "Avalonia": versions["ReactiveUI.Avalonia"] = "23.2.1"; break;
-                case "Uno": versions["ReactiveUI.Uno"] = "23.2.1"; break;
-                case "AndroidX": versions["ReactiveUI.AndroidX"] = "23.2.1"; break;
+                case "WPF": versions["ReactiveUI.WPF"] = "24.1.0"; break;
+                case "WinForms": versions["ReactiveUI.WinForms"] = "24.1.0"; break;
+                case "Blazor": versions["ReactiveUI.Blazor"] = "24.1.0"; break;
+                case "MAUI": versions["ReactiveUI.Maui"] = "24.1.0"; break;
+                case "WinUI": versions["ReactiveUI.WinUI"] = "24.1.0"; break;
+                case "Avalonia": versions["ReactiveUI.Avalonia"] = "14.7.1"; break;
+                case "Uno": versions["ReactiveUI.Uno"] = "23.0.0"; break;
+                case "AndroidX": versions["ReactiveUI.AndroidX"] = "24.1.0"; break;
             }
         }
 
@@ -424,7 +426,6 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         if (request.AdditionalFeatures.Contains("ReactiveUI.Binding.SourceGenerators", StringComparer.OrdinalIgnoreCase))
         {
             builder.AppendLine("    <PackageReference Include=\"ReactiveUI.Binding\" PrivateAssets=\"all\" />");
-            builder.AppendLine("    <PackageReference Include=\"ReactiveUI.Binding.Reactive\" PrivateAssets=\"all\" />");
         }
         builder.AppendLine("  </ItemGroup>");
         builder.AppendLine("  <ItemGroup>");
@@ -511,7 +512,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
         builder.AppendLine("        services.AddSingleton<INavigationService, NavigationService>();");
         if (string.Equals(request.SettingsStore, "Akavache SQLite", StringComparison.OrdinalIgnoreCase))
         {
-            builder.AppendLine("        services.AddSingleton<IAkavacheBootstrap, AkavacheBootstrap>();");
+            builder.AppendLine($"        services.AddSingleton<IAkavacheBootstrap, global::{request.SolutionName}.Core.Settings.AkavacheBootstrap>();");
         }
         builder.AppendLine("        return services;");
         builder.AppendLine("    }");
@@ -654,8 +655,9 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
             builder.AppendLine("    // This view model was generated because Theming was selected.");
         }
 
-        builder.AppendLine(request.AdditionalFeatures.Contains("ReactiveUI.Extensions.Async", StringComparer.OrdinalIgnoreCase)
-            ? "    // Consider IObservableAsync-based workflows from ReactiveUI.Extensions.Async for async streaming operations."
+        builder.AppendLine(request.AdditionalFeatures.Contains("ReactiveUI.Primitives.Async", StringComparer.OrdinalIgnoreCase) ||
+                           request.AdditionalFeatures.Contains("ReactiveUI.Extensions.Async", StringComparer.OrdinalIgnoreCase)
+            ? "    // Use ReactiveUI.Primitives.Async IObservableAsync-based workflows for async streaming operations."
             : "    // Add async workflows here using the selected ReactiveUI patterns.");
         builder.AppendLine("}");
         return builder.ToString();
@@ -780,7 +782,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
     private static bool IsSourceGeneratorPackage(string package) =>
         string.Equals(package, "ReactiveUI.SourceGenerators", StringComparison.OrdinalIgnoreCase) ||
         string.Equals(package, "ReactiveUI.Binding", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(package, "ReactiveUI.Binding.Reactive", StringComparison.OrdinalIgnoreCase);
+        string.Equals(package, "Splat.DependencyInjection.SourceGenerator", StringComparison.OrdinalIgnoreCase);
 
     private static string CreateWpfAppXaml(string endpointProjectName) =>
         $"<Application x:Class=\"{endpointProjectName}.App\"\n" +
@@ -850,7 +852,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
 
     private static string CreateWpfViewCodeBehind(string endpointNamespace, string solutionName, ReactiveUiViewScaffold view) =>
         "using ReactiveUI;\n" +
-        "using System.Reactive.Disposables.Fluent;\n" +
+        "using ReactiveUI.Primitives.Disposables;\n" +
         $"using {solutionName}.Core.ViewModels;\n\n" +
         $"namespace {endpointNamespace}.Views;\n\n" +
         $"public partial class {view.ViewName}View : ReactiveUserControl<{view.ViewModelName}>\n" +
@@ -886,10 +888,11 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
                "            .UseMauiApp<App>();\n\n" +
                "        builder.Services.AddGeneratedApplicationServices();\n" +
                registrations +
+               "        var app = builder.Build();\n" +
                (string.Equals(request.SettingsStore, "Akavache SQLite", StringComparison.OrdinalIgnoreCase)
-                    ? "        builder.Services.GetRequiredService<IAkavacheBootstrap>().Initialize();\n"
+                    ? "        app.Services.GetRequiredService<IAkavacheBootstrap>().Initialize();\n"
                     : string.Empty) +
-               "        return builder.Build();\n" +
+               "        return app;\n" +
                "    }\n" +
                "}\n";
     }
@@ -957,7 +960,7 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
     private static string CreateMauiPageCodeBehind(string endpointNamespace, string solutionName, ReactiveUiViewScaffold view) =>
         "using ReactiveUI;\n" +
         "using ReactiveUI.Maui;\n" +
-        "using System.Reactive.Disposables.Fluent;\n" +
+        "using ReactiveUI.Primitives.Disposables;\n" +
         $"using {solutionName}.Core.ViewModels;\n\n" +
         $"namespace {endpointNamespace}.Views;\n\n" +
         $"public partial class {view.ViewName}Page : ReactiveContentPage<{view.ViewModelName}>\n" +
@@ -985,10 +988,11 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
                "builder.RootComponents.Add<Routes>(\"#app\");\n" +
                "builder.Services.AddGeneratedApplicationServices();\n" +
                registrations +
+               "var host = builder.Build();\n" +
                (string.Equals(request.SettingsStore, "Akavache SQLite", StringComparison.OrdinalIgnoreCase)
-                    ? "builder.Services.GetRequiredService<IAkavacheBootstrap>().Initialize();\n"
+                    ? "host.Services.GetRequiredService<IAkavacheBootstrap>().Initialize();\n"
                     : string.Empty) +
-               "await builder.Build().RunAsync();\n";
+               "await host.RunAsync();\n";
     }
 
     private static string CreateBlazorRoutesComponent() =>

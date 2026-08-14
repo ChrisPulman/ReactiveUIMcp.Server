@@ -8,7 +8,8 @@
     "All"
   ],
   "nugetPackages": [
-    "Fusillade"
+    "Fusillade",
+    "Fusillade.Reactive"
   ],
   "recommendedPatterns": [
     "Use Fusillade when request prioritization or deduplication is a real product requirement.",
@@ -40,6 +41,16 @@
     "networking",
     "offline"
   ],
+  "inventory": {
+    "applicationTypes": ["mobile applications", "desktop applications", "offline-first applications", "HTTP client libraries", "bandwidth-sensitive applications"],
+    "features": ["Priority-aware HTTP scheduling", "Concurrency/rate limiting", "Duplicate request coalescing", "Speculative/background/foreground queues", "Offline request behavior", "Response byte-budget limiting", "Pluggable request cache"],
+    "functions": ["NetCache.UserInitiated/Background/Speculative/Offline", "RateLimitedHttpMessageHandler", "LimitingHttpMessageHandler", "IRequestCache", "HttpMessageHandler chaining", "GET/HEAD/OPTIONS deduplication"],
+    "options": ["Request priority", "Maximum concurrent operations", "Request key/deduplication", "Byte budget", "Request cache implementation", "Offline mode", "Lean or .Reactive package family"],
+    "packageSelection": ["Use Fusillade for ReactiveUI.Primitives/Punchclock-based applications.", "Use Fusillade.Reactive only when full System.Reactive compatibility is required.", "Compose it under Refit/HttpClient handlers rather than duplicating network policy in API clients."],
+    "sourceGeneratorGuidance": ["Use Refit's generated clients as the primary typed API surface and place Fusillade handlers underneath them.", "Use ReactiveUI.SourceGenerators for command/state boilerplate around network operations."],
+    "compatibilityNotes": ["The lean and .Reactive packages share the scheduling design but expose different reactive interop types.", "Only safe/idempotent HTTP methods are candidates for duplicate request coalescing."],
+    "migrationGuidance": ["Move System.Reactive-facing Fusillade consumers to the lean package and Primitives types by default.", "Keep Fusillade.Reactive at an explicit boundary when Unit/IScheduler/Rx public contracts must be preserved."]
+  },
   "sources": [
     {
       "title": "Fusillade repository",
@@ -48,8 +59,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

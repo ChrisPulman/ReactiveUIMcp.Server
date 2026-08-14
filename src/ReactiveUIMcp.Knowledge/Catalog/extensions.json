@@ -1,28 +1,29 @@
 {
   "id": "extensions",
-  "displayName": "ReactiveUI.Extensions",
+  "displayName": "ReactiveUI.Extensions (legacy migration)",
   "repositoryUrl": "https://github.com/reactiveui/Extensions",
   "category": "extensions",
-  "summary": "Extra Rx operators and async observable helpers, including IObservableAsync patterns from ReactiveUI.Extensions.Async.",
+  "summary": "Legacy/archived package guidance. Its extension-helper namespaces now ship from ReactiveUI.Primitives and ReactiveUI.Primitives.Reactive; async-native contracts use ReactiveUI.Primitives.Async.",
   "supportedTargets": [
     "All"
   ],
   "nugetPackages": [
-    "ReactiveUI.Extensions"
+    "ReactiveUI.Primitives",
+    "ReactiveUI.Primitives.Async"
   ],
   "recommendedPatterns": [
-    "Use ReactiveUI.Extensions.Async IObservableAsync-based flows when async streams are a better fit than ad hoc Task glue.",
-    "Use library operators such as RetryWithBackoff, Conflate, DropIfBusy, and SelectLatestAsync when they match the domain clearly.",
+    "Use ReactiveUI.Primitives.Async IObservableAsync-based flows when async streams are a better fit than ad hoc Task glue.",
+    "Use the extension helpers now included in ReactiveUI.Primitives when they match the domain clearly.",
     "Adopt async observable composition deliberately for IO-heavy or streaming workflows so generated code stays idiomatic and reusable."
   ],
   "avoidPatterns": [
-    "Do not add ReactiveUI.Extensions by default to every project without a clear need.",
-    "Do not reimplement async observable helpers when ReactiveUI.Extensions.Async already models the workflow cleanly.",
+    "Do not add the archived ReactiveUI.Extensions package to new projects.",
+    "Do not add removed ReactiveUI.Primitives.Extensions package references; replace the reference with the matching base package.",
     "Do not mix Task-based and async-observable-based orchestration randomly without a consistent boundary."
   ],
   "setupSteps": [
-    "Add ReactiveUI.Extensions when advanced Rx or async observable composition is justified.",
-    "Prefer ReactiveUI.Extensions.Async namespaces when generating IObservableAsync-based code.",
+    "Replace ReactiveUI.Extensions with ReactiveUI.Primitives; existing extension namespaces remain available.",
+    "Add ReactiveUI.Primitives.Async when generating IObservableAsync-based code.",
     "Document why async observables are used so the generated codebase remains maintainable."
   ],
   "commonPitfalls": [
@@ -32,7 +33,7 @@
   ],
   "relatedLibraries": [
     "ReactiveUI",
-    "System.Reactive"
+    "ReactiveUI.Primitives"
   ],
   "keywords": [
     "extensions",
@@ -51,8 +52,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official current Primitives package topology and archived Extensions repository guidance.",
+    "notes": "Retained only as a legacy migration alias; not part of the current source-repository inventory."
   }
 }

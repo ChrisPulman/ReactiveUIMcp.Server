@@ -8,7 +8,26 @@
     "All"
   ],
   "nugetPackages": [
-    "Splat"
+    "Splat",
+    "Splat.Builder",
+    "Splat.Core",
+    "Splat.Drawing",
+    "Splat.Logging",
+    "Splat.SkiaSharp",
+    "Splat.Autofac",
+    "Splat.DryIoc",
+    "Splat.Microsoft.Extensions.DependencyInjection",
+    "Splat.Ninject",
+    "Splat.Prism",
+    "Splat.SimpleInjector",
+    "Splat.Log4Net",
+    "Splat.Microsoft.Extensions.Logging",
+    "Splat.NLog",
+    "Splat.Serilog",
+    "Splat.ApplicationInsights",
+    "Splat.ApplicationInsightsV3",
+    "Splat.Exceptionless",
+    "Splat.Raygun"
   ],
   "recommendedPatterns": [
     "Use Splat registration at the composition root.",
@@ -37,8 +56,79 @@
     "di",
     "locator",
     "composition root",
-    "logging"
+    "logging",
+    "drawing",
+    "generic-first resolver",
+    "appbuilder",
+    "aot"
   ],
+  "inventory": {
+    "applicationTypes": [
+      "Desktop and mobile applications",
+      "Cross-platform UI applications",
+      "Shared and platform-neutral libraries",
+      "AOT or trimmed applications",
+      "Test projects requiring resolver isolation"
+    ],
+    "features": [
+      "Generic-first dependency resolution and service location",
+      "Transient, constant, lazy-singleton, contract, and multi-registration services",
+      "AOT-friendly AppBuilder and IModule composition",
+      "DI adapters for Autofac, DryIoc, Microsoft.Extensions.DependencyInjection, Ninject, Prism, and SimpleInjector",
+      "Cross-platform logging and logging-backend adapters",
+      "Cross-platform colours, geometry, bitmap loading, conversion, saving, and SkiaSharp integration",
+      "Unit-test runner and design-mode detection",
+      "Application-performance monitoring abstractions and adapters"
+    ],
+    "functions": [
+      "AppLocator.Current, AppLocator.CurrentMutable, Locator.Current, and Locator.CurrentMutable",
+      "GetService<T>, GetServices<T>, Register<T>, RegisterConstant<T>, and RegisterLazySingleton<T>",
+      "GlobalGenericFirstDependencyResolver and InstanceGenericFirstDependencyResolver",
+      "IMutableDependencyResolver, HasRegistration, and Clear",
+      "AppBuilder, IModule.Configure, UsingModule, WithCustomRegistration, UseCurrentSplatLocator, and Build",
+      "IEnableLogger, Log(), and LogHost.Default",
+      "RegisterPlatformBitmapLoader, BitmapLoader.Current, IBitmap.ToNative, and FromNative",
+      "ModeDetector.InUnitTestRunner and PlatformModeDetector.InDesignMode",
+      "IEnableFeatureUsageTracking and FeatureUsageTrackingSession"
+    ],
+    "options": [
+      "Global generic-first resolver for a controlled application-wide container and the hottest resolution path",
+      "Instance generic-first resolver for libraries, independent resolver instances, and test isolation",
+      "Generic APIs for compile-time-known types or Type-based APIs for legacy adapters and runtime discovery",
+      "Transient, eager constant, lazy singleton, named-contract, or multiple-implementation registration",
+      "Direct Splat resolver or one supported external-container adapter",
+      "Composable AppBuilder/IModule startup or direct composition-root registration",
+      "Null, console, or debug logging and Log4Net, Microsoft.Extensions.Logging, NLog, or Serilog adapters",
+      "Core packages only, drawing/SkiaSharp packages, and optional APM integrations"
+    ],
+    "packageSelection": [
+      "Use Splat for the complete default surface, or select Splat.Core, Splat.Builder, Splat.Logging, and Splat.Drawing when a narrower library dependency is appropriate.",
+      "Add exactly one DI adapter when the composition root uses Autofac, DryIoc, Microsoft.Extensions.DependencyInjection, Ninject, Prism, or SimpleInjector.",
+      "Add Splat.Microsoft.Extensions.Logging, Splat.Log4Net, Splat.NLog, or Splat.Serilog only for the selected logging backend.",
+      "Add Splat.Drawing and optionally Splat.SkiaSharp only for shared colour, geometry, bitmap, or SkiaSharp integration requirements.",
+      "Add Splat.ApplicationInsights, Splat.ApplicationInsightsV3, Splat.Exceptionless, or Splat.Raygun only when that monitoring backend is intentionally configured.",
+      "Add Splat.DependencyInjection.SourceGenerator as a PrivateAssets=all analyzer alongside Splat for static registration graphs; it is maintained in a separate repository."
+    ],
+    "sourceGeneratorGuidance": [
+      "Use Splat.DependencyInjection.SourceGenerator as the primary choice for compile-time-known registration graphs, constructor/property injection, and AOT-friendly composition.",
+      "Retain Splat manual or container-specific registration for dynamic discovery, plugins, unsupported open generics, and other runtime-selected services.",
+      "Prefer generic registration and resolution APIs whenever the service type is known at compile time; reserve Type-based APIs for compatibility and runtime-loaded types."
+    ],
+    "compatibilityNotes": [
+      "The Splat package family supports desktop, mobile, Avalonia, MAUI, WinUI, WPF, WinForms, shared-library, and multi-targeted application scenarios documented upstream.",
+      "GenericFirst resolvers are AOT-compatible; ModernDependencyResolver remains available for backward compatibility but is not the recommendation for new code.",
+      "Global resolver registrations are process-wide and require teardown discipline; instance resolver registrations provide isolation for tests and libraries.",
+      "Configure ReactiveUI and the selected external-container integration before the container is finalized so framework registrations and logging are composed correctly.",
+      "Splat.DependencyInjection.SourceGenerator is a companion package and repository, not functionality embedded into the Splat runtime packages."
+    ],
+    "migrationGuidance": [
+      "Move ModernDependencyResolver usage to a GenericFirst resolver and migrate hot-path Type-based calls to generic APIs incrementally.",
+      "Move scattered Locator or AppLocator mutation into one application composition root, then replace feature-level service location with constructor injection.",
+      "Use InstanceGenericFirstDependencyResolver for libraries and tests that must avoid shared global registrations.",
+      "Move startup registrations into explicit IModule implementations and build them once with AppBuilder; use HasRegistration for reusable idempotent modules.",
+      "Migrate handwritten static registration factories to Splat.DependencyInjection.SourceGenerator when the graph is statically analyzable, retaining manual adapters for runtime-discovered services."
+    ]
+  },
   "sources": [
     {
       "title": "Splat repository",
@@ -47,8 +137,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-10T09:35:00Z",
+    "sourceSummary": "Official upstream main-branch README, solution package inventory, and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

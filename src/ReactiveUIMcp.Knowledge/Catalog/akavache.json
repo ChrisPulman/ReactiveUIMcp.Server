@@ -8,8 +8,14 @@
     "All"
   ],
   "nugetPackages": [
+    "Akavache",
     "Akavache.Sqlite3",
-    "Akavache.SystemTextJson"
+    "Akavache.EncryptedSqlite3",
+    "Akavache.SystemTextJson",
+    "Akavache.NewtonsoftJson",
+    "Akavache.Settings",
+    "Akavache.Drawing",
+    "Akavache.HttpDownloader"
   ],
   "recommendedPatterns": [
     "Initialize Akavache with the builder pattern.",
@@ -41,6 +47,16 @@
     "offline",
     "persistence"
   ],
+  "inventory": {
+    "applicationTypes": ["desktop applications", "mobile applications", "offline-first applications", "settings libraries", "cache-backed service libraries", "test applications"],
+    "features": ["Asynchronous key/value and object caching", "Memory, local-machine, user-account, and secure caches", "SQLite and encrypted SQLite persistence", "Expiration and invalidation", "Get-or-fetch cache-aside workflows", "Serializer selection", "Settings, image/drawing, and HTTP download helpers"],
+    "functions": ["Registrations.Start", "WithSqliteProvider", "WithEncryptionProvider", "BlobCache.LocalMachine/UserAccount/Secure/InMemory", "Insert/Get/Invalidate/InvalidateAll", "InsertObject/GetObject/GetAllObjects/GetOrFetchObject", "GetAndFetchLatest", "DownloadUrl"],
+    "options": ["In-memory, SQLite, or encrypted SQLite backend", "System.Text.Json, BSON, or Newtonsoft.Json serializer", "Absolute expiration", "Fetch fallback and refresh strategy", "Application name/cache directory", "User/local/secure cache scope"],
+    "packageSelection": ["Start with Akavache plus one storage provider and one generic serializer.", "Prefer Akavache.Sqlite3 + Akavache.SystemTextJson for a general lean application.", "Use Akavache.EncryptedSqlite3 only when encrypted-at-rest cache semantics are required.", "Add Settings, Drawing, or HttpDownloader only for those specialized helpers."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators for state/commands around cache operations and generated Refit clients for remote fetches.", "Akavache cache serialization/provider behavior remains runtime configuration."],
+    "compatibilityNotes": ["Initialize a generic serializer and call WithSqliteProvider before default registrations when SQLite is selected.", "Cache observables can be consumed through lean ReactiveUI.Primitives; retain System.Reactive only when a public compatibility contract requires it."],
+    "migrationGuidance": ["Centralize legacy BlobCache startup in Registrations.Start and explicit provider/serializer configuration.", "Migrate Rx composition around cache operations to Primitives operators while preserving keys, expiration, invalidation, and fetch ordering with tests."]
+  },
   "sources": [
     {
       "title": "Akavache repository",
@@ -49,8 +65,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

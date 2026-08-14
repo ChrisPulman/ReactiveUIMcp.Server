@@ -1,0 +1,27 @@
+{
+  "id": "sextant",
+  "displayName": "Sextant",
+  "repositoryUrl": "https://github.com/reactiveui/Sextant",
+  "category": "navigation",
+  "summary": "View-model-first navigation for ReactiveUI applications, including page, modal, Avalonia, MAUI, and popup integrations.",
+  "supportedTargets": ["MAUI", "Avalonia", "ReactiveUI applications", "test libraries"],
+  "nugetPackages": ["Sextant", "Sextant.Maui", "Sextant.Avalonia", "Sextant.Plugins.Popup"],
+  "recommendedPatterns": ["Put IViewStackService behind application navigation abstractions.", "Register the navigation view and view/view-model mappings at startup.", "Observe navigation stacks and lifecycle through the supplied contracts."],
+  "avoidPatterns": ["Do not mutate platform navigation stacks behind Sextant.", "Do not forget to subscribe to cold navigation operations.", "Do not update UI-bound navigation state off the UI sequencer."],
+  "setupSteps": ["Add Sextant plus the matching platform package.", "Register views, view models, and the navigation host at the composition root.", "Add Sextant.Plugins.Popup only when Mopups popup navigation is required."],
+  "commonPitfalls": ["Missing view/view-model registrations fail at navigation time.", "Navigation observables do nothing until subscribed.", "Modal, page, and popup stacks have different semantics."],
+  "relatedLibraries": ["ReactiveUI", "ReactiveUI.Maui.Plugins.Popup", "ReactiveUI.SourceGenerators"],
+  "keywords": ["navigation", "iviewstackservice", "modal", "maui", "avalonia", "popup", "inavigable"],
+  "inventory": {
+    "applicationTypes": ["MAUI applications", "Avalonia desktop applications", "multi-page ReactiveUI applications", "navigation test libraries"],
+    "features": ["View-model-first page and modal navigation", "Observable navigation stacks and lifecycle", "Navigation parameters and contracts", "MAUI and Avalonia hosts", "Mopups popup integration and test doubles"],
+    "functions": ["IViewStackService.PushPage/PopPage/PopToRoot/PushModal/PopModal", "IViewStackService.PageStack and ModalStack observables", "INavigable lifecycle and parameter handling", "View and view-model registration extensions", "Popup navigation through Sextant.Plugins.Popup"],
+    "options": ["Page or modal stack", "Navigation contract", "Animated or non-animated transition", "Navigation parameters", "MAUI, Avalonia, or popup platform adapter"],
+    "packageSelection": ["Sextant for contracts/core", "Sextant.Maui for .NET MAUI", "Sextant.Avalonia for Avalonia", "Sextant.Plugins.Popup for Mopups-backed popup navigation"],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators for navigable view-model properties and commands; Sextant navigation itself remains runtime orchestration.", "Use generated IViewFor registrations where supported before adding manual mappings."],
+    "compatibilityNotes": ["Navigation operations are observable and require subscription.", "Use the reactive package family chosen by the host consistently and marshal UI work through its main-thread sequencer."],
+    "migrationGuidance": ["Replace direct platform navigation calls behind IViewStackService incrementally.", "Preserve page/modal contracts while moving view-model boilerplate to ReactiveUI.SourceGenerators."]
+  },
+  "sources": [{"title": "Sextant README", "url": "https://github.com/reactiveui/Sextant/blob/main/README.md", "notes": "Current package and navigation API overview."}],
+  "harvest": {"harvestedAtUtc": "2026-08-09T23:20:00Z", "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.", "notes": "Current source-repository inventory."}
+}

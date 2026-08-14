@@ -135,14 +135,14 @@ public sealed class GuidanceTools
     /// <param name="upgradeGoals">Comma-separated upgrade goals.</param>
     /// <param name="constraints">Comma-separated constraints.</param>
     /// <returns>A JSON migration plan.</returns>
-    [McpServerTool(Name = "reactiveui_migration_plan"), Description("Create a migration plan for legacy ReactiveUI applications, ReactiveUI.Fody projects, and outdated ReactiveUI.Testing-based test projects.")]
+    [McpServerTool(Name = "reactiveui_migration_plan"), Description("Create a staged ReactiveUI migration plan, including Fody/source-generator upgrades, System.Reactive-to-ReactiveUI.Primitives lean migrations, explicit .Reactive compatibility boundaries, and test modernization.")]
     public static string CreateMigrationPlan(
         IReactiveUiGuidanceService guidanceService,
         [Description("Target platform such as WPF, WinForms, Blazor, MAUI, WinUI, AndroidX, Avalonia, Uno, or general.")] string? platform = null,
         [Description("Project type such as app, library, or test project.")] string? projectType = null,
-        [Description("Comma-separated currently used packages such as ReactiveUI.Fody, ReactiveUI.Testing, DynamicData, or Akavache.")] string? currentPackages = null,
-        [Description("Comma-separated upgrade goals such as source generators, legacy upgrade, test migration, or async observable adoption.")] string? upgradeGoals = null,
-        [Description("Comma-separated constraints.")] string? constraints = null)
+        [Description("Comma-separated currently used packages such as System.Reactive, ReactiveUI.Reactive, ReactiveUI.Fody, or ReactiveUI.Testing.")] string? currentPackages = null,
+        [Description("Comma-separated upgrade goals such as remove System.Reactive, migrate to Primitives, preserve Rx compatibility, source generators, or async observable adoption.")] string? upgradeGoals = null,
+        [Description("Comma-separated constraints, including any required System.Reactive Unit, IScheduler, namespace, or public-API compatibility.")] string? constraints = null)
     {
         ArgumentNullException.ThrowIfNull(guidanceService);
 

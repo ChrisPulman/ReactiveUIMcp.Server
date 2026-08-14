@@ -18,4 +18,5 @@ public sealed record EcosystemManifest(
     IReadOnlyList<string> RelatedLibraries,
     IReadOnlyList<string> Keywords,
     IReadOnlyList<SourceReference> Sources,
-    HarvestMetadata Harvest);
+    HarvestMetadata Harvest,
+    RepositoryInventory? Inventory = null);

@@ -10,7 +10,8 @@
     "Windows"
   ],
   "nugetPackages": [
-    "ReactiveUI.Uno"
+    "ReactiveUI.Uno",
+    "ReactiveUI.Uno.Reactive"
   ],
   "recommendedPatterns": [
     "Use the Uno-specific ReactiveUI builder integration and pass the startup window where required.",
@@ -40,6 +41,16 @@
     "startup window",
     "webassembly"
   ],
+  "inventory": {
+    "applicationTypes": ["Uno single-project applications", "Windows desktop applications", "browser WebAssembly applications", "Android/iOS applications", "cross-platform Uno view libraries"],
+    "features": ["Uno builder registration", "Main-thread and task-pool scheduler integration", "Reactive Page/UserControl view bases", "Routing and view-model hosts", "Dependency-property observation and binding hooks", "Resource dictionary and suspension storage", "Lean and Rx-compatible package families"],
+    "functions": ["WithUno(Window)", "WithUnoScheduler", "WithDefaultIScreen", "UnoMainThreadScheduler", "UnoWinUIMainThreadScheduler", "ReactivePage<T>", "ReactiveUserControl<T>", "RoutedViewHost", "ViewModelViewHost", "ActivationForViewFetcher", "DependencyObjectObservableForProperty", "WinRTAppDataDriver"],
+    "options": ["ReactiveUI.Uno lean or ReactiveUI.Uno.Reactive compatibility package", "Full WithUno registration or scheduler-only setup", "Default or custom IScreen", "Desktop, browser, Windows, Android, or iOS target", "View contract and view locator"],
+    "packageSelection": ["Install ReactiveUI.Uno for new Primitives-based Uno apps/libraries.", "Install ReactiveUI.Uno.Reactive—not both—when existing public APIs require System.Reactive Unit/IScheduler/operators."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators for Uno view-model state, commands, IViewFor, and registration where supported.", "Use compile-time binding generation for static property paths before runtime expression binding."],
+    "compatibilityNotes": ["Lean namespaces use ReactiveUI.Uno and Primitives RxVoid/ISequencer; compatibility namespaces use ReactiveUI.Uno.Reactive and System.Reactive types.", "Browser targets use the matching ReactiveUI.Primitives.Blazor sequencer package."],
+    "migrationGuidance": ["Choose one distribution for the host; move lean code to WithUno plus RxVoid/ISequencer and Signal types.", "Use ReactiveUI.Uno.Reactive as a deliberate compatibility boundary when source/public API changes cannot be made immediately."]
+  },
   "sources": [
     {
       "title": "ReactiveUI Uno repository",
@@ -48,8 +59,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

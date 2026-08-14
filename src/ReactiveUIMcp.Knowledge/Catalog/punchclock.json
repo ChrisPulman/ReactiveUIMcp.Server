@@ -8,7 +8,8 @@
     "All"
   ],
   "nugetPackages": [
-    "punchclock"
+    "Punchclock",
+    "Punchclock.Reactive"
   ],
   "recommendedPatterns": [
     "Use punchclock for bounded, prioritized work queues when concurrency policy matters.",
@@ -36,6 +37,16 @@
     "priority",
     "concurrency"
   ],
+  "inventory": {
+    "applicationTypes": ["background workers", "desktop/mobile applications", "network libraries", "bounded-concurrency services", "testable scheduling libraries"],
+    "features": ["Priority operation queue", "Bounded and dynamically adjustable concurrency", "Task and observable enqueue APIs", "Keyed serialization/deduplication", "Cancellation", "Pause/resume", "Idempotent shutdown", "Configurable sequencer"],
+    "functions": ["OperationQueue", "Enqueue Task/observable operations", "Pause", "Resume", "Shutdown", "MaximumConcurrent operations", "priority/key scheduling", "ISequencer integration"],
+    "options": ["Task or observable API", "Operation priority", "Optional serialization/deduplication key", "Cancellation token", "Maximum concurrency", "Sequencer", "Lean or .Reactive package family"],
+    "packageSelection": ["Use Punchclock for lean Primitives scheduling and conventional Task APIs.", "Use Punchclock.Reactive only for full System.Reactive compatibility.", "Prefer Task operations in ordinary application code and observables when stream composition adds value."],
+    "sourceGeneratorGuidance": ["No queue source generator is required; use ReactiveUI.SourceGenerators for command/state boilerplate that submits work.", "Use Splat.DependencyInjection.SourceGenerator to register a shared OperationQueue at the composition root."],
+    "compatibilityNotes": ["Queue lifetime and shared ownership must be explicit.", "Cancellation, pause/resume, priority, and shutdown behavior should be tested with deterministic sequencing."],
+    "migrationGuidance": ["Switch System.Reactive queue surfaces to Punchclock plus ISequencer by default.", "Retain Punchclock.Reactive only where Rx public contracts must remain, and keep that boundary separate from lean pipelines."]
+  },
   "sources": [
     {
       "title": "punchclock repository",
@@ -44,8 +55,8 @@
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-04-05T15:39:00Z",
-    "sourceSummary": "Curated from local ReactiveUI repositories, official GitHub documentation, and current SDK/package guidance.",
-    "notes": "Prepared for the ReactiveUI MCP Server knowledge catalog."
+    "harvestedAtUtc": "2026-08-09T23:20:00Z",
+    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
+    "notes": "Current source-repository inventory."
   }
 }

@@ -67,7 +67,7 @@ public class RecommendationTests
     /// Verifies that a project blueprint promotes source generators, async extensions, and testing guidance.
     /// </summary>
     [Test]
-    public async Task ProjectBlueprint_Promotes_SourceGenerators_Async_Extensions_And_Testing()
+    public async Task ProjectBlueprint_Promotes_SourceGenerators_Primitives_Async_And_Testing()
     {
         IKnowledgeCatalog catalog = new EmbeddedKnowledgeCatalog();
         IReactiveUiGuidanceService guidance = new ReactiveUiGuidanceService(catalog);
@@ -80,7 +80,8 @@ public class RecommendationTests
             []));
 
         await Assert.That(result.CodeGenerationRules.Any(rule => rule.Contains("ReactiveUI.SourceGenerators", StringComparison.Ordinal))).IsTrue();
-        await Assert.That(result.CodeGenerationRules.Any(rule => rule.Contains("ReactiveUI.Extensions.Async", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(result.CodeGenerationRules.Any(rule => rule.Contains("ReactiveUI.Primitives", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(result.CodeGenerationRules.Any(rule => rule.Contains("ReactiveUI.Primitives.Async", StringComparison.Ordinal))).IsTrue();
         await Assert.That(result.TestProjectRecommendations.Any(rule => rule.Contains("ReactiveUI.Testing", StringComparison.Ordinal))).IsTrue();
     }
 }
