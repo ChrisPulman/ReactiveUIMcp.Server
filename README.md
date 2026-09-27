@@ -267,6 +267,10 @@ Each record includes supported application and library types, features, callable
 
 The broader catalog also covers platform packages, DynamicData, ReactiveUI.Testing, and legacy migration topics that are useful when generating or modernizing applications.
 
+### ReactiveUI 25.0.1 snapshot
+
+The `reactiveui-core` inventory is pinned to the [ReactiveUI 25.0.1 source](https://github.com/reactiveui/ReactiveUI/tree/25.0.1/src) and [release](https://github.com/reactiveui/ReactiveUI/releases/tag/25.0.1). It covers the lean versus `.Reactive` package choice, ReactiveUI.Binding's `RXUIBIND` diagnostics and namespace migration, the 25.0.1 interaction observable API, trim-safe view-model activation, and TUnit testing. Its target matrix includes .NET 8 through 11 and supported .NET Framework targets; mobile targets require .NET 10 or later. The solution generator selects ReactiveUI core, matching in-repository platform packages, and ReactiveUI.Testing at 25.0.1, with ReactiveUI.Binding 8.6.0, ReactiveUI.Primitives 8.2.0, and ReactiveUI.SourceGenerators 4.2.0. Avalonia, Uno, and other companion repositories release independently; check their integration versions and compatibility before combining them with ReactiveUI 25.0.1.
+
 ## Splat package coverage
 
 Splat is represented as a full package family rather than only the base `Splat` package:

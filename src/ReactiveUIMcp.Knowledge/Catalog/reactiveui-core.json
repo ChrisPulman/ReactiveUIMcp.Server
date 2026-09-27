@@ -3,7 +3,7 @@
   "displayName": "ReactiveUI Core",
   "repositoryUrl": "https://github.com/reactiveui/ReactiveUI",
   "category": "core",
-  "summary": "Core reactive MVVM primitives, commands, activation, routing, platform-neutral guidance, and upgrade paths for legacy ReactiveUI applications.",
+  "summary": "ReactiveUI 25.0.1 reactive MVVM, commands, activation, routing, lean and System.Reactive-compatible packages, and binding migration guidance.",
   "supportedTargets": [
     "WPF",
     "WinForms",
@@ -12,36 +12,49 @@
     "WinUI",
     "AndroidX",
     "Avalonia",
-    "Uno"
+    "Uno",
+    "net8.0",
+    "net9.0",
+    "net10.0",
+    "net11.0",
+    "net462",
+    "net472",
+    "net481"
   ],
   "nugetPackages": [
     "ReactiveUI",
-    "ReactiveUI.Primitives"
+    "ReactiveUI.Primitives",
+    "ReactiveUI.Binding"
   ],
   "recommendedPatterns": [
     "Use ReactiveObject and ReactiveCommand for mutable state and user actions.",
     "Prefer WhenAnyValue and OAPH/source-generator derived properties over imperative setter side effects.",
+    "Use the ReactiveUI.Binding generator for supported static binding paths; address every RXUIBIND diagnostic before running the application.",
     "Plan upgrades from legacy ReactiveUI codebases by modernizing startup, disposal, command handling, and generator usage incrementally."
   ],
   "avoidPatterns": [
     "Do not create long-lived subscriptions in constructors without disposal.",
     "Do not mutate UI-bound state from background threads.",
+    "Do not combine the lean ReactiveUI and ReactiveUI.Reactive package families in one application.",
     "Do not leave legacy initialization, obsolete collection types, or stale package combinations in upgraded apps when a modern equivalent exists."
   ],
   "setupSteps": [
     "Add the ReactiveUI package.",
     "Select the correct platform package for the target UI stack.",
+    "Align ReactiveUI 25.0.1 core and platform packages with ReactiveUI.Binding 8.6.0 and ReactiveUI.Primitives 8.2.0.",
     "For legacy upgrades, align packages first, then replace obsolete patterns incrementally with modern ReactiveUI guidance."
   ],
   "commonPitfalls": [
     "Ignoring ReactiveCommand.ThrownExceptions.",
     "Mixing imperative state mutation with derived observable state.",
-    "Failing to scope bindings with activation on XAML-style platforms during upgrades."
+    "Failing to scope bindings with activation on XAML-style platforms during upgrades.",
+    "Ignoring RXUIBIND diagnostics: unsupported generated binding call sites can throw at runtime.",
+    "Assuming reflection-based ViewModel discovery in WhenActivated is trim-safe."
   ],
   "relatedLibraries": [
     "ReactiveUI.SourceGenerators",
     "ReactiveUI.Validation",
-    "ReactiveUI.Extensions",
+    "ReactiveUI.Binding",
     "Splat",
     "ReactiveUI.Testing"
   ],
@@ -54,28 +67,52 @@
     "mvvm",
     "upgrade",
     "migration",
-    "legacy"
+    "legacy",
+    "25.0.1",
+    "rxuibind",
+    "interaction",
+    "whenhandled"
   ],
   "inventory": {
     "applicationTypes": ["cross-platform applications", "desktop applications", "mobile applications", "Blazor applications", "platform-neutral MVVM libraries", "test libraries"],
-    "features": ["Reactive MVVM state and notifications", "Commands and command status/errors", "Activation and lifetime-scoped bindings", "View location and property/command binding", "Routing and navigation hosts", "Builder-based application startup", "Platform packages and scheduler integration", "Testing helpers"],
-    "functions": ["ReactiveObject and IReactiveObject", "ReactiveCommand.Create/CreateFromTask and CanExecute/IsExecuting/ThrownExceptions", "WhenAnyValue/WhenAny/ObservableAsPropertyHelper", "WhenActivated and DisposeWith", "IViewFor/IViewLocator and binding APIs", "RoutingState/IScreen/RoutedViewHost", "RxAppBuilder and ReactiveUIBuilder extensions"],
+    "features": ["Reactive MVVM state and notifications", "Commands and command status/errors", "Activation and lifetime-scoped bindings", "ReactiveUI.Binding static binding generation and RXUIBIND diagnostics", "View location and property/command binding", "Routing and navigation hosts", "Builder-based application startup", "Platform packages and scheduler integration", "Testing helpers"],
+    "functions": ["ReactiveObject and IReactiveObject", "ReactiveCommand.Create/CreateFromTask and CanExecute/IsExecuting/ThrownExceptions", "WhenAnyValue/WhenAny/ObservableAsPropertyHelper", "IInteraction<TInput,TOutput>.Handle and Interaction<TInput,TOutput>.WhenHandled", "WhenActivated and DisposeWith", "IViewFor/IViewLocator and binding APIs", "RoutingState/IScreen/RoutedViewHost", "RxAppBuilder and ReactiveUIBuilder extensions"],
     "options": ["Lean ReactiveUI or ReactiveUI.Reactive distribution", "WPF, WinForms, WinUI, MAUI, Blazor, AndroidX, Avalonia, or Uno host package", "Core routing or DynamicData-based ReactiveUI.Routing extensions", "Runtime/manual or generated property/command/view/binding implementation", "App-wide main-thread/task-pool sequencers and service registrations"],
-    "packageSelection": ["Default: ReactiveUI plus the matching lean platform package and a direct ReactiveUI.Primitives reference when its analyzers/APIs are used.", "Full System.Reactive compatibility: ReactiveUI.Reactive plus matching *.Reactive platform packages.", "Add ReactiveUI.Routing or ReactiveUI.Routing.Reactive only for DynamicData change-set routing/auto-persist helpers.", "Add ReactiveUI.Testing only to test projects."],
-    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators first for properties, OAPHs, commands, IViewFor, IReactiveObject, collections, and supported hosts.", "Use ReactiveUI.Binding's included generator first for static observation and binding call sites.", "Use manual core APIs only for dynamic or unsupported generator scenarios and document the limitation."],
-    "compatibilityNotes": ["ReactiveUI 24 lean and .Reactive distributions share the same Primitives engine and MVVM shape but expose different reactive interop types.", "Lean uses RxVoid/ISequencer/Signal; .Reactive uses Unit/IScheduler/Subject for existing Rx boundaries.", "Core routing remains in ReactiveUI; DynamicData-based routing extensions moved to ReactiveUI.Routing."],
-    "migrationGuidance": ["Move Fody and handwritten boilerplate to ReactiveUI.SourceGenerators before broad behavioral refactoring.", "Prefer lean ReactiveUI/ReactiveUI.Primitives for new code; use the .Reactive family only when existing public API compatibility requires it.", "Move constructor-created view subscriptions into WhenActivated and preserve command exception/scheduler behavior with tests."]
+    "packageSelection": ["ReactiveUI 25.0.1: default to ReactiveUI with the matching lean platform package; ReactiveUI.Binding 8.6.0 and ReactiveUI.Primitives 8.2.0 are its binding and reactive foundations.", "Full System.Reactive compatibility: choose ReactiveUI.Reactive plus matching *.Reactive platform packages instead of the lean family, never both.", "Add ReactiveUI.Routing or ReactiveUI.Routing.Reactive only for DynamicData change-set routing/auto-persist helpers.", "Add ReactiveUI.Testing 25.0.1 only to test projects; use TUnit for new tests."],
+    "sourceGeneratorGuidance": ["Use ReactiveUI.SourceGenerators 4.2.0 for properties, OAPHs, commands, IViewFor, IReactiveObject, collections, and supported hosts.", "Use ReactiveUI.Binding 8.6.0's included generator for supported static WhenAnyValue, Bind, OneWayBind, BindCommand, and ToProperty call sites; fix all RXUIBIND diagnostics.", "Use manual core APIs only for dynamic or unsupported generator scenarios and document the limitation."],
+    "compatibilityNotes": ["ReactiveUI 25.0.1 lean and .Reactive distributions share the same MVVM shape but expose different reactive interop types; select exactly one flavor.", "Lean uses RxVoid/ISequencer/Signal; .Reactive uses Unit/IScheduler/Subject for existing Rx boundaries.", "Core targets net8.0 through net11.0 and net462/net472/net481; Android, Apple, and MAUI targets require net10.0 or newer in the 25.0.1 source matrix.", "As of 25.0.1, IInteraction<TInput,TOutput>.Handle(input) returns IObservable<TOutput> again; Interaction<TInput,TOutput>.WhenHandled(input) also returns IObservable<TOutput>.", "Binding types such as IViewFor and Interaction now live in ReactiveUI.Binding (or ReactiveUI.Binding.Reactive); ReactiveUI supplies the global using.", "Core routing remains in ReactiveUI; DynamicData-based routing extensions moved to ReactiveUI.Routing."],
+    "migrationGuidance": ["Move Fody and handwritten boilerplate to ReactiveUI.SourceGenerators before broad behavioral refactoring.", "Build after upgrading binding packages and resolve RXUIBIND diagnostics; private or nested controls used by generated bindings may need internal visibility or an Unsafe overload.", "For trimming, pass an explicit ViewModel observable to WhenActivated rather than relying on reflection-based lookup; review hand-written IReactiveObject PropertyChanged and binding write-thread behavior.", "Prefer lean ReactiveUI/ReactiveUI.Primitives for new code; use the .Reactive family only when existing public API compatibility requires it.", "Move constructor-created view subscriptions into WhenActivated and preserve interaction, command exception, and scheduler behavior with tests."]
   },
   "sources": [
     {
-      "title": "ReactiveUI repository",
-      "url": "https://github.com/reactiveui/ReactiveUI",
-      "notes": "Primary ReactiveUI framework source and upgrade guidance basis."
+      "title": "ReactiveUI 25.0.1 source",
+      "url": "https://github.com/reactiveui/ReactiveUI/tree/25.0.1/src",
+      "notes": "Pinned framework source, package topology, and target frameworks."
+    },
+    {
+      "title": "ReactiveUI 25.0.1 target framework matrix",
+      "url": "https://github.com/reactiveui/ReactiveUI/blob/25.0.1/src/Directory.Build.props",
+      "notes": "Core, desktop, and net10+ mobile target frameworks."
+    },
+    {
+      "title": "ReactiveUI 25.0.1 package matrix",
+      "url": "https://github.com/reactiveui/ReactiveUI/blob/25.0.1/src/Directory.Packages.props",
+      "notes": "Primitives, Binding, SourceGenerators, and TUnit versions."
+    },
+    {
+      "title": "ReactiveUI 25.0.1 release",
+      "url": "https://github.com/reactiveui/ReactiveUI/releases/tag/25.0.1",
+      "notes": "Interaction.Handle regression fix and WhenHandled introduction."
+    },
+    {
+      "title": "ReactiveUI Binding migration",
+      "url": "https://reactiveui.net/documentation/reactiveui/upgrading/reactiveui-binding-migration/",
+      "notes": "Binding namespaces, generator diagnostics, trimming, and migration caveats."
     }
   ],
   "harvest": {
-    "harvestedAtUtc": "2026-08-09T23:20:00Z",
-    "sourceSummary": "Official upstream main-branch README and current NuGet package metadata.",
-    "notes": "Current source-repository inventory."
+    "harvestedAtUtc": "2026-09-27T20:24:00Z",
+    "sourceSummary": "ReactiveUI source and release at tag 25.0.1, plus official binding migration guidance.",
+    "notes": "Pinned ReactiveUI 25.0.1 source-repository inventory; companion repositories have independent release versions."
   }
 }

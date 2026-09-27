@@ -117,5 +117,10 @@ public class MigrationPlanTests
         await Assert.That(result.PackageActions.Any(action => action.Contains("ReactiveUI.Testing", StringComparison.Ordinal))).IsTrue();
         await Assert.That(result.CodeActions.Any(action => action.Contains("ReactiveList", StringComparison.Ordinal))).IsTrue();
         await Assert.That(result.TestActions.Any(action => action.Contains("scheduler", StringComparison.OrdinalIgnoreCase))).IsTrue();
+        await Assert.That(result.TestActions.Any(action => action.Contains("TUnit", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(result.PackageActions.Any(action => action.Contains("25.0.1", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(result.CodeActions.Any(action => action.Contains("RXUIBIND", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(result.CodeActions.Any(action => action.Contains("WhenHandled", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(result.ValidationSteps.Any(action => action.Contains("RXUIBIND", StringComparison.Ordinal))).IsTrue();
     }
 }
