@@ -20,7 +20,7 @@ public class GeneratedSolutionTests
             var result = scaffolder.Generate(new CreateReactiveUiSolutionWizardRequest(
                 "9",
                 "Contoso.GeneratedApp",
-                ["WPF", "Blazor", "MAUI"],
+                ["WPF", "WinForms", "WinUI", "Blazor", "MAUI", "AndroidX"],
                 "Splat.Microsoft.Extensions.DependencyInjection",
                 ["ReactiveUI.SourceGenerators", "ReactiveUI.Primitives.Async", "ReactiveUI.Testing"],
                 "Akavache SQLite",
@@ -53,7 +53,18 @@ public class GeneratedSolutionTests
             var generatedMauiProgram = File.ReadAllText(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.MAUI", "MauiProgram.cs"));
             var generatedBlazorProgram = File.ReadAllText(Path.Combine(result.OutputPath, "src", "Contoso.GeneratedApp.Blazor", "Program.cs"));
             await Assert.That(packages).Contains("ReactiveUI.Primitives");
-            await Assert.That(packages).Contains("ReactiveUI.SourceGenerators\" Version=\"3.2.0");
+            await Assert.That(packages).Contains("ReactiveUI\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.WPF\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.WinForms\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.WinUI\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.Blazor\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.Maui\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.AndroidX\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.Testing\" Version=\"25.0.1");
+            await Assert.That(packages).Contains("ReactiveUI.Primitives\" Version=\"8.2.0");
+            await Assert.That(packages).Contains("ReactiveUI.Primitives.Async\" Version=\"8.2.0");
+            await Assert.That(packages).Contains("ReactiveUI.Binding\" Version=\"8.6.0");
+            await Assert.That(packages).Contains("ReactiveUI.SourceGenerators\" Version=\"4.2.0");
             await Assert.That(generatedWpfView).Contains("ReactiveUI.Primitives.Disposables");
             await Assert.That(generatedWpfView).DoesNotContain("System.Reactive");
             await Assert.That(generatedMauiView).Contains("ReactiveUI.Primitives.Disposables");

@@ -225,4 +225,29 @@ public class CatalogLoadingTests
 
         await Assert.That(results.Select(static result => result.Id)).Contains("splat");
     }
+
+    /// <summary>
+    /// Verifies that the pinned ReactiveUI release and binding guidance can be discovered.
+    /// </summary>
+    [Test]
+    public async Task ReactiveUI_25_Manifest_Exposes_Pinned_Source_And_Binding_Migration()
+    {
+        var catalog = new EmbeddedKnowledgeCatalog();
+        var manifest = catalog.GetById("reactiveui-core");
+
+        await Assert.That(manifest).IsNotNull();
+        await Assert.That(manifest!.Summary).Contains("25.0.1");
+        await Assert.That(manifest.SupportedTargets).Contains("net11.0");
+        await Assert.That(manifest.Inventory!.CompatibilityNotes.Any(static note => note.Contains("MAUI targets require net10.0", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(manifest.Sources.Any(static source => source.Url.EndsWith("/releases/tag/25.0.1", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(manifest.Sources.Any(static source => source.Url.EndsWith("/tree/25.0.1/src", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(manifest.Inventory!.CompatibilityNotes.Any(static note => note.Contains("IInteraction<TInput,TOutput>.Handle(input)", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(manifest.Inventory.SourceGeneratorGuidance.Any(static note => note.Contains("RXUIBIND", StringComparison.Ordinal))).IsTrue();
+        await Assert.That(catalog.Search("25.0.1").Select(static result => result.Id)).Contains("reactiveui-core");
+        var binding = catalog.GetById("reactiveui-binding-sourcegenerators");
+        await Assert.That(binding).IsNotNull();
+        await Assert.That(binding!.NuGetPackages).Contains("ReactiveUI.Binding");
+        await Assert.That(binding.NuGetPackages).DoesNotContain("ReactiveUI.Binding.Reactive");
+        await Assert.That(binding.Inventory!.MigrationGuidance.Any(static note => note.Contains("RXUIBIND", StringComparison.Ordinal))).IsTrue();
+    }
 }

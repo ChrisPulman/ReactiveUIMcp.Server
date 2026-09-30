@@ -276,37 +276,37 @@ public sealed class ReactiveUiSolutionScaffolder : IReactiveUiSolutionScaffolder
     {
         var versions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            ["ReactiveUI"] = "24.1.0",
-            ["ReactiveUI.Primitives"] = "7.1.0",
-            ["ReactiveUI.Primitives.Async"] = "7.1.0",
-            ["ReactiveUI.SourceGenerators"] = "3.2.0",
+            ["ReactiveUI"] = "25.0.1",
+            ["ReactiveUI.Primitives"] = "8.2.0",
+            ["ReactiveUI.Primitives.Async"] = "8.2.0",
+            ["ReactiveUI.SourceGenerators"] = "4.2.0",
             ["DynamicData"] = "9.4.33",
             ["Splat"] = "21.0.0",
             ["Splat.DependencyInjection.SourceGenerator"] = "2.3.0",
-            ["ReactiveUI.Binding"] = "4.0.0",
+            ["ReactiveUI.Binding"] = "8.6.0",
             ["Refit"] = "15.0.0",
             ["Akavache.Sqlite3"] = "13.0.0",
             ["Akavache.SystemTextJson"] = "13.0.0",
             ["ReactiveUI.Validation"] = "7.1.0",
-            ["ReactiveUI.Testing"] = "24.1.0",
+            ["ReactiveUI.Testing"] = "25.0.1",
             ["Fusillade"] = "6.0.0",
             ["punchclock"] = "7.1.0",
-            ["TUnit"] = "1.64.6",
-            ["TUnit.Assertions"] = "1.64.6"
+            ["TUnit"] = "1.69.16",
+            ["TUnit.Assertions"] = "1.69.16"
         };
 
         foreach (var endpoint in request.UiEndpoints)
         {
             switch (endpoint)
             {
-                case "WPF": versions["ReactiveUI.WPF"] = "24.1.0"; break;
-                case "WinForms": versions["ReactiveUI.WinForms"] = "24.1.0"; break;
-                case "Blazor": versions["ReactiveUI.Blazor"] = "24.1.0"; break;
-                case "MAUI": versions["ReactiveUI.Maui"] = "24.1.0"; break;
-                case "WinUI": versions["ReactiveUI.WinUI"] = "24.1.0"; break;
+                case "WPF": versions["ReactiveUI.WPF"] = "25.0.1"; break;
+                case "WinForms": versions["ReactiveUI.WinForms"] = "25.0.1"; break;
+                case "Blazor": versions["ReactiveUI.Blazor"] = "25.0.1"; break;
+                case "MAUI": versions["ReactiveUI.Maui"] = "25.0.1"; break;
+                case "WinUI": versions["ReactiveUI.WinUI"] = "25.0.1"; break;
                 case "Avalonia": versions["ReactiveUI.Avalonia"] = "14.7.1"; break;
                 case "Uno": versions["ReactiveUI.Uno"] = "23.0.0"; break;
-                case "AndroidX": versions["ReactiveUI.AndroidX"] = "24.1.0"; break;
+                case "AndroidX": versions["ReactiveUI.AndroidX"] = "25.0.1"; break;
             }
         }
 

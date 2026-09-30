@@ -388,7 +388,8 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
             "minimal rx source change",
             "drop-in rx");
 
-        packageActions.Add("Align ReactiveUI core and platform package versions first.");
+        packageActions.Add("Align ReactiveUI core, platform, and testing packages at 25.0.1, with ReactiveUI.Binding 8.6.0 and ReactiveUI.Primitives 8.2.0.");
+        packageActions.Add("Choose either the lean ReactiveUI family or the .Reactive family for System.Reactive compatibility; never reference both flavors.");
 
         if (usesSystemReactive)
         {
@@ -406,7 +407,7 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
                 AddPrimitivesPlatformPackage(packageActions, request.Platform, reactiveCompatibility: false);
                 codeActions.Add("Replace Unit with RxVoid and IScheduler with ISequencer.");
                 codeActions.Add("Replace Subject<T>, BehaviorSubject<T>, ReplaySubject<T>, and AsyncSubject<T> with Signal<T>, BehaviorSignal<T>/StateSignal<T>, ReplaySignal<T>, and FinalSignal<T>.");
-                codeActions.Add("Replace CompositeDisposable and SerialDisposable with MultipleDisposable/Pocket and SingleReplaceableDisposable/Slot.");
+                codeActions.Add("Replace CompositeDisposable and SerialDisposable with MultipleDisposable and SwapDisposable/Slot equivalents.");
                 codeActions.Add("Map Observable factories to Signal factories: Return/Empty/Never/Throw/Range/Defer/Timer/Interval/Create to Emit/None/Silent/Fail/Sequence/Lazy/After/Every/Create.");
                 codeActions.Add("Keep Rx-name operator aliases initially, then prefer Map, Keep, Fold, Blend, Chain, FlatMap, SyncLatest, Latch, Shift, and Expire in new code.");
                 codeActions.Add("Replace schedulers with ISequencer implementations and VirtualClock for deterministic tests.");
@@ -436,6 +437,9 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
         codeActions.Add("Replace obsolete ReactiveList usage with DynamicData SourceCache or SourceList where appropriate.");
         codeActions.Add("Move constructor-created UI subscriptions into WhenActivated and DisposeWith.");
         codeActions.Add("Review scheduler boundaries and ensure UI updates occur on the proper main-thread scheduler.");
+        codeActions.Add("Move binding types such as IViewFor and Interaction to ReactiveUI.Binding (or ReactiveUI.Binding.Reactive), and resolve all RXUIBIND diagnostics before running generated bindings.");
+        codeActions.Add("For trimmed applications pass an explicit ViewModel observable to WhenActivated instead of using reflection-based discovery; review hand-written IReactiveObject PropertyChanged notifications.");
+        codeActions.Add("In ReactiveUI 25.0.1 IInteraction<TInput,TOutput>.Handle(input) returns IObservable<TOutput>; Interaction<TInput,TOutput>.WhenHandled(input) is also observable.");
 
         if (current.Contains("extensions", StringComparison.Ordinal) || goals.Contains("async", StringComparison.Ordinal) || goals.Contains("stream", StringComparison.Ordinal))
         {
@@ -447,12 +451,14 @@ public sealed class ReactiveUiGuidanceService(IKnowledgeCatalog catalog) : IReac
             packageActions.Add("Add or upgrade ReactiveUI.Testing in the test project.");
             testActions.Add("Replace wall-clock sleeps with scheduler-aware ReactiveUI.Testing or Rx scheduler-based tests.");
             testActions.Add("Update tests for ReactiveCommand canExecute, IsExecuting, ThrownExceptions, and observable state behavior.");
+            testActions.Add("Use TUnit assertions for new ReactiveUI 25 test projects, and verify interaction handlers and binding write-thread behavior after upgrading.");
             risks.Add("Legacy tests may silently depend on implicit global scheduler behavior and need explicit scheduler control after migration.");
         }
 
         validationSteps.Add("Build after each migration slice rather than attempting a single large rewrite.");
         validationSteps.Add("Run the full test suite after package alignment and again after behavioral refactors.");
         validationSteps.Add("Validate generated code for partial types, command wiring, bindings, scheduler usage, disposal behavior, and validation logic.");
+        validationSteps.Add("Build with ReactiveUI.Binding analyzers enabled and fix every RXUIBIND diagnostic; unsupported generated binding call sites can throw at runtime.");
 
         return new MigrationPlanResult(
             $"Created a migration plan for {request.Platform ?? "general"} ReactiveUI {request.ProjectType ?? "project"} modernization.",
