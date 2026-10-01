@@ -234,6 +234,12 @@ jobs:
           name: unsigned-nuget
           path: signed
 
+      - name: Install Python for OTP generation
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends python3
+
       - name: Resolve prebuilt SimplySign paths
         shell: bash
         run: |
